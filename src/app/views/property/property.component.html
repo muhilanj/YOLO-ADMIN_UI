@@ -1,0 +1,498 @@
+
+<mat-vertical-stepper [linear]="isLinear">
+  <mat-step [stepControl]="basicPropertyFormGroup">
+    <form [formGroup]="basicPropertyFormGroup" (ngSubmit)="basicProperty()">
+      <ng-template matStepLabel>Basic Property Details</ng-template>
+      <div class="row">
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Property Name</mat-label>
+            <input matInput formControlName="property_name" placeholder="Property Name" value="Sushi" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>State</mat-label>
+            <mat-select formControlName="state">
+              <ng-container *ngFor="let item of stateData">
+                <mat-option [value]="item.state_Id">{{
+                  item.state_name
+                  }}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city">
+              <ng-container *ngFor="let item of cityData">
+                <mat-option [value]="item.city_Id">{{
+                  item.city_name
+                  }}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Area</mat-label>
+            <mat-select formControlName="area">
+              <ng-container *ngFor="let item of areaData">
+                <mat-option [value]="item.area_Id">{{
+                  item.area_name
+                  }}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="full_address" placeholder="Address"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone_number" placeholder="Phone Number" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="email" placeholder="Email Address" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Property Details</mat-label>
+            <textarea matInput formControlName="propertyDetails" placeholder="Property Details"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 labelRow">
+          <mat-form-field appearance="fill" floatLabel="always" class="example-full-width">
+            <mat-label>Total Floors</mat-label>
+            <input formControlName="totalFloors" matInput type="number" class="example-right-align" placeholder="0" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <button mat-button mat-raised-button color="primary" matStepperNext>
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="advancePropertyFormGroup">
+    <form [formGroup]="advancePropertyFormGroup" (ngSubmit)="basicProperty()">
+      <ng-template matStepLabel>Advanced Property Details</ng-template>
+      <div class="row">
+        <div class="col-md-6 labelRow">
+          <mat-form-field>
+            <div>
+              <mat-toolbar>
+                <input matInput [value]="'Select Images'" />
+
+                <!-- <button mat-flat-button color="primary">Upload</button> -->
+              </mat-toolbar>
+
+              <input
+                type="file"
+                id="file"
+                name="fileInput"
+                formControlName="propertyImage"
+                accept="image/*"
+                multiple
+                (change)="getFileDetails($event)"
+              />
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field>
+            <div>
+              <mat-toolbar>
+                <input matInput [value]="'Select Video'" />
+
+                <button mat-flat-button color="primary">Upload</button>
+              </mat-toolbar>
+
+              <input
+                type="file"
+                id="fileInput"
+                name="fileInput"
+                formControlName="propertyVideo"
+                accept="image/*"
+                multiple
+              />
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-label class="radioLabel">Property Facilities</mat-label>
+          <section class="example-section">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-checkbox
+                  formControlName="propertyFacility"
+                  class="example-margin"
+                  >Doctor on call</mat-checkbox
+                >
+              </div>
+              <div class="col-md-6">
+                <mat-checkbox class="example-margin">Power Backup</mat-checkbox>
+              </div>
+              <div class="col-md-6">
+                <mat-checkbox class="example-margin">CCTV</mat-checkbox>
+              </div>
+              <div class="col-md-6">
+                <mat-checkbox class="example-margin"
+                  >Security Guard</mat-checkbox
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-label class="radioLabel"
+            >Select Property Type Available</mat-label
+          >
+          <section class="example-section">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-checkbox
+                  formControlName="propertyType"
+                  class="example-margin"
+                  >Signle Occupancy</mat-checkbox
+                >
+              </div>
+
+              <div class="col-md-6">
+                <mat-checkbox class="example-margin"
+                  >Double Occupancy</mat-checkbox
+                >
+              </div>
+              <div class="col-md-6">
+                <mat-checkbox class="example-margin"
+                  >Shared Occupancy</mat-checkbox
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Property Status</mat-label>
+
+            <mat-select formControlName="upcomingStatus">
+              <ng-container>
+                <mat-option>Choose Status</mat-option>
+                <mat-option>Upcoming</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <button mat-button mat-raised-button color="primary" matStepperPrevious>
+          Back
+        </button>
+        <button
+          class="submitBtn"
+          mat-button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+        >
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="singleOccupancyFormGroup">
+    <form [formGroup]="singleOccupancyFormGroup">
+      <ng-template matStepLabel>Single Occupancy</ng-template>
+      <div class="row">
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Room Size</mat-label>
+
+            <mat-select formControlName="roomSize">
+              <ng-container>
+                <mat-option>Choose Area</mat-option>
+                <mat-option>Small</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Dimension</mat-label>
+            <input
+              matInput
+              formControlName="dimension"
+              placeholder="Dimension"
+              value=""
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-select formControlName="roomSpec">
+              <ng-container>
+                <mat-option>Square Feet</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Choose The Floor</mat-label>
+
+            <mat-select formControlName="chooseFloor">
+              <ng-container>
+                <mat-option>Choose Floor</mat-option>
+                <mat-option>First</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="example-full-width"
+          >
+            <mat-label>No of Rooms</mat-label>
+            <input
+              formControlName="rooms"
+              matInput
+              type="number"
+              class="example-right-align"
+              placeholder="0"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-label class="radioLabel"> Facility Available</mat-label>
+          <section class="example-section">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-checkbox
+                  formControlName="facilityAvailable"
+                  class="example-margin"
+                  >Comfortable Beds</mat-checkbox
+                >
+              </div>
+              <div class="col-md-6">
+                <mat-checkbox class="example-margin"
+                  >Spacious Wardrobes</mat-checkbox
+                >
+              </div>
+              <div class="col-md-6">
+                <mat-checkbox class="example-margin"
+                  >24/7 Hot water</mat-checkbox
+                >
+              </div>
+              <div class="col-md-6">
+                <mat-checkbox class="example-margin"
+                  >Study Table & Chair</mat-checkbox
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field>
+            <div>
+              <mat-toolbar>
+                <input matInput [value]="'Property Images'" />
+
+                <button mat-flat-button color="primary">Upload</button>
+              </mat-toolbar>
+
+              <input
+                type="file"
+                id="fileInput"
+                name="fileInput"
+                formControlName="singleOccupancyImage"
+                accept="image/*"
+                multiple
+              />
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field>
+            <div>
+              <mat-toolbar>
+                <input matInput [value]="'Property Videos'" />
+
+                <button mat-flat-button color="primary">Upload</button>
+              </mat-toolbar>
+
+              <input
+                type="file"
+                id="fileInput"
+                name="fileInput"
+                formControlName="singleOccupancyVideo"
+                accept="image/*"
+                multiple
+              />
+            </div>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 labelRow">
+          <mat-label class="radioLabel">Room Number</mat-label>
+          <section>
+            <div class="form-group">
+              <input type="checkbox" id="101" />
+              <label for="html">101</label>
+            </div>
+            <div class="form-group">
+              <input type="checkbox" id="102" />
+              <label for="css">102</label>
+            </div>
+            <div class="form-group">
+              <input type="checkbox" id="103" />
+              <label for="javascript">103</label>
+            </div>
+            <div class="form-group">
+              <input type="checkbox" id="103" />
+              <label for="javascript">104</label>
+            </div>
+            <div class="form-group">
+              <input type="checkbox" id="103" />
+              <label for="javascript">105</label>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div>
+        <button mat-button mat-raised-button color="primary" matStepperPrevious>
+          Back
+        </button>
+        <button mat-button mat-raised-button color="primary" matStepperNext>
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="priceFormGroup">
+    <form [formGroup]="priceFormGroup">
+      <ng-template matStepLabel>Price</ng-template>
+      <div class="row">
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Choose The Floor</mat-label>
+
+            <mat-select formControlName="chooseFloor">
+              <ng-container>
+                <mat-option>Choose Floor</mat-option>
+                <mat-option>First</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Room Size</mat-label>
+
+            <mat-select formControlName="priceRoomSize">
+              <ng-container>
+                <mat-option>Choose Size</mat-option>
+                <mat-option>1</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Dimension</mat-label>
+            <input
+              matInput
+              formControlName="priceDimension"
+              placeholder="Dimension"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-select formControlName="priceRoomSpec">
+              <ng-container>
+                <mat-option>Square Feet</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 labelRow">
+          <mat-label class="radioLabel"> Rooms</mat-label>
+          <section class="example-section">
+            <section>
+              <div class="form-group">
+                <input type="checkbox" id="101" />
+                <label for="html">101</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="102" />
+                <label for="css">102</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="103" />
+                <label for="javascript">103</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="103" />
+                <label for="javascript">104</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="103" />
+                <label for="javascript">105</label>
+              </div>
+            </section>
+          </section>
+        </div>
+
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Rent</mat-label>
+            <input matInput formControlName="rent" placeholder="Rent" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 labelRow">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Advance Payment</mat-label>
+            <input
+              matInput
+              formControlName="advancePayment"
+              placeholder="Advance Payment"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <button mat-button mat-raised-button color="primary" matStepperPrevious>
+          Back
+        </button>
+        <button mat-button mat-raised-button color="primary" matStepperNext>
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- <mat-step>
+    <ng-template matStepLabel icon>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button mat-raised-button color="primary" matStepperPrevious>
+        Back
+      </button>
+    </div>
+  </mat-step> -->
+</mat-vertical-stepper>

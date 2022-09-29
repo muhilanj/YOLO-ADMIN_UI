@@ -1,0 +1,177 @@
+p {
+  font-family: Lato;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-stepper {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+.step-wizard-container {
+  margin-top: 100px;
+  min-height: 730px;
+  height: auto;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.radioTop {
+  margin-top: 16px;
+}
+.matButton {
+  background-color: #68c27a;
+  color: #fff;
+  float: right;
+}
+.matBackButton {
+  background-color: #e7556c;
+  color: #fff;
+}
+
+.radioLabel {
+  margin-right: 22px;
+}
+.mat-danger {
+  color: #dc3545;
+  margin-top: 10px;
+}
+.labelRow {
+  margin-bottom: 10px !important ;
+}
+
+.progress-bar {
+  padding: 0;
+}
+
+.progress {
+  width: 50px;
+}
+
+.mat-input-element {
+  font-size: medium;
+  font-weight: 200;
+}
+
+#fileInput {
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+}
+
+.mat-toolbar-single-row {
+  height: auto !important;
+  background: transparent;
+  padding: 0;
+}
+
+.mat-toolbar-single-row button {
+  width: 100px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.message {
+  background-color: #ddd;
+  padding: 15px;
+  color: #333;
+  border: #aaa solid 1px;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+.preview {
+  max-width: 200px;
+  vertical-align: middle;
+}
+
+.list-card {
+  margin-top: 20px;
+}
+
+.list-item {
+  margin-bottom: 20px;
+}
+
+/* This css is for room check box styles */
+
+.form-group {
+  display: inline-block;
+  margin-bottom: 15px;
+  margin-right: 13px;
+}
+
+.form-group input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.form-group label {
+  position: relative;
+  cursor: pointer;
+}
+
+.form-group label:before {
+  height: 61px;
+  width: 75px;
+  content: "";
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #0079bf;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.form-group input:checked + label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 9px;
+  width: 6px;
+  height: 14px;
+  border: solid #0079bf;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.submitBtn {
+  margin-left: 10px;
+}
