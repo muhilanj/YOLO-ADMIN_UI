@@ -64,6 +64,8 @@ export class AdvancepropertyComponent implements OnInit {
       if (res.status === 200) {
         this.propertyDetailsData = res.data;
        this.advancePropertyFormGroup.reset();
+       this.faclityData=[];
+       this.occupancyData=[];
         this.dialogService.openModal("Property",res.message, ()=>{
           //confirmed
           console.log('Yes');
