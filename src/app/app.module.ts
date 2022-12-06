@@ -12,8 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PropertyComponent } from './views/property/property.component';
 import { MaterialModule } from './views/property/material.module';
-import { Interceptor } from './interceptor';
-import { AuthService } from './common/services/auth.service';
 import { appConfig } from './AppConfig/appConfig';
 import { CommmonService } from './views/services/common.service';
 import { Chart, ChartModule } from 'angular-highcharts';
@@ -65,19 +63,7 @@ import { DialogTemplateComponent } from './views/dialog-template/dialog-template
   providers: [
     CommmonService,
     DialogService,
-    // {
-    //   /*API interceptor should invoked here to attach with all http request */
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: Interceptor,
-    //   multi: true,
-    // },
     appConfig,
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: (authService: AuthService) => () => authService.load(),
-    //   deps: [AuthService],
-    //   multi: true,
-    // },
   ],
   bootstrap: [AppComponent],
 })

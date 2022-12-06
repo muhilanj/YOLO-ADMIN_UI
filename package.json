@@ -12,9 +12,8 @@
     "lint": "ng lint"
   },
   "author": {
-    "name": "danny",
-    "email": "dannyganatan@gmail.com",
-    "url": "https://www.ganatan.com/"
+    "name": "Muneesh",
+    "email": "muneeshananth05@gmail.com"
   },
   "private": true,
   "dependencies": {
