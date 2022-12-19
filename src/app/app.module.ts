@@ -46,7 +46,7 @@ import { DialogTemplateComponent } from './views/dialog-template/dialog-template
     DoubleComponent,
     SharedComponent,
     DialogComponent,
-     DialogTemplateComponent
+    DialogTemplateComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +60,9 @@ import { DialogTemplateComponent } from './views/dialog-template/dialog-template
     MatExpansionModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatInputModule, MatDialogModule, MatButtonModule,
+    MatInputModule,
+     MatDialogModule, 
+     MatButtonModule,
   ],
   providers: [
     CommmonService,
