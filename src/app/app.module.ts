@@ -30,6 +30,10 @@ import { SharedComponent } from './views/shared/shared.component';
 import { DialogService } from './views/services/dialog.service';
 import { DialogComponent } from './views/dialog/dialog.component';
 import { DialogTemplateComponent } from './views/dialog-template/dialog-template.component';
+import { VendorListComponent } from './views/components/vendor-list/vendor-list.component';
+import { RoleListComponent } from './views/components/role-list/role-list.component';
+import { FilterPipe } from './common/filter.pipe';
+import { ResetPasswordComponent } from './views/components/reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +48,11 @@ import { DialogTemplateComponent } from './views/dialog-template/dialog-template
     DoubleComponent,
     SharedComponent,
     DialogComponent,
-    DialogTemplateComponent
+    DialogTemplateComponent,
+    VendorListComponent,
+    RoleListComponent,
+    ResetPasswordComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

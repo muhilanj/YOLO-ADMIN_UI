@@ -10,6 +10,9 @@ import { SingleoccupancyComponent } from './views/singleoccupancy/singleoccupanc
 import { PriceComponent } from './views/price/price.component';
 import { DoubleComponent } from './views/double/double.component';
 import { SharedComponent } from './views/shared/shared.component';
+import { VendorListComponent } from './views/components/vendor-list/vendor-list.component';
+import { RoleListComponent } from './views/components/role-list/role-list.component';
+import { ResetPasswordComponent } from './views/components/reset-password/reset-password.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -50,6 +53,18 @@ const routes: Routes = [
   {
     path: 'price',
     component: PriceComponent,
+  },
+  {
+    path: 'vendor-list',
+    component: VendorListComponent,
+  },
+  {
+    path: 'role-list',
+    component: RoleListComponent,
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
   {
     path: '**',

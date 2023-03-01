@@ -73,6 +73,28 @@ export class CommmonService {
       // })
     );
   }
+  public putAPI(url: string, data: any): Observable<any> {
+    debugger;
+    url = this.config.apiUrl + url;
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Accept', 'application/json');
+    // headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+    // headers.append('Access-Control-Allow-Credentials', 'true');
+
+    // headers.append('GET', 'POST', 'OPTIONS');
+    // httpOptions.headers = httpOptions.headers.set('Content-Type', 'application/json');
+    // httpOptions.headers = httpOptions.headers.set('Accept', 'application/json');
+
+    return this.http.put(url, data, httpOptions).pipe(
+      catchError(this.handleError.bind(this))
+      // catchError(error => {
+      //   if (error.status === 401 || error.status === 403) {
+      //     this.handleError.bind(this);
+      //   }
+      //   return throwError(error);
+      // })
+    );
+  }
 
   handleError(error: any) {
     console.log(error);
