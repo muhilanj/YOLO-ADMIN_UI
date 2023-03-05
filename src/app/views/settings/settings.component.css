@@ -1,0 +1,36 @@
+.settings-list {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.06);
+    border-radius: 35px;
+    text-align: center;
+    padding: 40px;
+    position: relative;
+    margin-bottom: 44px;
+}
+
+.settings-list-title {
+    color: #000;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.settings-list .settings-icon {
+    margin-bottom: 20px;
+}
+
+.settings-list-link {
+    background-color: #0076D6;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    bottom: -16px;
+    left: calc(50% - 16px);
+}
+
+.settings-list-link:hover {
+    background-color: #2b9bf8;
+}

@@ -34,6 +34,9 @@ import { VendorListComponent } from './views/components/vendor-list/vendor-list.
 import { RoleListComponent } from './views/components/role-list/role-list.component';
 import { FilterPipe } from './common/filter.pipe';
 import { ResetPasswordComponent } from './views/components/reset-password/reset-password.component';
+import { SettingsComponent } from './views/settings/settings.component';
+import { PropertySettingsComponent } from './views/settings/property-settings/property-settings.component';
+import { PropertyUserComponent } from './views/settings/property-user/property-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +55,10 @@ import { ResetPasswordComponent } from './views/components/reset-password/reset-
     VendorListComponent,
     RoleListComponent,
     ResetPasswordComponent,
-    FilterPipe
+    FilterPipe,
+    SettingsComponent,
+    PropertySettingsComponent,
+    PropertyUserComponent
   ],
   imports: [
     BrowserModule,

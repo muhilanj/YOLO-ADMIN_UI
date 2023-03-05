@@ -13,6 +13,9 @@ import { SharedComponent } from './views/shared/shared.component';
 import { VendorListComponent } from './views/components/vendor-list/vendor-list.component';
 import { RoleListComponent } from './views/components/role-list/role-list.component';
 import { ResetPasswordComponent } from './views/components/reset-password/reset-password.component';
+import { SettingsComponent } from './views/settings/settings.component';
+import { PropertySettingsComponent } from './views/settings/property-settings/property-settings.component';
+import { PropertyUserComponent } from './views/settings/property-user/property-user.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -65,6 +68,18 @@ const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+  },
+  {
+    path: 'property-settings',
+    component: PropertySettingsComponent,
+  },
+  {
+    path: 'property-user',
+    component: PropertyUserComponent,
   },
   {
     path: '**',
