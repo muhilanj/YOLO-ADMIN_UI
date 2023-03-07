@@ -37,6 +37,7 @@ import { ResetPasswordComponent } from './views/components/reset-password/reset-
 import { SettingsComponent } from './views/settings/settings.component';
 import { PropertySettingsComponent } from './views/settings/property-settings/property-settings.component';
 import { PropertyUserComponent } from './views/settings/property-user/property-user.component';
+import { PropertyRoleComponent } from './views/settings/property-role/property-role.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { PropertyUserComponent } from './views/settings/property-user/property-u
     FilterPipe,
     SettingsComponent,
     PropertySettingsComponent,
-    PropertyUserComponent
+    PropertyUserComponent,
+    PropertyRoleComponent
   ],
   imports: [
     BrowserModule,

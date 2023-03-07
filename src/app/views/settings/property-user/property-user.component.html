@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-lg-3 ml-auto">
                 <div class="d-flex align-items-center mb-3">
-                    <input type="text" placeholder="search" class="form-control mr-1">
+                    <input type="text" placeholder="search" [(ngModel)]="searchText"     class="form-control mr-1">
 
                     <a class="filter-wrap" href="" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         <img src="assets/img/icons/filter.svg" alt="">
@@ -23,26 +23,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Rahul</td>
-                        <td>Sales Manager</td>
-                        <td>Feb 21, 2023. 10:55 AM</td>
-                    </tr>
-                    <tr>
-                        <td>Rahul</td>
-                        <td>Sales Manager</td>
-                        <td>Feb 21, 2023. 10:55 AM</td>
-                    </tr>
-                    <tr>
-                        <td>Rahul</td>
-                        <td>Sales Manager</td>
-                        <td>Feb 21, 2023. 10:55 AM</td>
-                    </tr>
-                    <tr>
-                        <td>Rahul</td>
-                        <td>Sales Manager</td>
-                        <td>Feb 21, 2023. 10:55 AM</td>
-                    </tr>
+                    <tr *ngFor="let item of vendorList | filter: searchText;let i = index">
+                        <td>{{item.Name}}</td>
+                        <td>{{item.Role_name}}</td>
+                        <td>{{item.Last_login_date}}</td>
+                      </tr>
                 </tbody>
             </table>
         </div>
@@ -65,16 +50,16 @@
 
             </div>
             <div class="modal-body">
-                <form action="">
+                <form action="" [formGroup]="userForm" (ngSubmit)="addUser()">
                     <div class="form-group">
                         <label for="">Name</label>
-                        <input type="text" class="form-control">
+                        <input type="text"  formControlName="user_name" class="form-control">
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="">Email Id</label>
-                                <input type="text" class="form-control">
+                                <input type="text"  formControlName="email" class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -82,7 +67,7 @@
                                 <label for="">Password</label>
                                 <div class="password-wrap">
                                     <img class="lock-img" src="assets/img/icons/lock.svg" alt="">
-                                    <input type="password" class="form-control">
+                                    <input type="password" formControlName="password" class="form-control">
                                     <img class="hide-img" src="assets/img/icons/hide.svg" alt="">
                                 </div>
                             </div>
@@ -90,18 +75,24 @@
                     </div>
                     <div class="form-group">
                         <label for="">Phone Number</label>
-                        <input type="text" class="form-control">
+                        <input type="text" formControlName="phone" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Role</label>
-                        <select class="form-control">
-                            <option>Select Role</option>
+                        <select class="form-control" formControlName="role">
+                            <ng-container *ngFor="let item of vendorList">
+                                <option>{{item.Role_name}}</option>
+                            </ng-container>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="">Report To</label>
-                        <select class="form-control">
-                            <option>Sales Manager</option>
+                        <select class="form-control" formControlName="report_to">
+
+                            {{roleData | json}}
+                            <ng-container *ngFor="let item of roleData">
+                                <option>{{item.Reporting_To}}</option>
+                            </ng-container>
                         </select>
                     </div>
                     <div class="mt-3">
