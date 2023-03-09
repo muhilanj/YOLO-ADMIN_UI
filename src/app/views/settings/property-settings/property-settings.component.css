@@ -1,4 +1,4 @@
-.heading-card {
+.property-heading-card {
     display: flex;
     align-items: center;
     background: #FFFFFF;
@@ -7,7 +7,7 @@
     padding: 26px;
 }
 
-.heading-card h3 {
+.property-heading-card  h3 {
     color: #000;
     font-size: 24px;
     font-weight: 600;
@@ -22,20 +22,8 @@
     border-radius: 0 0 10px 10px;
 }
 
-.backward-link {
-    background-color: #0076D6;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    transform: rotate(180deg);
-}
 
-.backward-link:hover {
-    background-color: #2b9bf8;
-}
+
 
 .property-settings .btn-link {
     color: #555555;
@@ -84,6 +72,10 @@
 
 .selected-property-text {
     margin-right: 12px;
+}
+
+.close-icon {
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 600px) {

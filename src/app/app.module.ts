@@ -21,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { BasicpropertyComponent } from './views/basicproperty/basicproperty.component';
 import { AdvancepropertyComponent } from './views/advanceproperty/advanceproperty.component';
 import { SingleoccupancyComponent } from './views/singleoccupancy/singleoccupancy.component';
@@ -30,7 +31,6 @@ import { SharedComponent } from './views/shared/shared.component';
 import { DialogService } from './views/services/dialog.service';
 import { DialogComponent } from './views/dialog/dialog.component';
 import { DialogTemplateComponent } from './views/dialog-template/dialog-template.component';
-import { VendorListComponent } from './views/components/vendor-list/vendor-list.component';
 import { RoleListComponent } from './views/components/role-list/role-list.component';
 import { FilterPipe } from './common/filter.pipe';
 import { ResetPasswordComponent } from './views/components/reset-password/reset-password.component';
@@ -53,7 +53,6 @@ import { PropertyRoleComponent } from './views/settings/property-role/property-r
     SharedComponent,
     DialogComponent,
     DialogTemplateComponent,
-    VendorListComponent,
     RoleListComponent,
     ResetPasswordComponent,
     FilterPipe,
@@ -64,6 +63,7 @@ import { PropertyRoleComponent } from './views/settings/property-role/property-r
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

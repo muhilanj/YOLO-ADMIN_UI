@@ -13,6 +13,8 @@ export class PropertyUserComponent implements OnInit {
   searchText: string='';
   response:string='';
   roleData:any;
+  p:any;
+  
   public vendorList:any;
   userForm = this._formBuilder.group({
     user_name: ['', Validators.required],
@@ -44,6 +46,7 @@ export class PropertyUserComponent implements OnInit {
     });
   }
 
+
   addUser():void{
     if(this.userForm.valid){
       const {user_name,email,password,phone,role,report_to}=this.userForm.value;
@@ -55,11 +58,14 @@ export class PropertyUserComponent implements OnInit {
         this.Propertyservice.postAPI('/add_user',payload).subscribe((res) => {
           console.log({res})
           this.response = res.data;
+          location.reload()
         });
     }
    
   
   }
+
+ 
 
 
 }

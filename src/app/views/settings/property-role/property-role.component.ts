@@ -10,6 +10,7 @@ export class PropertyRoleComponent implements OnInit {
   cars: any[] = [];
   searchText: string='';
   public roleList:any;
+  p:any;
 
   constructor(private Propertyservice: CommmonService) { }
 
