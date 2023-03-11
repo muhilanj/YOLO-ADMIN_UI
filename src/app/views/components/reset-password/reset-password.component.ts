@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CommmonService } from '../../services/common.service';
 import { ConfirmPasswordValidator } from './confirm-password-validator';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-reset-password',
@@ -20,32 +22,41 @@ export class ResetPasswordComponent implements OnInit {
   },{
     validator: ConfirmPasswordValidator("password", "confirmPassword")
   });
-  constructor(private Propertyservice: CommmonService,private _formBuilder: FormBuilder,private _router:Router) { }
+  constructor(private toastrService: ToastrService,private Propertyservice: CommmonService,private _formBuilder: FormBuilder,private _router:Router,private _location: Location) { }
 
   ngOnInit(): void {
   }
 
   basicProperty() {
     this.submitted=true;
-    const {
-      password,
-      confirmPassword
-    } = this.passwordForm.value;
+    if(this.passwordForm.valid){
+      const {
+        password,
+        confirmPassword
+      } = this.passwordForm.value;
+  
+      const payload = {
+        password,
+        user_id:2
+      };
+  
+      console.log(payload);
+      this.Propertyservice.putAPI('/update_user_password', payload).subscribe((res) => {
+        if (res) {
+          this.toastrService.success('Successfully reset your password');
+          this.passwordForm.reset();
+          //this._router.navigate(['/home']);
+          this.submitted=false;
+  
+        }
+      },(err)=>{
+        this.toastrService.error('something went wrong');
+      });
+    }
+    }
+   
 
-    const payload = {
-      password,
-      user_id:2
-    };
-
-    console.log(payload);
-    this.Propertyservice.putAPI('/update_user_password', payload).subscribe((res) => {
-      if (res) {
-        this._router.navigate(['/home']);
-     
-        // this.propertyDetailsData = res.data;
-
-      }
-    });
-  }
-
+    onClickCancel():void{
+      this._location.back();
+    }
 }

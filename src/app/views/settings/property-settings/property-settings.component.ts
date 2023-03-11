@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommmonService } from '../../services/common.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-property-settings',
@@ -21,16 +22,27 @@ export class PropertySettingsComponent implements OnInit {
 
   constructor(
     private Propertyservice: CommmonService,
+    private toastrService: ToastrService,
     private _router:Router
   ) {}
 
   ngOnInit(): void {
   }
 
-  addPropertyFacility(data:string){
-    if(data){
-      this.propertyFacility.push(data);
-      this.facility = '';
+  addPropertyFacility(){
+    if(this.facility!==''){
+      const payload={
+        facility_name:this.facility,
+        user_id:2
+      }
+      this.Propertyservice.postAPI('/add_property_facilities', payload).subscribe((res) => {
+        if (res) {
+          this.toastrService.success('Success');
+          this.facility='';
+        }
+      },(err)=>{
+        this.toastrService.error('something went wrong');
+      });
     }
   }
 
@@ -40,10 +52,20 @@ export class PropertySettingsComponent implements OnInit {
     this.propertyFacility.splice(index, 1);
   }
 
-  addPropertyType(data:string){
-    if(data){
-      this.propertyType.push(data);
-      this.type = '';
+  addPropertyType(){
+    if(this.type!==''){
+      const payload={
+        category:this.type,
+        user_id:2
+      }
+      this.Propertyservice.postAPI('/add_property_category', payload).subscribe((res) => {
+        if (res) {
+          this.toastrService.success('Success');
+          this.type='';
+        }
+      },(err)=>{
+        this.toastrService.error('something went wrong');
+      });
     }
   }
 
@@ -53,10 +75,20 @@ export class PropertySettingsComponent implements OnInit {
     this.propertyType.splice(index, 1);
   }
 
-  addAvailableFacility(data:string){
-    if(data){
-      this.availableFacility.push(data);
-      this.availFacility = '';
+  addAvailableFacility(){
+    if(this.availFacility!==''){
+      const payload={
+        facility_name:this.availFacility,
+        user_id:2
+      }
+      this.Propertyservice.postAPI('/add_room_facility', payload).subscribe((res) => {
+        if (res) {
+          this.toastrService.success('Success');
+          this.availFacility='';
+        }
+      },(err)=>{
+        this.toastrService.error('something went wrong');
+      });
     }
   }
 

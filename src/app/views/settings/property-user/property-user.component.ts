@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CommmonService } from '../../services/common.service';
-
+declare var $:any;
 @Component({
   selector: 'app-property-user',
   templateUrl: './property-user.component.html',
@@ -14,6 +15,7 @@ export class PropertyUserComponent implements OnInit {
   response:string='';
   roleData:any;
   p:any;
+  submitted:boolean=false;
   
   public vendorList:any;
   userForm = this._formBuilder.group({
@@ -22,11 +24,12 @@ export class PropertyUserComponent implements OnInit {
     password: ['', Validators.required],
     phone: ['', Validators.required],
     role: ['', Validators.required],
-    report_to: [],
+    report_to: ['', Validators.required],
   });
   constructor(
     private _formBuilder: FormBuilder,
     private Propertyservice: CommmonService,
+    private toastrService: ToastrService,
     private _router: Router) { }
 
   ngOnInit(): void {
@@ -48,6 +51,7 @@ export class PropertyUserComponent implements OnInit {
 
 
   addUser():void{
+    this.submitted=true;
     if(this.userForm.valid){
       const {user_name,email,password,phone,role,report_to}=this.userForm.value;
       const payload={
@@ -56,9 +60,17 @@ export class PropertyUserComponent implements OnInit {
       }
   
         this.Propertyservice.postAPI('/add_user',payload).subscribe((res) => {
-          console.log({res})
-          this.response = res.data;
-          location.reload()
+          if (res) {
+            this.toastrService.success('Successfully regitered!');
+            this.closeModal();
+            this.userForm.reset();
+            this.getUser();
+            //this._router.navigate(['/home']);
+            this.submitted=false;
+    
+          }
+        },(err)=>{
+          this.toastrService.error('something went wrong');
         });
     }
    
@@ -66,6 +78,8 @@ export class PropertyUserComponent implements OnInit {
   }
 
  
-
+closeModal():void{
+  $("#userForm").modal("hide");
+}
 
 }

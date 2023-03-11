@@ -31,13 +31,16 @@ import { SharedComponent } from './views/shared/shared.component';
 import { DialogService } from './views/services/dialog.service';
 import { DialogComponent } from './views/dialog/dialog.component';
 import { DialogTemplateComponent } from './views/dialog-template/dialog-template.component';
-import { RoleListComponent } from './views/components/role-list/role-list.component';
+import { GuestListComponent } from './views/components/guest-list/guest-list.component';
 import { FilterPipe } from './common/filter.pipe';
 import { ResetPasswordComponent } from './views/components/reset-password/reset-password.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { PropertySettingsComponent } from './views/settings/property-settings/property-settings.component';
 import { PropertyUserComponent } from './views/settings/property-user/property-user.component';
 import { PropertyRoleComponent } from './views/settings/property-role/property-role.component';
+import { VendorListComponent } from './views/components/vendor-list/vendor-list.component';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +56,8 @@ import { PropertyRoleComponent } from './views/settings/property-role/property-r
     SharedComponent,
     DialogComponent,
     DialogTemplateComponent,
-    RoleListComponent,
+    GuestListComponent,
+    VendorListComponent,
     ResetPasswordComponent,
     FilterPipe,
     SettingsComponent,
@@ -77,6 +81,12 @@ import { PropertyRoleComponent } from './views/settings/property-role/property-r
     MatInputModule,
      MatDialogModule, 
      MatButtonModule,
+     ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 15000, // 15 seconds
+      progressBar: true,
+      positionClass: 'toast-top-right'
+    }),
   ],
   providers: [
     CommmonService,

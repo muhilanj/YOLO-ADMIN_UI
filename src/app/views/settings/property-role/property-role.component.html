@@ -31,8 +31,8 @@
                 <thead>
                     <tr role="row">
                         <th>Name</th>
-                        <th>Role</th>
-                        <th>Last Login Date</th>
+                        <th>Reporting To</th>
+                        <th>Users Count</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,8 +43,14 @@
                         <td>{{item.Total_User}}</td>
                       </tr>
                 </tbody>
-                <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+                
             </table>
+<div class="row">
+    <div class="col-12">
+    <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+</div>
+</div>
+            
         </div>
         <a href="" class="product-add-link" data-toggle="modal" data-target=".bd-example-modal-lg">
             <img src="assets/img/icons/add.svg" alt="">
@@ -54,28 +60,43 @@
 </div>
 
 <!-- Large modal -->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="secondary-title mb-0">Add Role</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="closeModal()">
                     <img src="assets/img/icons/s-close.svg" alt="">
                   </button>
 
             </div>
             <div class="modal-body">
-                <form action="">
+                <form [formGroup]="roleForm" (ngSubmit)="basicProperty()">
                     <div class="form-group">
                         <label for="">Name</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" formControlName="name">
+                        <div *ngIf="submitted && roleForm.get('name')?.errors" class="alert alert-danger">
+       
+                            <div *ngIf="roleForm.get('name')?.errors &&
+                            roleForm.get('name')?.hasError('required')">name is required</div>
+                          </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="">Role</label>
-                        <select class="form-control">
-                            <option>Select Role</option>
+                        <label for="">Reporting To</label>
+
+
+                        <select class="form-control" formControlName="reporting_to">
+                            <option selected disabled>Select Role</option>
+                            <ng-container *ngFor="let item of roleList">
+                            <option value={{item.Role_name}}>{{item.Role_name}}</option>
+                        </ng-container>
                         </select>
+                        <div *ngIf="submitted && roleForm.get('reporting_to')?.errors" class="alert alert-danger">
+       
+                            <div *ngIf="roleForm.get('reporting_to')?.errors &&
+                            roleForm.get('reporting_to')?.hasError('required')">reporting to is required</div>
+                          </div>
                     </div>
 
                     <div class="mt-3">
