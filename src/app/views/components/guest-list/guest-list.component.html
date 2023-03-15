@@ -1,61 +1,129 @@
 <div class="container-fluid">
-
-  <div class="section-data">
+    <div class="section-data">
       <div class="row">
-          <div class="col-lg-9 ml-auto">
-              <div class="d-flex align-items-center mb-3">
-                  <div class="heading-card">
+        <div class="col-lg-9 ml-auto">
+          <div class="d-flex align-items-center mb-3">
+            <div class="heading-card">
               <a href="/settings" class="backward-link">
-                  <img src="assets/img/icons/r-arrow.svg" alt="">
+                <img src="assets/img/icons/r-arrow.svg" alt="" />
               </a>
               <h3>Manage Guests</h3>
-              </div>
-              </div>
+            </div>
           </div>
-          <div class="col-lg-3 ml-auto">
-              <div class="d-flex align-items-center mb-3">
-                  <input type="text" placeholder="search" [(ngModel)]="searchText" class="form-control mr-1">
-
-                  <a class="filter-wrap" href="" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                      <img src="assets/img/icons/filter.svg" alt="">
-                  </a>
-              </div>
-          </div>
-      </div>
-      <div class="table-wrap">
-          <table class="table">
-              <thead>
-                  <tr role="row">
-                      <th>Guest Name</th>
-                    <th> Phone Number</th>
-                      <th>Flat Number</th>
-                      <th>Last Payment</th>
-                      <th>Status</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let item of vendorList | paginate: { itemsPerPage: 10, currentPage: p } | filter: searchText;let i = index;">
-                      <td>{{item.Guest_name}}</td>
-                      <td>{{item.phone_number}}</td>
-                      <td>{{item.flat_number}}</td>
-                      <td>{{item.Last_payment}}</td>
-                      <td>{{item.Status}}</td>
-                    
-                    </tr>
-                    
-              </tbody>
-              
-          </table>
-          <div class="row">
-            <div class="col-12">
-            <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
         </div>
+        <div class="col-lg-3 ml-auto">
+          <div class="d-flex align-items-center mb-3">
+            <input
+              type="text"
+              placeholder="search"
+              [(ngModel)]="searchText"
+              class="form-control mr-1"
+            />
+  
+            <a
+              class="filter-wrap"
+              href=""
+              data-toggle="collapse"
+              data-target="#collapseExample"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              <img src="assets/img/icons/filter.svg" alt="" />
+            </a>
+          </div>
         </div>
       </div>
-      <!-- <a href="" class="product-add-link" data-toggle="modal" data-target=".bd-example-modal-lg">
-          <img src="assets/img/icons/add.svg" alt="">
-          <div class="product-add-link-text">Add</div>
+      <div class="row" *ngIf="!loader">
+        <div class="col-lg-3 card-wrapper">
+          <mat-card class="card">
+            <mat-card-content
+              ><span class="content-wrapper"
+                ><mat-icon class="icon">person_outline</mat-icon>
+                <span class="text">Total Guests :</span
+                ><span class="count"> {{ vendorList.length }} </span>
+              </span></mat-card-content
+            >
+          </mat-card>
+        </div>
+      </div>
+  
+      <div class="row spinner-wrapper" *ngIf="loader">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+  
+      <div class="table-wrap" *ngIf="!loader">
+        <table style="color: black;" class="table">
+          <thead>
+            <tr role="row">
+              <th>Guest Name</th>
+              <th>Phone Number</th>
+              <th>Flat Number</th>
+              <th>Last Payment</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr
+              *ngFor="
+                let item of vendorList
+                  | paginate : { itemsPerPage: 10, currentPage: p }
+                  | filter : searchText;
+                let i = index
+              "
+              (click)="openDialog(item)"
+            >
+              <td>
+                <span class="name-wrapper"
+                  ><img
+                    class="profile"
+                    src="{{
+                      'https://ui-avatars.com/api/?background=random&name= ' +
+                        item.Guest_name
+                    }}"
+                  />{{ item.Guest_name }}</span
+                >
+              </td>
+              <td>{{ item.phone_number }}</td>
+              <td>{{ item.flat_number }}</td>
+              <td>{{ item.Last_payment }}</td>
+              <td>
+                <span
+                  [ngClass]="item.Status == 'Active' ? 'active' : 'inactive'"
+                  >{{ item.Status }}</span
+                >
+              </td>
+              <td>
+                  <button click-stop-propagation mat-button [matMenuTriggerFor]="basicmenu">
+                      <mat-icon>more_horiz</mat-icon>
+                  </button>
+                  <mat-menu #basicmenu="matMenu">
+                      <button mat-menu-item (click)="openDialog(item)">View Details</button>
+                  </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row" *ngIf="vendorList.length > 10">
+          <div class="col-12">
+            <pagination-controls
+              (pageChange)="p = $event"
+              class="float-right"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
+  
+      <!-- <a
+        href=""
+        class="product-add-link"
+        data-toggle="modal"
+        data-target=".bd-example-modal-lg"
+      >
+        <img src="assets/img/icons/add.svg" alt="" />
+        <div class="product-add-link-text">Add</div>
       </a> -->
+    </div>
   </div>
-</div>
-
+  

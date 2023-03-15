@@ -1,0 +1,70 @@
+<div mat-dialog-title class="dialog-title">
+  <h3>Create Sales Order</h3>
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-divider class="divider"></mat-divider>
+
+<input
+  class="search-bar"
+  type="tel"
+  matInput
+  placeholder="Search"
+  name="search"
+/>
+
+<div mat-dialog-content>
+  <div class="table-wrap">
+    <table style="color: black" class="table">
+      <thead>
+        <tr role="row">
+          <th>Product</th>
+          <th>Price Per Unit</th>
+          <th>Avl Stocks</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td>
+            <div class="product-det">
+                <img class="profile" src="{{
+                              'https://ui-avatars.com/api/?background=random&name= ' +
+                                item.product_name
+                          }}" />
+                <p>{{item.product_name}}</p>
+            </div></td>
+          <td>{{item.ppu}}</td>
+          <td>{{item.avl_stocks}}</td>
+          <td><input (change)="onUpdateData(item)" [value]="item.quantity" type="number" /></td>
+          <td>{{item.quantity * item.ppu}}</td>
+        </tr>
+
+        <!-- For total Amount -->
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total Amount</td>
+            <td>{{getTotal()}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row" *ngIf="data.length > 10">
+      <div class="col-12">
+        <pagination-controls
+          (pageChange)="p = $event"
+          class="float-right"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div class="place-button">
+    <button mat-raised-button color="primary" (click)="onPlaceOrder()">Place Order</button>
+  </div>
+
+  <mat-divider class="divider"></mat-divider>
+</div>

@@ -2,36 +2,35 @@
 /* Add application styles & imports to this file! */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-.mat-card-header-text{
-    margin: 0px 0px 16px 0px !important;
+.mat-card-header-text {
+  margin: 0px 0px 16px 0px !important;
 }
 
 .heading-card {
-    display: flex;
-    align-items: center;
-    background: #FFFFFF;
-
+  display: flex;
+  align-items: center;
+  /* background: #FFFFFF; */
 }
 
 .heading-card h3 {
-    color: #000;
-    font-size: 24px;
-    font-weight: 600;
-    margin-left: 16px;
-    margin-bottom: 0;
+  color: #000;
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 16px;
+  margin-bottom: 0;
 }
 
 .backward-link {
-    background-color: #0076D6;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    transform: rotate(180deg);
+  background-color: #0076d6;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transform: rotate(180deg);
 }
 
 .backward-link:hover {
-    background-color: #2b9bf8;
+  background-color: #2b9bf8;
 }
