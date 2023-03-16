@@ -7,11 +7,14 @@
 <mat-divider class="divider"></mat-divider>
 
 <input
+  style="padding: 10px;"
+  [(ngModel)]="searchedValue"
   class="search-bar"
   type="tel"
   matInput
   placeholder="Search"
   name="search"
+  (ngModelChange)="onSearchProducts($event)"
 />
 
 <div mat-dialog-content>
@@ -27,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of data">
+        <tr *ngFor="let item of currProducts">
           <td>
             <div class="product-det">
                 <img class="profile" src="{{
@@ -38,8 +41,8 @@
             </div></td>
           <td>{{item.ppu}}</td>
           <td>{{item.avl_stocks}}</td>
-          <td><input (change)="onUpdateData(item)" [value]="item.quantity" type="number" /></td>
-          <td>{{item.quantity * item.ppu}}</td>
+          <td><input style="width: 100px;" [(ngModel)]="item.quantity" (ngModelChange)="onUpdateQuantity($event, item)" type="number" min="0" [max]="item.avl_stocks" /></td>
+          <td>₹. {{item.quantity * item.ppu}}</td>
         </tr>
 
         <!-- For total Amount -->
@@ -48,11 +51,11 @@
             <td></td>
             <td></td>
             <td>Total Amount</td>
-            <td>{{getTotal()}}</td>
+            <td>₹. {{getTotal()}}</td>
         </tr>
       </tbody>
     </table>
-    <div class="row" *ngIf="data.length > 10">
+    <div class="row" *ngIf="currProducts.length > 10">
       <div class="col-12">
         <pagination-controls
           (pageChange)="p = $event"

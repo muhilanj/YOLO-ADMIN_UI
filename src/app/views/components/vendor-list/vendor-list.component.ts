@@ -7,6 +7,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from "@angular/material/dialog";
+import { EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-vendor-list",
@@ -41,35 +42,43 @@ export class VendorListComponent implements OnInit {
     });
   }
 
+  genId() {
+    return Math.floor((Math.random()*6)+1);
+  }
+
   openPlaceOrderDialog(data: any): void {
     let d = [
       {
+        id: this.genId(),
         product_name: "Coke",
-        ppu: 1000,
-        avl_stocks: 1000,
-        quantity: 4,
-        amount: 4000,
+        ppu: 345,
+        avl_stocks: 34,
+        quantity: 0,
+        amount: 0,
       },
       {
+        id: this.genId(),
         product_name: "Pepsi",
-        ppu: 1000,
-        avl_stocks: 1000,
-        quantity: 4,
-        amount: 4000,
+        ppu: 456,
+        avl_stocks: 56,
+        quantity: 0,
+        amount: 0,
       },
       {
+        id: this.genId(),
         product_name: "Mirinda",
-        ppu: 1000,
-        avl_stocks: 1000,
-        quantity: 4,
-        amount: 4000,
+        ppu: 565,
+        avl_stocks: 7845,
+        quantity: 0,
+        amount: 0,
       },
       {
+        id: this.genId(),
         product_name: "Lemonade",
-        ppu: 1000,
-        avl_stocks: 1000,
-        quantity: 4,
-        amount: 4000,
+        ppu: 564,
+        avl_stocks: 234,
+        quantity: 0,
+        amount: 0,
       },
     ];
 
@@ -121,21 +130,30 @@ export class PlaceOrderDialog {
   constructor(
     public dialogRef: MatDialogRef<VendorDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
+  ) {
+    this.products = [...data];
+    this.currProducts = this.products.map((d: any) => d);
+  }
+  products: any;
+  currProducts: any;
+  searchedValue: any;
   p: any;
 
-  onUpdateData(item: any) {
-    // Two way binding between Dialog and component
+  getTotal() {
+    return this.data.map((d: any) => (d.quantity * d.ppu)).reduce((a: any,b: any) => a + b,0);
   }
 
-  getTotal() {
-    return 16000;
+  onUpdateQuantity(value: any, item: any) {
+    this.products = this.products.map((product: any) => (item.id === product.id ? { ...product, quantity: value } : product))
+  }
+
+  onSearchProducts(event: any) {
+    this.currProducts = this.products.filter((product: any) => event.length > 0 ? product.product_name.toLowerCase().includes(event.toLowerCase()) : true);
   }
 
   onPlaceOrder() {
+    let totolAmount = this.getTotal();
     this.dialogRef.close();
-    alert("Order Placed");
   }
 
   onNoClick(): void {
