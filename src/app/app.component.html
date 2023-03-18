@@ -34,7 +34,7 @@
 
       <li
         class="nav-item"
-        [ngClass]="!['/guest-list', '/vendor-list', '/settings'].includes(currentUrl) ? 'selected' : 'menu_item'"
+        [ngClass]="!['/guest-list', '/vendor-list', '/settings', '/dashboard'].includes(currentUrl) ? 'selected' : 'menu_item'"
       >
         <a class="nav-link" routerLink="/property-main">
           <i class="fas fa-fw fa-sign-out-alt"></i>

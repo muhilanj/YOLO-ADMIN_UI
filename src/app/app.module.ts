@@ -46,6 +46,7 @@ import { ToastrModule } from "ngx-toastr";
 import { VendorDialog } from "./views/components/vendor-list/vendor-list.component";
 import { ClickStopPropagation } from "./common/directives/click-stop-prop.directive";
 import { PropertyMainComponent } from './views/components/property-main/property-main.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { PropertyMainComponent } from './views/components/property-main/property
     PropertyUserComponent,
     PropertyRoleComponent,
     PropertyMainComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

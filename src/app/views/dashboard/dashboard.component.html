@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="section-data bg-transparent">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Total Properties</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_property }}</h2>
+
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Flats Available</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_Flats }}</h2>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Flats Occupied</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_occupied_Flats }}</h2>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Total Active Students</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_Guest_Active }}</h2>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Total Rent Paid</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_Guest_Paid }}</h2>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Total Rent Pending</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_Guest_Rent_Pending }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row key-feat">
+            <button class="link-but" mat-raised-button><p class="text">Add Properties</p></button>
+            <button class="link-but" mat-raised-button><p class="text"><a style="color: black;" href="/property-user">Add Users</a></p></button>
+            <button class="link-but" mat-raised-button><p class="text" (click)="onPostOrder()">Post order</p></button>
+        </div>
+    </div>
+
+</div>

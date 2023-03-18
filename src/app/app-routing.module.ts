@@ -18,6 +18,7 @@ import { PropertyUserComponent } from './views/settings/property-user/property-u
 import { PropertyRoleComponent } from './views/settings/property-role/property-role.component';
 import { VendorListComponent } from './views/components/vendor-list/vendor-list.component';
 import { PropertyMainComponent } from './views/components/property-main/property-main.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -90,6 +91,10 @@ const routes: Routes = [
   {
     path: 'property-role',
     component: PropertyRoleComponent,
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
   },
   {
     path: '**',
