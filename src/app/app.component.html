@@ -16,110 +16,31 @@
       </a>
 
       <!-- Divider -->
+      
+
       <hr class="sidebar-divider my-0" />
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link">
+      <li
+        class="nav-item"
+        [ngClass]="currentUrl == '/dashboard' ? 'selected' : 'menu_item'"
+      >
+        <a class="nav-link" routerLink="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a
-        >
+          <span class="page">Dashboard</span>
+        </a>
       </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider" />
-      <!-- <li class="nav-item">
-        <a
-          class="nav-link collapsed"
-          routerLink="property"
-          data-toggle="collapse"
-          data-target="#collapseTwo"
-          aria-expanded="true"
-          aria-controls="collapseTwo"
-        >
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Properties</span>
+      <hr class="sidebar-divider my-0" />
+
+      <li
+        class="nav-item"
+        [ngClass]="!['/guest-list', '/vendor-list', '/settings'].includes(currentUrl) ? 'selected' : 'menu_item'"
+      >
+        <a class="nav-link" routerLink="/property-main">
+          <i class="fas fa-fw fa-sign-out-alt"></i>
+          <span class="page">Properties</span>
         </a>
-
-      </li> -->
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title> Properties </mat-panel-title>
-          </mat-expansion-panel-header>
-          <span>
-            <a
-              class="nav-link collapsed"
-              routerLink="basicproperty"
-              data-toggle="collapse"
-              data-target="#collapseTwo"
-              aria-expanded="true"
-              aria-controls="collapseTwo"
-            >
-              <mat-list-item> Basic Property Details </mat-list-item>
-            </a>
-            <a
-              class="nav-link collapsed"
-              routerLink="advanceproperty"
-              data-toggle="collapse"
-              data-target="#collapseTwo"
-              aria-expanded="true"
-              aria-controls="collapseTwo"
-            >
-              <mat-list-item> Advanced Property Details </mat-list-item>
-            </a>
-            <a
-              class="nav-link collapsed"
-              *ngIf="singleOccupancy === 'Single Occupancy'"
-              routerLink="single"
-              data-toggle="collapse"
-              data-target="#collapseTwo"
-              aria-expanded="true"
-              aria-controls="collapseTwo"
-            >
-              <mat-list-item> Single Occupancy </mat-list-item>
-            </a>
-            <a
-              class="nav-link collapsed"
-              *ngIf="doubleOccupancy === 'Double Occupancy'"
-              routerLink="double"
-              data-toggle="collapse"
-              data-target="#collapseTwo"
-              aria-expanded="true"
-              aria-controls="collapseTwo"
-            >
-              <mat-list-item> Double Occupancy </mat-list-item>
-            </a>
-            <a
-              class="nav-link collapsed"
-              *ngIf="
-                sharedOccupancy === 'Triple Occupancy' ||
-                sharedOccupancy === 'Four Occupancy'
-              "
-              routerLink="shared"
-              data-toggle="collapse"
-              data-target="#collapseTwo"
-              aria-expanded="true"
-              aria-controls="collapseTwo"
-            >
-              <mat-list-item> Shared Occupancy </mat-list-item>
-            </a>
-            <a
-              class="nav-link collapsed"
-              routerLink="price"
-              data-toggle="collapse"
-              data-target="#collapseTwo"
-              aria-expanded="true"
-              aria-controls="collapseTwo"
-            >
-              <mat-list-item> Price </mat-list-item>
-            </a>
-          </span>
-        </mat-expansion-panel>
-      </mat-accordion>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider" />
+      </li>
 
       <!-- Nav Item - Charts -->
       <li
@@ -128,8 +49,8 @@
       >
         <a class="nav-link" routerLink="/guest-list">
           <i class="fas fa-fw fa-sign-out-alt"></i>
-          <span class="page">Guest</span></a
-        >
+          <span class="page">Guest</span>
+        </a>
       </li>
 
       <!-- Nav Item - Tables -->

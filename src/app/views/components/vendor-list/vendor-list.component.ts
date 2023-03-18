@@ -144,6 +144,11 @@ export class PlaceOrderDialog {
   }
 
   onUpdateQuantity(value: any, item: any) {
+    console.log(value)
+    if (value > item.avl_stocks) {
+      item.quantity = item.avl_stocks;
+    }
+
     this.products = this.products.map((product: any) => (item.id === product.id ? { ...product, quantity: value } : product))
   }
 

@@ -57,14 +57,12 @@ export class SingleoccupancyComponent implements OnInit {
     this.singleOccupancyFormGroup.get("flatType")?.valueChanges.subscribe(x => {
       this.formValueChanges(x)
    })
-   this.singleOccupancyFormGroup.get("totalFloors")?.valueChanges.subscribe(x => {
-    debugger
+   this.singleOccupancyFormGroup.get("totalFloors")?.valueChanges.subscribe(x => {    
     if(x){
       this.floorsLooping(x)
     }
  })
  this.singleOccupancyFormGroup.get("noOfRooms")?.valueChanges.subscribe(x => {
-  debugger
   if(x){
     this.onChangeRoomCount(x)
   }
@@ -74,7 +72,6 @@ export class SingleoccupancyComponent implements OnInit {
   }
 
   basicProperty() {
-    debugger;
     const {
       totalFloors,
       occupancyType,
@@ -177,7 +174,6 @@ export class SingleoccupancyComponent implements OnInit {
 
   }
   public onChangeRoomCount(x:number | string):void{
-    debugger
     this.roomValues=[];
     let value =100;
     for(let i=1;i<=x;i++){
@@ -186,8 +182,13 @@ export class SingleoccupancyComponent implements OnInit {
     
       this.roomValues.push(value)
     }
-    console.log(this.roomValues)
+    console.log({ room: this.roomValues })
+  }
 
+  public onChangeRoomValues(x: any, index: number): void {
+    let vals = [...this.roomValues];
+    vals[index] = parseInt(x.target.value);
+    this.roomValues = vals;
   }
   
   public roomChanges(noOfRooms:string):void{  
@@ -218,6 +219,8 @@ export class SingleoccupancyComponent implements OnInit {
   onChangeRoomCountForm(event:any) {
     const interests = <FormArray>this.singleOccupancyFormGroup.get('roomNumberCheck') as FormArray;
 
+    console.log(interests);
+
     if(event.checked) {
       interests.push(new FormControl(event.source.value))
     } else {
@@ -234,7 +237,6 @@ export class SingleoccupancyComponent implements OnInit {
   }
 
   addvalue(){
-    debugger
     this.values.push({value: ""});
   }
   

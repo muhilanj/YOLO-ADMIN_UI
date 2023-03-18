@@ -17,6 +17,7 @@ import { PropertySettingsComponent } from './views/settings/property-settings/pr
 import { PropertyUserComponent } from './views/settings/property-user/property-user.component';
 import { PropertyRoleComponent } from './views/settings/property-role/property-role.component';
 import { VendorListComponent } from './views/components/vendor-list/vendor-list.component';
+import { PropertyMainComponent } from './views/components/property-main/property-main.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: AppNavComponent,
+  },
+  {
+    path: 'property-main',
+    component: PropertyMainComponent,
   },
   {
     path: 'property',

@@ -45,6 +45,7 @@ import { PlaceOrderDialog, VendorListComponent } from "./views/components/vendor
 import { ToastrModule } from "ngx-toastr";
 import { VendorDialog } from "./views/components/vendor-list/vendor-list.component";
 import { ClickStopPropagation } from "./common/directives/click-stop-prop.directive";
+import { PropertyMainComponent } from './views/components/property-main/property-main.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { ClickStopPropagation } from "./common/directives/click-stop-prop.direct
     PropertySettingsComponent,
     PropertyUserComponent,
     PropertyRoleComponent,
+    PropertyMainComponent,
   ],
   imports: [
     BrowserModule,
