@@ -42,6 +42,7 @@ export class PropertyUserComponent implements OnInit {
       this.vendorList = res.data;
     });
   }
+  
   getUser() {
     this.Propertyservice.getAPI('/get_roles').subscribe((res) => {
       console.log(res.data)

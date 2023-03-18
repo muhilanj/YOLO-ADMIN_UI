@@ -57,11 +57,10 @@
           <thead>
             <tr role="row">
               <th>Property Name</th>
-              <th>Area</th>
-              <th>Contact Number</th>
-              <th>Email Address</th>
-              <th>Address</th>
-              <th></th>
+              <th>Property Location</th>
+              <th>Floors</th>
+              <th>Rooms</th>
+              <th>Rooms Available</th>
             </tr>
           </thead>
           <tbody>
@@ -74,32 +73,10 @@
               "
             >
               <td>{{ item.property_name }}</td>
-              <td>{{ item.area }}</td>
-              <td>{{ item.contact_number }}</td>
-              <td>{{ item.email_address }}</td>
-              <td>
-                <span
-                  [ngClass]="item.Status == 'Active' ? 'active' : 'inactive'"
-                  >{{ item.Status }}</span
-                >
-              </td>
-              <th>
-                <!-- <button
-                  click-stop-propagation
-                  mat-button
-                  [matMenuTriggerFor]="basicmenu"
-                >
-                  <mat-icon>more_horiz</mat-icon>
-                </button>
-                <mat-menu #basicmenu="matMenu">
-                  <button mat-menu-item (click)="openDialog(item)">
-                    View Details
-                  </button>
-                  <button mat-menu-item (click)="openPlaceOrderDialog(item)">
-                    Place Order
-                  </button>
-                </mat-menu> -->
-              </th>
+              <td>{{ item.Property_Loc }}</td>
+              <td>{{ item.total_floor }}</td>
+              <td>{{ item.total_rooms }}</td>
+              <td>{{ item.rooms_available }}</td>
             </tr>
           </tbody>
         </table>
