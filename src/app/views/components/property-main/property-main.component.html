@@ -80,13 +80,6 @@
           </tr>
         </tbody>
       </table>
-      <div class="add-button-container">
-        <div class="add-button-round">
-          <button mat-button (click)="onClickAddButton()">
-            <mat-icon style="color: white">add</mat-icon>
-          </button>
-        </div>
-      </div>
 
       <div class="row" *ngIf="propertyList.length > 10">
         <div class="col-12">
@@ -96,10 +89,14 @@
           ></pagination-controls>
         </div>
       </div>
+
+      <div class="add-button-container">
+        <div class="add-button-round">
+          <button mat-button (click)="onClickAddButton()">
+            <mat-icon style="color: white">add</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
-    <!-- <a href="" class="product-add-link" data-toggle="modal" data-target=".bd-example-modal-lg">
-            <img src="assets/img/icons/add.svg" alt="">
-            <div class="product-add-link-text">Add</div>
-        </a> -->
   </div>
 </div>

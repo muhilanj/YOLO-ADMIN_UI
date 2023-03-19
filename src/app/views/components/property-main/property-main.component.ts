@@ -35,8 +35,8 @@ export class PropertyMainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.isLoading = true;
-    // this.getPropertiesList();
+    this.isLoading = true;
+    this.getPropertiesList();
   }
 
   onClickAddButton() {

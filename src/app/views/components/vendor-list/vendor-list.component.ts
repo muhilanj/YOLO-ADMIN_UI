@@ -8,6 +8,8 @@ import {
   MatDialogRef,
 } from "@angular/material/dialog";
 import { EventEmitter } from "@angular/core";
+import { HttpParams } from "@angular/common/http";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-vendor-list",
@@ -22,10 +24,15 @@ export class VendorListComponent implements OnInit {
   p: any;
   isLoading: boolean = true;
 
+  vendor_id = 1;
+  user_id = 1;
+
   public vendorList: any;
+  public vendorProducts: any;
 
   constructor(
     private _formBuilder: FormBuilder,
+    private toastrService: ToastrService,
     private Propertyservice: CommmonService,
     private _router: Router,
     public dialog: MatDialog
@@ -47,45 +54,38 @@ export class VendorListComponent implements OnInit {
   }
 
   openPlaceOrderDialog(data: any): void {
-    let d = [
-      {
-        id: this.genId(),
-        product_name: "Coke",
-        ppu: 345,
-        avl_stocks: 34,
+
+    let productList = this.vendorProducts.map((product: any) => {
+      return {
+        ...product,
         quantity: 0,
-        amount: 0,
-      },
-      {
-        id: this.genId(),
-        product_name: "Pepsi",
-        ppu: 456,
-        avl_stocks: 56,
-        quantity: 0,
-        amount: 0,
-      },
-      {
-        id: this.genId(),
-        product_name: "Mirinda",
-        ppu: 565,
-        avl_stocks: 7845,
-        quantity: 0,
-        amount: 0,
-      },
-      {
-        id: this.genId(),
-        product_name: "Lemonade",
-        ppu: 564,
-        avl_stocks: 234,
-        quantity: 0,
-        amount: 0,
-      },
-    ];
+        amount: 0
+      }
+    })
 
     const placeOrderDialogRef = this.dialog.open(PlaceOrderDialog, {
-      data: d,
+      data: productList,
       width: "1000px",
     });
+
+    placeOrderDialogRef.componentInstance.onOrderPlaced.subscribe((productsOrdered: any) => {
+      let payload = {
+        vendor_id: this.vendor_id, 
+        user_id: this.user_id,
+        products: productsOrdered.map((product:any) => {
+          return {
+            Price_Per_Unit: product.price,
+            Quantity: product.quantity,
+            Product_ID: product.Product_ID
+          }
+        })
+      }
+
+      this.Propertyservice.postAPI('/add_order', payload).subscribe((res) => {
+        console.log(res);
+        this.toastrService.success("Order Successful");
+      })
+    })
 
     placeOrderDialogRef.afterClosed().subscribe((result) => {
       console.log("The Place Order dialog was closed");
@@ -95,12 +95,24 @@ export class VendorListComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.getVendor();
+    this.getVedorProducts();
   }
 
   getVendor() {
     this.Propertyservice.getAPI("/get_vendor_list").subscribe((res) => {
       this.vendorList = res.data;
+      console.log({
+        vendor: res.data
+      })
       this.isLoading = false;
+    });
+  }
+
+  getVedorProducts() {
+    let params = new HttpParams();
+    params = params.append("vendor_id", this.vendor_id);
+    this.Propertyservice.getAPIWithParams("/vendor_products", params).subscribe((res) => {
+      this.vendorProducts = res.data;
     });
   }
 }
@@ -139,17 +151,19 @@ export class PlaceOrderDialog {
   searchedValue: any;
   p: any;
 
+  onOrderPlaced = new EventEmitter();
+
   getTotal() {
-    return this.data.map((d: any) => (d.quantity * d.ppu)).reduce((a: any,b: any) => a + b,0);
+    return this.data.map((d: any) => (d.quantity * d.price)).reduce((a: any,b: any) => a + b,0);
   }
 
   onUpdateQuantity(value: any, item: any) {
-    console.log(value)
-    if (value > item.avl_stocks) {
-      item.quantity = item.avl_stocks;
+    if (value > item.Available_Stock) {
+      console.log(value)
+      item.quantity = item.Available_Stock + "";
     }
 
-    this.products = this.products.map((product: any) => (item.id === product.id ? { ...product, quantity: value } : product))
+    this.products = this.products.map((product: any) => (item.Product_ID === product.Product_ID ? { ...product, quantity: value } : product))
   }
 
   onSearchProducts(event: any) {
@@ -157,7 +171,8 @@ export class PlaceOrderDialog {
   }
 
   onPlaceOrder() {
-    let totolAmount = this.getTotal();
+    let orderProducts = this.products.filter((product: any) => product.quantity > 0);
+    this.onOrderPlaced.emit(orderProducts);
     this.dialogRef.close();
   }
 
