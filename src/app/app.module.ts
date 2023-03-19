@@ -41,12 +41,16 @@ import { SettingsComponent } from "./views/settings/settings.component";
 import { PropertySettingsComponent } from "./views/settings/property-settings/property-settings.component";
 import { PropertyUserComponent } from "./views/settings/property-user/property-user.component";
 import { PropertyRoleComponent } from "./views/settings/property-role/property-role.component";
-import { PlaceOrderDialog, VendorListComponent } from "./views/components/vendor-list/vendor-list.component";
+import {
+  PlaceOrderDialog,
+  VendorListComponent,
+} from "./views/components/vendor-list/vendor-list.component";
 import { ToastrModule } from "ngx-toastr";
 import { VendorDialog } from "./views/components/vendor-list/vendor-list.component";
 import { ClickStopPropagation } from "./common/directives/click-stop-prop.directive";
-import { PropertyMainComponent } from './views/components/property-main/property-main.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { PropertyMainComponent } from "./views/components/property-main/property-main.component";
+import { DashboardComponent } from "./views/dashboard/dashboard.component";
+import { PropertyFlowComponent } from "./views/components/property-main/property-flow/property-flow.component";
 
 @NgModule({
   declarations: [
@@ -77,6 +81,7 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
     PropertyRoleComponent,
     PropertyMainComponent,
     DashboardComponent,
+    PropertyFlowComponent,
   ],
   imports: [
     BrowserModule,

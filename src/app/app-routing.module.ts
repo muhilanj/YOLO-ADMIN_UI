@@ -1,105 +1,111 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './views/components/login/login.component';
-import { SignupComponent } from './views/components/signup/signup.component';
-import { PropertyComponent } from './views/property/property.component';
-import { AppNavComponent } from './views/components/app-nav/app-nav.component';
-import { BasicpropertyComponent } from './views/basicproperty/basicproperty.component';
-import { AdvancepropertyComponent } from './views/advanceproperty/advanceproperty.component';
-import { SingleoccupancyComponent } from './views/singleoccupancy/singleoccupancy.component';
-import { PriceComponent } from './views/price/price.component';
-import { DoubleComponent } from './views/double/double.component';
-import { SharedComponent } from './views/shared/shared.component';
-import { GuestListComponent } from './views/components/guest-list/guest-list.component';
-import { ResetPasswordComponent } from './views/components/reset-password/reset-password.component';
-import { SettingsComponent } from './views/settings/settings.component';
-import { PropertySettingsComponent } from './views/settings/property-settings/property-settings.component';
-import { PropertyUserComponent } from './views/settings/property-user/property-user.component';
-import { PropertyRoleComponent } from './views/settings/property-role/property-role.component';
-import { VendorListComponent } from './views/components/vendor-list/vendor-list.component';
-import { PropertyMainComponent } from './views/components/property-main/property-main.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { LoginComponent } from "./views/components/login/login.component";
+import { SignupComponent } from "./views/components/signup/signup.component";
+import { PropertyComponent } from "./views/property/property.component";
+import { AppNavComponent } from "./views/components/app-nav/app-nav.component";
+import { BasicpropertyComponent } from "./views/basicproperty/basicproperty.component";
+import { AdvancepropertyComponent } from "./views/advanceproperty/advanceproperty.component";
+import { SingleoccupancyComponent } from "./views/singleoccupancy/singleoccupancy.component";
+import { PriceComponent } from "./views/price/price.component";
+import { DoubleComponent } from "./views/double/double.component";
+import { SharedComponent } from "./views/shared/shared.component";
+import { GuestListComponent } from "./views/components/guest-list/guest-list.component";
+import { ResetPasswordComponent } from "./views/components/reset-password/reset-password.component";
+import { SettingsComponent } from "./views/settings/settings.component";
+import { PropertySettingsComponent } from "./views/settings/property-settings/property-settings.component";
+import { PropertyUserComponent } from "./views/settings/property-user/property-user.component";
+import { PropertyRoleComponent } from "./views/settings/property-role/property-role.component";
+import { VendorListComponent } from "./views/components/vendor-list/vendor-list.component";
+import { PropertyMainComponent } from "./views/components/property-main/property-main.component";
+import { PropertyFlowComponent } from "./views/components/property-main/property-flow/property-flow.component";
+import { DashboardComponent } from "./views/dashboard/dashboard.component";
+
 const routes: Routes = [
   {
-    path: 'login',
+    path: "login",
     component: LoginComponent,
   },
   {
-    path: 'signup',
+    path: "signup",
     component: SignupComponent,
   },
   {
-    path: 'home',
+    path: "home",
     component: AppNavComponent,
   },
   {
-    path: 'property-main',
+    path: "property-main",
     component: PropertyMainComponent,
   },
   {
-    path: 'property',
+    path: "property",
     component: PropertyComponent,
   },
   {
-    path: 'basicproperty',
+    path: "basicproperty",
     component: BasicpropertyComponent,
   },
   {
-    path: 'advanceproperty',
+    path: "advanceproperty",
     component: AdvancepropertyComponent,
   },
   {
-    path: 'single',
+    path: "single",
     component: SingleoccupancyComponent,
   },
   {
-    path: 'double',
+    path: "double",
     component: DoubleComponent,
   },
   {
-    path: 'shared',
+    path: "shared",
     component: SharedComponent,
   },
   {
-    path: 'price',
+    path: "price",
     component: PriceComponent,
   },
   {
-    path: 'guest-list',
+    path: "guest-list",
     component: GuestListComponent,
   },
   {
-    path: 'vendor-list',
+    path: "vendor-list",
     component: VendorListComponent,
   },
   {
-    path: 'reset-password',
+    path: "reset-password",
     component: ResetPasswordComponent,
   },
   {
-    path: 'settings',
+    path: "settings",
     component: SettingsComponent,
   },
   {
-    path: 'property-settings',
+    path: "property-settings",
     component: PropertySettingsComponent,
   },
   {
-    path: 'property-user',
+    path: "property-user",
     component: PropertyUserComponent,
   },
   {
-    path: 'property-role',
+    path: "property-role",
     component: PropertyRoleComponent,
   },
   {
-    path: 'dashboard',
+    path: "dashboard",
     component: DashboardComponent,
   },
   {
-    path: '**',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    path: "property-flow",
+    component: PropertyFlowComponent,
+  },
+  {
+    path: "**",
+    redirectTo: "login",
+    pathMatch: "full",
   },
 ];
 
