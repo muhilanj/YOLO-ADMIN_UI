@@ -6,9 +6,6 @@ export class appConfig {
   
   public readonly login = 'admin/login';
   public readonly propertyAdd = 'property/add';
-  public readonly apiUrl = "http://localhost:5000/api";
-  // public readonly apiUrl = 'http://ec2-54-88-249-227.compute-1.amazonaws.com/yolo/api';
+  //public readonly apiUrl = "http://localhost:5000/api";
 
-  public readonly login = "admin/login";
-  public readonly propertyAdd = "property/add";
 }
