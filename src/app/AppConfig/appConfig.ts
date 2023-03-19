@@ -6,6 +6,4 @@ export class appConfig {
   
   public readonly login = 'admin/login';
   public readonly propertyAdd = 'property/add';
-  //public readonly apiUrl = "http://localhost:5000/api";
-
 }
