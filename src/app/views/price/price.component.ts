@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PropertyService } from 'src/app/common/services/property.service';
-import { CommmonService } from '../services/common.service';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { PropertyService } from "src/app/common/services/property.service";
+import { CommmonService } from "../services/common.service";
 
 @Component({
-  selector: 'app-price',
-  templateUrl: './price.component.html',
-  styleUrls: ['./price.component.css']
+  selector: "app-price",
+  templateUrl: "./price.component.html",
+  styleUrls: ["./price.component.css"],
 })
 export class PriceComponent implements OnInit {
   isLinear = false;
@@ -14,48 +14,48 @@ export class PriceComponent implements OnInit {
   selected: any = [];
   urls: any[] = [];
   myFiles: string[] = [];
-  sMsg: string = '';
+  sMsg: string = "";
   basicPropertyFormGroup = this._formBuilder.group({
-    total_floor: ['', Validators.required],
-    property_name: ['', Validators.required],
-    state: ['', Validators.required],
-    city: ['', Validators.required],
-    area: ['', Validators.required],
-    full_address: ['', Validators.required],
-    phone_number: ['', Validators.required],
-    email: ['', Validators.required],
-    propertyDetails: ['', Validators.required],
-    totalFloors: ['', Validators.required],
+    total_floor: ["", Validators.required],
+    property_name: ["", Validators.required],
+    state: ["", Validators.required],
+    city: ["", Validators.required],
+    area: ["", Validators.required],
+    full_address: ["", Validators.required],
+    phone_number: ["", Validators.required],
+    email: ["", Validators.required],
+    propertyDetails: ["", Validators.required],
+    totalFloors: ["", Validators.required],
   });
   advancePropertyFormGroup = this._formBuilder.group({
-    propertyImage: ['', Validators.required],
-    propertyVideo: ['', Validators.required],
-    propertyFacility: ['', Validators.required],
-    propertyType: ['', Validators.required],
-    upcomingStatus: ['', Validators.required],
+    propertyImage: ["", Validators.required],
+    propertyVideo: ["", Validators.required],
+    propertyFacility: ["", Validators.required],
+    propertyType: ["", Validators.required],
+    upcomingStatus: ["", Validators.required],
   });
   singleOccupancyFormGroup = this._formBuilder.group({
-    roomSize: ['', Validators.required],
-    dimension: ['', Validators.required],
-    chooseFloor: ['', Validators.required],
-    rooms: ['', Validators.required],
-    facilityAvailable: ['', Validators.required],
-    singleOccupancyImage: ['', Validators.required],
-    roomNumberCheck: ['', Validators.required],
-    singleOccupancyVideo: ['', Validators.required],
-    roomSpec: ['', Validators.required],
+    roomSize: ["", Validators.required],
+    dimension: ["", Validators.required],
+    chooseFloor: ["", Validators.required],
+    rooms: ["", Validators.required],
+    facilityAvailable: ["", Validators.required],
+    singleOccupancyImage: ["", Validators.required],
+    roomNumberCheck: ["", Validators.required],
+    singleOccupancyVideo: ["", Validators.required],
+    roomSpec: ["", Validators.required],
   });
   priceFormGroup = this._formBuilder.group({
-    priceRoomSize: ['', Validators.required],
-    priceDimension: ['', Validators.required],
-    chooseFloor: ['', Validators.required],
-    facilityAvailable: ['', Validators.required],
-    advancePayment: ['', Validators.required],
-    roomNumberCheck: ['', Validators.required],
-    rent: ['', Validators.required],
-    priceRoomSpec: ['', Validators.required],
-    dimension: ['', Validators.required],
-    roomSpec: ['', Validators.required],
+    priceRoomSize: ["", Validators.required],
+    priceDimension: ["", Validators.required],
+    chooseFloor: ["", Validators.required],
+    facilityAvailable: ["", Validators.required],
+    advancePayment: ["", Validators.required],
+    roomNumberCheck: ["", Validators.required],
+    rent: ["", Validators.required],
+    priceRoomSpec: ["", Validators.required],
+    dimension: ["", Validators.required],
+    roomSpec: ["", Validators.required],
   });
 
   public cityData: any[] = [];
@@ -76,21 +76,21 @@ export class PriceComponent implements OnInit {
     this.occupancyData = [
       {
         id: 0,
-        name: 'Signle Occupancy',
+        name: "Signle Occupancy",
       },
       {
         id: 1,
-        name: 'Double Occupancy',
+        name: "Double Occupancy",
       },
       {
         id: 2,
-        name: 'Shared Occupancy',
+        name: "Shared Occupancy",
       },
     ];
   }
 
   basicProperty() {
-    debugger;
+    // debugger;
     const {
       property_name,
       state,
@@ -115,7 +115,7 @@ export class PriceComponent implements OnInit {
     };
 
     console.log(payload);
-    this.Propertyservice.postAPI('property/add', payload).subscribe((res) => {
+    this.Propertyservice.postAPI("property/add", payload).subscribe((res) => {
       if (res.status === 200) {
         this.propertyDetailsData = res.results;
       }
@@ -128,18 +128,18 @@ export class PriceComponent implements OnInit {
   }
 
   getArea() {
-    this.Propertyservice.getAPI('area').subscribe((res: any) => {
+    this.Propertyservice.getAPI("area").subscribe((res: any) => {
       this.areaData = res.results;
     });
   }
 
   getCity() {
-    this.Propertyservice.getAPI('city').subscribe((res) => {
+    this.Propertyservice.getAPI("city").subscribe((res) => {
       this.cityData = res.results;
     });
   }
   getState() {
-    this.Propertyservice.getAPI('state').subscribe((res) => {
+    this.Propertyservice.getAPI("state").subscribe((res) => {
       this.stateData = res.results;
     });
   }

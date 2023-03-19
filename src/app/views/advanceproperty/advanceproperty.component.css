@@ -1,4 +1,8 @@
-.mat-form-field{
-    width:500px !important;
- }
- 
+.mat-form-field {
+  width: 500px !important;
+}
+
+.form {
+  padding: 20px;
+  border: 1px solid #ccc;
+}
