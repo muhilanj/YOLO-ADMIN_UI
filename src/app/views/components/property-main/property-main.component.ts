@@ -11,13 +11,12 @@ declare var $: any;
   styleUrls: ["./property-main.component.css"],
 })
 export class PropertyMainComponent implements OnInit {
-
   cars: any[] = [];
   searchText: string = "";
   response: string = "";
   roleData: any;
   p: any;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   public propertyList: any = [];
 
@@ -28,7 +27,7 @@ export class PropertyMainComponent implements OnInit {
   ) {}
 
   getPropertiesList() {
-    this.Propertyservice.getAPI('/get_property_list').subscribe((res) => {
+    this.Propertyservice.getAPI("/get_property_list").subscribe((res) => {
       this.propertyList = res.data;
       console.log(this.propertyList);
       this.isLoading = false;
@@ -36,12 +35,13 @@ export class PropertyMainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.getPropertiesList();
+    // this.isLoading = true;
+    // this.getPropertiesList();
   }
 
   onClickAddButton() {
     // Flash the step form here as link (not dialog)
-    console.log("Not implemented")
+    console.log("Not implemented");
+    this._router.navigate(["/property-flow"]);
   }
 }
