@@ -16,7 +16,6 @@
       </a>
 
       <!-- Divider -->
-      
 
       <hr class="sidebar-divider my-0" />
 
@@ -34,7 +33,13 @@
 
       <li
         class="nav-item"
-        [ngClass]="!['/guest-list', '/vendor-list', '/settings', '/dashboard'].includes(currentUrl) ? 'selected' : 'menu_item'"
+        [ngClass]="
+          !['/guest-list', '/vendor-list', '/settings', '/dashboard'].includes(
+            currentUrl
+          )
+            ? 'selected'
+            : 'menu_item'
+        "
       >
         <a class="nav-link" routerLink="/property-main">
           <i class="fas fa-fw fa-sign-out-alt"></i>
@@ -61,6 +66,16 @@
         <a class="nav-link" routerLink="/vendor-list">
           <i class="fas fa-fw fa-table"></i>
           <span class="page">Vendors</span></a
+        >
+      </li>
+
+      <li
+        class="nav-item"
+        [ngClass]="currentUrl == '/orders' ? 'selected' : 'menu_item'"
+      >
+        <a class="nav-link" routerLink="/orders">
+          <i class="fas fa-fw fa-table"></i>
+          <span class="page">Orders</span></a
         >
       </li>
 

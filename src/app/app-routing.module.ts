@@ -20,6 +20,7 @@ import { VendorListComponent } from "./views/components/vendor-list/vendor-list.
 import { PropertyMainComponent } from "./views/components/property-main/property-main.component";
 import { PropertyFlowComponent } from "./views/components/property-main/property-flow/property-flow.component";
 import { DashboardComponent } from "./views/dashboard/dashboard.component";
+import { OrdersComponent } from "./views/components/orders/orders.component";
 
 const routes: Routes = [
   {
@@ -101,6 +102,10 @@ const routes: Routes = [
   {
     path: "property-flow",
     component: PropertyFlowComponent,
+  },
+  {
+    path: "orders",
+    component: OrdersComponent,
   },
   {
     path: "**",

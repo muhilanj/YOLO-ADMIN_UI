@@ -51,6 +51,7 @@ import { ClickStopPropagation } from "./common/directives/click-stop-prop.direct
 import { PropertyMainComponent } from "./views/components/property-main/property-main.component";
 import { DashboardComponent } from "./views/dashboard/dashboard.component";
 import { PropertyFlowComponent } from "./views/components/property-main/property-flow/property-flow.component";
+import { OrdersComponent } from './views/components/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { PropertyFlowComponent } from "./views/components/property-main/property
     PropertyMainComponent,
     DashboardComponent,
     PropertyFlowComponent,
+    OrdersComponent,
   ],
   imports: [
     BrowserModule,
