@@ -39,10 +39,10 @@
                           }}" />
                 <p>{{item.product_name}}</p>
             </div></td>
-          <td>{{item.ppu}}</td>
-          <td>{{item.avl_stocks}}</td>
-          <td><input style="width: 100px;" [(ngModel)]="item.quantity" (ngModelChange)="onUpdateQuantity($event, item)" type="number" min="0" [max]="item.avl_stocks" /></td>
-          <td>₹. {{item.quantity * item.ppu}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.Available_Stock}}</td>
+          <td><input style="width: 100px;" [(ngModel)]="item.quantity" (ngModelChange)="onUpdateQuantity($event, item)" type="number" min="0" [max]="item.Available_Stock" /></td>
+          <td>₹. {{item.quantity * item.price}}</td>
         </tr>
 
         <!-- For total Amount -->

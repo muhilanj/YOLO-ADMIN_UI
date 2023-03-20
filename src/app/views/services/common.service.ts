@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { appConfig } from '../../AppConfig/appConfig';
@@ -48,6 +48,22 @@ export class CommmonService {
 
     return this.http
       .get(url, httpOptions)
+      .pipe(retry(0), catchError(this.handleError.bind(this)));
+  }
+
+  public getAPIWithParams(url: string, params: HttpParams): Observable<any> {
+    url = this.config.apiUrl + url;
+    // console.log(url);
+    httpOptions.headers = httpOptions.headers.set(
+      'Content-Type',
+      'application/json'
+    );
+
+    return this.http
+      .get(url, {
+        headers: httpOptions.headers, 
+        params
+      })
       .pipe(retry(0), catchError(this.handleError.bind(this)));
   }
 
