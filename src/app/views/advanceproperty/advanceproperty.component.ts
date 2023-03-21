@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import {
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  FormGroupDirective,
   Validators,
 } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -21,6 +22,7 @@ import { DialogService } from "../services/dialog.service";
 export class AdvancepropertyComponent implements OnInit {
   @Input() propertyId: any = undefined;
 
+  @ViewChild('documentEditForm') documentEditForm: FormGroupDirective | undefined; 
   @Output() messageEvent = new EventEmitter<IntermediateData>();
   isLinear = false;
   checked: boolean = true;
@@ -33,8 +35,8 @@ export class AdvancepropertyComponent implements OnInit {
   advancePropertyFormGroup = this._formBuilder.group({
     propertyImage: [""],
     propertyVideo: [""],
-    facility: this._formBuilder.array([]),
-    occupancyType: this._formBuilder.array([]),
+    facility: this._formBuilder.array([], Validators.required),
+    occupancyType: this._formBuilder.array([], Validators.required),
     propertyStatus: ["", Validators.required],
   });
   public occupancyData: any[] = [];
@@ -54,6 +56,10 @@ export class AdvancepropertyComponent implements OnInit {
     this.getPropertyFacilities();
   }
 
+  submitForm() {
+    this.documentEditForm?.ngSubmit.emit();
+  }
+
   public onSubmitAdavanceProperty(): void {
     const {
       propertyImage,
@@ -62,13 +68,9 @@ export class AdvancepropertyComponent implements OnInit {
       facility,
       occupancyType,
     } = this.advancePropertyFormGroup.value;
-    console.log(this.propertyId);
-    if (this.propertyId == undefined) {
-      return;
-    }
 
     const payload = {
-      property_id: this.propertyId,
+      property_id: 1,
       categories: occupancyType.toString(),
       status: Number(propertyStatus),
       facilities: facility.toString(),
@@ -80,6 +82,7 @@ export class AdvancepropertyComponent implements OnInit {
     console.log(payload);
     this.Propertyservice.postAPI("/add_advanced_property", payload).subscribe(
       (res) => {
+        console.log(res.data)
         try {
           if (res.status === 200) {
             this.propertyDetailsData = res.data;

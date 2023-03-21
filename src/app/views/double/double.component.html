@@ -3,6 +3,7 @@
     [formGroup]="singleOccupancyFormGroup"
     (ngSubmit)="basicProperty()"
     class="form"
+    #documentEditForm="ngForm"
   >
     <div>
       <div
@@ -254,9 +255,5 @@
       </div>
     </div>
     <a class="addIcon" (click)="addvalue()">ADD</a>
-
-    <div fxLayoutAlign="center">
-      <button mat-button mat-raised-button color="primary">Submit</button>
-    </div>
   </form>
 </div>

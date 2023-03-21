@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { PropertyService } from 'src/app/common/services/property.service';
 import { IntermediateData } from '../components/property-main/property-flow/property-flow.component';
 import { CommmonService } from '../services/common.service';
@@ -11,8 +11,12 @@ import { DialogService } from '../services/dialog.service';
   styleUrls: ['./singleoccupancy.component.css']
 })
 export class SingleoccupancyComponent implements OnInit {
+  
+  @Input() propertyId: any = undefined;
 
   @Output() messageEvent = new EventEmitter<IntermediateData>();
+
+  @ViewChild('documentEditForm') documentEditForm: FormGroupDirective | undefined; 
   
   isLinear = false;
   checked: boolean = true;
@@ -89,8 +93,15 @@ export class SingleoccupancyComponent implements OnInit {
       roomNumberCheck,
     } = this.singleOccupancyFormGroup.value;
 
+    if (!this.propertyId) {
+      this.messageEvent.emit({
+        data: null, 
+        canStepNext: false
+      })
+      return;
+    }
     const payload = {
-      property_id: 1,
+      property_id: this.propertyId,
       category_id: 1,
       total_floors:totalFloors,
       flat_type: flatType,
@@ -128,6 +139,10 @@ export class SingleoccupancyComponent implements OnInit {
         })
       }
     });
+  }
+
+  submitForm() {
+    this.documentEditForm?.ngSubmit.emit();
   }
 
   getCategories() {

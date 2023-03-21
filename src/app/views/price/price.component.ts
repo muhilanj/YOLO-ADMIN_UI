@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
 import { PropertyService } from "src/app/common/services/property.service";
 import { CommmonService } from "../services/common.service";
 
@@ -9,6 +9,10 @@ import { CommmonService } from "../services/common.service";
   styleUrls: ["./price.component.css"],
 })
 export class PriceComponent implements OnInit {
+  @ViewChild('documentEditForm') documentEditForm: FormGroupDirective | undefined; 
+  
+  @Input() propertyId: any = undefined;
+
   isLinear = false;
   checked: boolean = true;
   selected: any = [];
@@ -142,6 +146,10 @@ export class PriceComponent implements OnInit {
     this.Propertyservice.getAPI("state").subscribe((res) => {
       this.stateData = res.results;
     });
+  }
+
+  submitForm() {
+    this.documentEditForm?.ngSubmit.emit()
   }
 
   getFileDetails(ele: any) {

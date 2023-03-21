@@ -87,7 +87,6 @@ export class PropertyComponent implements OnInit {
   }
 
   basicProperty() {
-    debugger;
     const {
       property_name,
       state,

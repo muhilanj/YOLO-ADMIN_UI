@@ -68,7 +68,6 @@ export class CommmonService {
   }
 
   public postAPI(url: string, data: any): Observable<any> {
-    debugger;
     url = this.config.apiUrl + url;
     // headers.append('Content-Type', 'application/json');
     // headers.append('Accept', 'application/json');
@@ -90,7 +89,6 @@ export class CommmonService {
     );
   }
   public putAPI(url: string, data: any): Observable<any> {
-    debugger;
     url = this.config.apiUrl + url;
     // headers.append('Content-Type', 'application/json');
     // headers.append('Accept', 'application/json');

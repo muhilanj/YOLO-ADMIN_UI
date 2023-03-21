@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { PropertyService } from "src/app/common/services/property.service";
@@ -15,6 +15,7 @@ import { DialogService } from "../services/dialog.service";
 export class BasicpropertyComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<IntermediateData>();
 
+  @ViewChild('documentEditForm') documentEditForm: FormGroupDirective | undefined; 
   isLinear = false;
   checked: boolean = true;
   selected: any = [];
@@ -54,6 +55,7 @@ export class BasicpropertyComponent implements OnInit {
   }
 
   basicProperty() {
+    console.log("basicProperty")
     const { propertyName, area, address, phoneNumber, email, propertyDetails } =
       this.basicPropertyFormGroup.value;
 
@@ -94,6 +96,11 @@ export class BasicpropertyComponent implements OnInit {
         }
       }
     );
+  }
+
+  submitForm() {
+    console.log("Submitted")
+    this.documentEditForm?.ngSubmit.emit();
   }
 
   getArea() {

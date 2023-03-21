@@ -6,3 +6,8 @@
   padding: 20px;
   border: 1px solid #ccc;
 }
+
+.error {
+  font-size:x-small;
+  color: red;
+}

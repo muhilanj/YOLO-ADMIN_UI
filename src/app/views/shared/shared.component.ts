@@ -1,12 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import {
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  FormGroupDirective,
   Validators,
 } from "@angular/forms";
 import { PropertyService } from "src/app/common/services/property.service";
+import { IntermediateData } from "../components/property-main/property-flow/property-flow.component";
 import { CommmonService } from "../services/common.service";
 import { DialogService } from "../services/dialog.service";
 
@@ -16,6 +18,12 @@ import { DialogService } from "../services/dialog.service";
   styleUrls: ["./shared.component.css"],
 })
 export class SharedComponent implements OnInit {
+
+  @Input() propertyId: any = undefined;
+
+  @ViewChild('documentEditForm') documentEditForm: FormGroupDirective | undefined; 
+  @Output() messageEvent = new EventEmitter<IntermediateData>();
+  
   isLinear = false;
   checked: boolean = true;
   selected: any = [];
@@ -130,9 +138,22 @@ export class SharedComponent implements OnInit {
             }
           );
           this.propertyDetailsData = res.data;
+          this.messageEvent.emit({
+            data: res.data, 
+            canStepNext: true
+          })
+        } else {
+          this.messageEvent.emit({
+            data: res.data, 
+            canStepNext: false
+          })
         }
       }
     );
+  }
+
+  submitForm() {
+    this.documentEditForm?.ngSubmit.emit();
   }
 
   getCategories() {

@@ -2,6 +2,7 @@
   <form
     [formGroup]="basicPropertyFormGroup"
     (ngSubmit)="basicProperty()"
+    #documentEditForm="ngForm"
     class="form"
   >
     <div class="form-wrapper">
@@ -118,13 +119,6 @@
             ({{ propertydet.value.length }} /200 max)
           </mat-hint>
         </mat-form-field>
-      </div>
-    </div>
-    <div class="form-wrapper">
-      <div fxLayout="column" fxLayoutAlign="center center">
-        <button mat-button mat-raised-button color="primary" type="submit">
-          Submit
-        </button>
       </div>
     </div>
   </form>
