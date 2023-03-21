@@ -15,19 +15,29 @@
 
     <div class="row">
       <mat-stepper [linear]="isLinear" #stepper [ngStyle]="{ width: '100%' }">
-        <mat-step [completed]="basicPropertyMessage.canStepNext" [stepControl]="firstFormGroup">
+        <mat-step
+          [completed]="basicPropertyMessage.canStepNext"
+          [stepControl]="firstFormGroup"
+        >
           <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Basic Property Details</ng-template>
-            <app-basicproperty (messageEvent)="receiveMessageFromBasicProperty($event)"></app-basicproperty>
+            <app-basicproperty
+              (messageEvent)="receiveMessageFromBasicProperty($event)"
+            ></app-basicproperty>
             <div class="button-wrapper">
               <button mat-button matStepperNext class="next">Next</button>
             </div>
           </form>
         </mat-step>
-        <mat-step [completed]="advancedPropertyMessage.canStepNext" [stepControl]="secondFormGroup">
+        <mat-step
+          [completed]="advancedPropertyMessage.canStepNext"
+          [stepControl]="secondFormGroup"
+        >
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Advanced Property Details</ng-template>
-            <app-advanceproperty (messageEvent)="receiveMessageFromAdvancedProperty($event)" [propertyId]="this.basicPropertyMessage.data?.[0]?.Property_ID"
+            <app-advanceproperty
+              (messageEvent)="receiveMessageFromAdvancedProperty($event)"
+              [propertyId]="this.basicPropertyMessage.data?.[0]?.Property_id"
               (onPropertyChange)="onPropertyChange($event)"
             ></app-advanceproperty>
             <div class="button-wrapper">
@@ -36,10 +46,15 @@
             </div>
           </form>
         </mat-step>
-        <mat-step [completed]="singleOccupancyMessage.canStepNext" *ngIf="selectedPropertyTypes.includes('Single Occupancy')">
+        <mat-step
+          [completed]="singleOccupancyMessage.canStepNext"
+          *ngIf="selectedPropertyTypes.includes('Single Occupancy')"
+        >
           <form>
             <ng-template matStepLabel>Single Occupancy</ng-template>
-            <app-singleoccupancy (messageEvent)="receiveMessageFromSingleOccupancy($event)"></app-singleoccupancy>
+            <app-singleoccupancy
+              (messageEvent)="receiveMessageFromSingleOccupancy($event)"
+            ></app-singleoccupancy>
             <div class="button-wrapper">
               <button mat-button matStepperPrevious class="back">Back</button>
               <button mat-button matStepperNext class="next">Next</button>
@@ -47,10 +62,15 @@
           </form>
         </mat-step>
 
-        <mat-step [completed]="dualOccupancyMessage.canStepNext" *ngIf="selectedPropertyTypes.includes('Double Occupancy')">
+        <mat-step
+          [completed]="dualOccupancyMessage.canStepNext"
+          *ngIf="selectedPropertyTypes.includes('Double Occupancy')"
+        >
           <form>
             <ng-template matStepLabel>Double Occupancy</ng-template>
-            <app-double (messageEvent)="receiveMessageFromDualOccupancy($event)"></app-double>
+            <app-double
+              (messageEvent)="receiveMessageFromDualOccupancy($event)"
+            ></app-double>
             <div class="button-wrapper">
               <button mat-button matStepperPrevious class="back">Back</button>
               <button mat-button matStepperNext class="next">Next</button>
@@ -58,7 +78,8 @@
           </form>
         </mat-step>
 
-        <mat-step [completed]="tripleOccupancyMessage.canStepNext"
+        <mat-step
+          [completed]="tripleOccupancyMessage.canStepNext"
           [completed]="tripleOccupancyMessage.canStepNext"
           *ngIf="
             selectedPropertyTypes.includes('Triple Occupancy') ||
@@ -67,20 +88,22 @@
         >
           <form>
             <ng-template matStepLabel>Shared Occupancy</ng-template>
-            <app-shared (messageEvent)="receiveMessageFromTripleOccupancy($event)"></app-shared>
+            <app-shared
+              (messageEvent)="receiveMessageFromTripleOccupancy($event)"
+            ></app-shared>
             <div class="button-wrapper">
               <button mat-button matStepperPrevious class="back">Back</button>
               <button mat-button matStepperNext class="next">Next</button>
             </div>
           </form>
         </mat-step>
-        <mat-step>
+        <mat-step [completed]="advancedPropertyMessage.canStepNext">
           <form>
             <ng-template matStepLabel>Price</ng-template>
             <app-price></app-price>
             <div class="button-wrapper">
-              <button mat-button matStepperPrevious class="back">Back</button>
-              <button mat-button matStepperNext class="next">Next</button>
+              <!-- <button mat-button matStepperPrevious class="back">Back</button> -->
+              <button mat-button matStepperNext class="next">Finish</button>
             </div>
           </form>
         </mat-step>
