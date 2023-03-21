@@ -90,6 +90,12 @@ export class SharedComponent implements OnInit {
       });
   }
 
+  public onChangeRoomValues(x: any, index: number): void {
+    let vals = [...this.roomValues];
+    vals[index] = parseInt(x.target.value);
+    this.roomValues = vals;
+  }
+
   basicProperty() {
     // debugger;
     const {

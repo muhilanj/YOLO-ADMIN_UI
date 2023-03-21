@@ -121,7 +121,6 @@ export class DoubleComponent implements OnInit {
       user_id: 1,
     };
 
-    console.log(payload);
     this.Propertyservice.postAPI("/add_flat_details", payload).subscribe(
       (res) => {
         if (res.status === 200) {
@@ -150,6 +149,12 @@ export class DoubleComponent implements OnInit {
         }
       }
     );
+  }
+
+  public onChangeRoomValues(x: any, index: number): void {
+    let vals = [...this.roomValues];
+    vals[index] = parseInt(x.target.value);
+    this.roomValues = vals;
   }
 
   getCategories() {

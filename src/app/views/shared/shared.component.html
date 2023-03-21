@@ -125,6 +125,36 @@
         </mat-form-field>
       </div>
     </div>
+
+    <div>
+      <div
+        fxFlex="100%"
+        fxFlex.lg="100%"
+        fxFlex.md="100%"
+        fxFlex.sm="100%"
+        fxFlex.xs="100%"
+      >
+        <mat-label class="radioLabel">Room Number</mat-label>
+        <section class="example-section">
+          <div class="row">
+            <ng-container *ngFor="let item of roomValues">
+              <div class="col-md-6">
+                <mat-checkbox
+                  (change)="onChangeRoomCountForm($event)"
+                  class="example-margin"
+                >
+                <input
+                style="height: 18px; width: 80px; margin-left: 10px"
+                [value]="item"
+                (change)="onChangeRoomValues($event, i)"
+              /></mat-checkbox
+                >
+              </div>
+            </ng-container>
+          </div>
+        </section>
+      </div>
+    </div>
     <mat-card-header>
       <mat-card-subtitle>Facility Available</mat-card-subtitle>
     </mat-card-header>
@@ -203,57 +233,5 @@
         </ng-container>
       </div>
     </div>
-    <div>
-      <div
-        fxFlex="100%"
-        fxFlex.lg="100%"
-        fxFlex.md="100%"
-        fxFlex.sm="100%"
-        fxFlex.xs="100%"
-      >
-        <mat-label class="radioLabel">Room Number</mat-label>
-        <section class="example-section">
-          <div class="row">
-            <ng-container *ngFor="let item of roomValues">
-              <div class="col-md-6">
-                <mat-checkbox
-                  (change)="onChangeRoomCountForm($event)"
-                  class="example-margin"
-                >
-                  {{ item }}</mat-checkbox
-                >
-              </div>
-            </ng-container>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <div *ngFor="let value of values; let i = index">
-      <div>
-        <div
-          fxFlex="95%"
-          fxFlex.lg="95%"
-          fxFlex.md="95%"
-          fxFlex.sm="95%"
-          fxFlex.xs="95%"
-        >
-          <mat-form-field appearance="outline" fxFlex="100%">
-            <mat-label>Total Floors</mat-label>
-            <input
-              class="example-right-align"
-              placeholder="Total Floors"
-              matInput
-              type="text"
-              formControlName="totalFloors"
-              [(ngModel)]="value.value"
-              name="value{{ i }}"
-            />
-          </mat-form-field>
-          <a class="removeIcon" (click)="removevalue(i)">Remove</a>
-        </div>
-      </div>
-    </div>
-    <a class="addIcon" (click)="addvalue()">ADD</a>
   </form>
 </div>
