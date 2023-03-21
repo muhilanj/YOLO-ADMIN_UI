@@ -12,3 +12,10 @@
   padding: 20px;
   border: 1px solid #ccc;
 }
+.mat-form-field-underline {
+  display: none;
+}
+
+.mat-form-field-infix {
+  display: none;
+}

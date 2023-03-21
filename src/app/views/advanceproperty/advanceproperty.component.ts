@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { PropertyService } from "src/app/common/services/property.service";
 import { IntermediateData } from "../components/property-main/property-flow/property-flow.component";
@@ -19,8 +19,7 @@ import { DialogService } from "../services/dialog.service";
   styleUrls: ["./advanceproperty.component.css"],
 })
 export class AdvancepropertyComponent implements OnInit {
-
-  @Input() propertyId: number | undefined = undefined;
+  @Input() propertyId: any = undefined;
 
   @Output() messageEvent = new EventEmitter<IntermediateData>();
   isLinear = false;
@@ -46,9 +45,10 @@ export class AdvancepropertyComponent implements OnInit {
     public dialogService: DialogService,
     private _formBuilder: FormBuilder,
     private Propertyservice: CommmonService,
-    private _router: Router
+    private _router: Router,
+    private route: ActivatedRoute
   ) {}
-  
+
   ngOnInit() {
     this.getCategories();
     this.getPropertyFacilities();
@@ -62,11 +62,11 @@ export class AdvancepropertyComponent implements OnInit {
       facility,
       occupancyType,
     } = this.advancePropertyFormGroup.value;
-
-    if(this.propertyId == undefined) { 
-      
+    console.log(this.propertyId);
+    if (this.propertyId == undefined) {
       return;
     }
+
     const payload = {
       property_id: this.propertyId,
       categories: occupancyType.toString(),
@@ -98,21 +98,21 @@ export class AdvancepropertyComponent implements OnInit {
                 console.log("No");
               }
             );
-  
+
             this.messageEvent.emit({
               data: res.data,
-              canStepNext: true
+              canStepNext: true,
             });
           } else {
             throw new Error();
           }
-        } catch(e) {
+        } catch (e) {
           this.messageEvent.emit({
-            data: null, 
-            canStepNext: false
+            data: null,
+            canStepNext: false,
           });
 
-          this.toastrService.error('Error while adding advanced property');
+          this.toastrService.error("Error while adding advanced property");
         }
       }
     );

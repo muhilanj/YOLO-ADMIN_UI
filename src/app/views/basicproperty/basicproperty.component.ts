@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { PropertyService } from "src/app/common/services/property.service";
 import { IntermediateData } from "../components/property-main/property-flow/property-flow.component";
@@ -13,9 +13,8 @@ import { DialogService } from "../services/dialog.service";
   styleUrls: ["./basicproperty.component.css"],
 })
 export class BasicpropertyComponent implements OnInit {
-
   @Output() messageEvent = new EventEmitter<IntermediateData>();
-  
+
   isLinear = false;
   checked: boolean = true;
   selected: any = [];
@@ -25,7 +24,10 @@ export class BasicpropertyComponent implements OnInit {
   basicPropertyFormGroup = this._formBuilder.group({
     propertyName: ["", Validators.required],
     area: ["", Validators.required],
-    phoneNumber: ["", [Validators.required, Validators.pattern(/^(0|91)?[6-9][0-9]{9}$/)]],
+    phoneNumber: [
+      "",
+      [Validators.required, Validators.pattern(/^(0|91)?[6-9][0-9]{9}$/)],
+    ],
     email: ["", [Validators.required, Validators.email]],
     address: ["", Validators.required],
     propertyDetails: ["", Validators.required],
@@ -42,7 +44,8 @@ export class BasicpropertyComponent implements OnInit {
     public dialogService: DialogService,
     private _formBuilder: FormBuilder,
     private Propertyservice: CommmonService,
-    private _router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
   ngOnInit() {
     this.getArea();
@@ -70,19 +73,24 @@ export class BasicpropertyComponent implements OnInit {
           console.log(res.status, res.data);
           if (res.status === 200) {
             this.messageEvent.emit({
-              data: res.data, 
-              canStepNext: true 
-            })
+              data: res.data,
+              canStepNext: true,
+            });
+            // this.router.navigate([], {
+            //   relativeTo: this.route,
+            //   queryParams: {
+            //     id: "4",
+            //   },
+            // });
           } else {
-            throw new Error()
+            throw new Error();
           }
-        } catch(e) {
-          
+        } catch (e) {
           this.messageEvent.emit({
-            data: null, 
-            canStepNext: false 
-          })
-          this.toastRService.error('Error while adding basic property');
+            data: null,
+            canStepNext: false,
+          });
+          this.toastRService.error("Error while adding basic property");
         }
       }
     );
