@@ -1,7 +1,15 @@
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+  FormGroupDirective,
+} from "@angular/forms";
 import { PropertyService } from "src/app/common/services/property.service";
 import { CommmonService } from "../services/common.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-price",
@@ -9,8 +17,10 @@ import { CommmonService } from "../services/common.service";
   styleUrls: ["./price.component.css"],
 })
 export class PriceComponent implements OnInit {
-  @ViewChild('documentEditForm') documentEditForm: FormGroupDirective | undefined; 
-  
+  @ViewChild("documentEditForm") documentEditForm:
+    | FormGroupDirective
+    | undefined;
+
   @Input() propertyId: any = undefined;
 
   isLinear = false;
@@ -19,36 +29,15 @@ export class PriceComponent implements OnInit {
   urls: any[] = [];
   myFiles: string[] = [];
   sMsg: string = "";
-  basicPropertyFormGroup = this._formBuilder.group({
-    total_floor: ["", Validators.required],
-    property_name: ["", Validators.required],
-    state: ["", Validators.required],
-    city: ["", Validators.required],
-    area: ["", Validators.required],
-    full_address: ["", Validators.required],
-    phone_number: ["", Validators.required],
-    email: ["", Validators.required],
-    propertyDetails: ["", Validators.required],
-    totalFloors: ["", Validators.required],
-  });
-  advancePropertyFormGroup = this._formBuilder.group({
-    propertyImage: ["", Validators.required],
-    propertyVideo: ["", Validators.required],
-    propertyFacility: ["", Validators.required],
-    propertyType: ["", Validators.required],
-    upcomingStatus: ["", Validators.required],
-  });
-  singleOccupancyFormGroup = this._formBuilder.group({
-    roomSize: ["", Validators.required],
-    dimension: ["", Validators.required],
-    chooseFloor: ["", Validators.required],
-    rooms: ["", Validators.required],
-    facilityAvailable: ["", Validators.required],
-    singleOccupancyImage: ["", Validators.required],
-    roomNumberCheck: ["", Validators.required],
-    singleOccupancyVideo: ["", Validators.required],
-    roomSpec: ["", Validators.required],
-  });
+  @Input() property_id: any = undefined;
+  public checks: Array<any> = [
+    { description: "101", value: "101" },
+    { description: "102", value: "102" },
+    { description: "103", value: "103" },
+    { description: "104", value: "104" },
+    { description: "105", value: "105" },
+    { description: "106", value: "106" },
+  ];
   priceFormGroup = this._formBuilder.group({
     priceRoomSize: ["", Validators.required],
     priceDimension: ["", Validators.required],
@@ -60,6 +49,8 @@ export class PriceComponent implements OnInit {
     priceRoomSpec: ["", Validators.required],
     dimension: ["", Validators.required],
     roomSpec: ["", Validators.required],
+    duration: ["", Validators.required],
+    rooms: new FormArray([]),
   });
 
   public cityData: any[] = [];
@@ -70,7 +61,8 @@ export class PriceComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private Propertyservice: CommmonService
+    private Propertyservice: CommmonService,
+    private _router: Router
   ) {}
   ngOnInit() {
     this.getArea();
@@ -93,43 +85,70 @@ export class PriceComponent implements OnInit {
     ];
   }
 
+  onCheckChange(event: any) {
+    const formArray: FormArray = this.priceFormGroup.get("rooms") as FormArray;
+
+    if (event.target.checked) {
+      formArray.push(new FormControl(event.target.value));
+    } else {
+      let i: number = 0;
+
+      formArray.controls.forEach((ctrl: any) => {
+        if (ctrl.value == event.target.value) {
+          formArray.removeAt(i);
+          return;
+        }
+
+        i++;
+      });
+    }
+  }
+
   basicProperty() {
     // debugger;
     const {
-      property_name,
-      state,
-      city,
-      area,
-      full_address,
-      phone_number,
-      email,
-      propertyDetails,
-      totalFloors,
-    } = this.basicPropertyFormGroup.value;
+      priceRoomSize,
+      priceDimension,
+      chooseFloor,
+      facilityAvailable,
+      advancePayment,
+      roomNumberCheck,
+      rent,
+      priceRoomSpec,
+      dimension,
+      roomSpec,
+      duration,
+      rooms,
+    } = this.priceFormGroup.value;
 
     const payload = {
-      area_Id: area,
-      property_name: property_name,
-      full_address: full_address,
-      phone_number: phone_number,
-      email: email,
-      details: propertyDetails,
-      total_floor: totalFloors,
-      status: 1,
+      property_id: this.property_id,
+      Floor_number: chooseFloor,
+      room_size: priceRoomSize,
+      Dimension: dimension + roomSpec,
+      rooms: rooms?.join(","),
+      rent: rent,
+      duration: duration,
+      advance_amount: advancePayment,
+      occupancy_type: "",
+      user_id: "",
     };
 
     console.log(payload);
-    this.Propertyservice.postAPI("property/add", payload).subscribe((res) => {
-      if (res.status === 200) {
-        this.propertyDetailsData = res.results;
+    this.Propertyservice.postAPI("/add_flat_price", payload).subscribe(
+      (res) => {
+        if (res.status === 200) {
+          this.propertyDetailsData = res.results;
+          this._router.navigate(["/property-main"]);
+        }
       }
-    });
+    );
   }
 
-  public advancedProp(): void {
-    console.log(this.advancePropertyFormGroup.value);
-    console.log(this.selected);
-  }
+  // public advancedProp(): void {
+  //   console.log(this.advancePropertyFormGroup.value);
+  //   console.log(this.selected);
+  // }
 
   getArea() {
     this.Propertyservice.getAPI("area").subscribe((res: any) => {
@@ -149,7 +168,7 @@ export class PriceComponent implements OnInit {
   }
 
   submitForm() {
-    this.documentEditForm?.ngSubmit.emit()
+    this.documentEditForm?.ngSubmit.emit();
   }
 
   getFileDetails(ele: any) {

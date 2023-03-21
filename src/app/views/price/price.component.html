@@ -12,8 +12,8 @@
           <mat-label>Choose The Floor</mat-label>
           <mat-select formControlName="chooseFloor">
             <ng-container>
-              <mat-option>Choose Floor</mat-option>
-              <mat-option>First</mat-option>
+              <mat-option [value]="'second'">Second</mat-option>
+              <mat-option [value]="'first'">First</mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>
@@ -31,8 +31,8 @@
           <mat-label>Room Size</mat-label>
           <mat-select formControlName="priceRoomSize">
             <ng-container>
-              <mat-option>Choose Area</mat-option>
-              <mat-option>Small</mat-option>
+              <mat-option [value]="'large'">Large</mat-option>
+              <mat-option [value]="'small'">Small</mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>
@@ -64,10 +64,12 @@
         fxFlex.xs="100%"
       >
         <mat-form-field appearance="outline" fxFlex="100%">
-          <mat-label>Sq.Ft</mat-label>
+          <mat-label>Unit</mat-label>
           <mat-select formControlName="roomSpec">
             <ng-container>
-              <mat-option placeholder="Sq.ft">Sq.Ft</mat-option>
+              <mat-option [value]="'sq.ft'" placeholder="Sq.ft"
+                >Sq.Ft</mat-option
+              >
             </ng-container>
           </mat-select>
         </mat-form-field>
@@ -82,28 +84,17 @@
         fxFlex.xs="100%"
       >
         <mat-label class="radioLabel">Room Number</mat-label>
-        <section class="example-section">
-          <div class="row">
-            <div class="col-md-6">
-              <mat-checkbox class="example-margin"> 101</mat-checkbox>
-            </div>
-            <div class="col-md-6">
-              <mat-checkbox class="example-margin">102</mat-checkbox>
-            </div>
-            <div class="col-md-6">
-              <mat-checkbox class="example-margin">103</mat-checkbox>
-            </div>
-            <div class="col-md-6">
-              <mat-checkbox class="example-margin">104</mat-checkbox>
-            </div>
-            <div class="col-md-6">
-              <mat-checkbox class="example-margin">105</mat-checkbox>
-            </div>
-            <div class="col-md-6">
-              <mat-checkbox class="example-margin">106</mat-checkbox>
-            </div>
-          </div>
-        </section>
+
+        <div *ngFor="let choice of checks; let i = index" class="col-md-2">
+          <label>
+            <input
+              type="checkbox"
+              [value]="choice.value"
+              (change)="onCheckChange($event)"
+            />
+            {{ choice.description }}
+          </label>
+        </div>
       </div>
     </div>
     <div>
@@ -129,11 +120,11 @@
         fxFlex.xs="100%"
       >
         <mat-form-field appearance="outline" fxFlex="100%">
-          <mat-label>Monthly</mat-label>
-          <mat-select formControlName="rent">
+          <mat-label>Select Duration</mat-label>
+          <mat-select formControlName="duration">
             <ng-container>
-              <mat-option>Monthly</mat-option>
-              <mat-option>OneDay</mat-option>
+              <mat-option [value]="'monthly'">Monthly</mat-option>
+              <mat-option [value]="'oneday'">OneDay</mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>

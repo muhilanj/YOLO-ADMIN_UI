@@ -86,21 +86,21 @@ export class AdvancepropertyComponent implements OnInit {
         try {
           if (res.status === 200) {
             this.propertyDetailsData = res.data;
-            this.advancePropertyFormGroup.reset();
-            this.faclityData = [];
-            this.occupancyData = [];
-            this.dialogService.openModal(
-              "Property",
-              res.message,
-              () => {
-                //confirmed
-                console.log("Yes");
-              },
-              () => {
-                //not confirmed
-                console.log("No");
-              }
-            );
+            // this.advancePropertyFormGroup.reset();
+            // this.faclityData = [];
+            // this.occupancyData = [];
+            // this.dialogService.openModal(
+            //   "Property",
+            //   res.message,
+            //   () => {
+            //     //confirmed
+            //     console.log("Yes");
+            //   },
+            //   () => {
+            //     //not confirmed
+            //     console.log("No");
+            //   }
+            // );
 
             this.messageEvent.emit({
               data: res.data,
