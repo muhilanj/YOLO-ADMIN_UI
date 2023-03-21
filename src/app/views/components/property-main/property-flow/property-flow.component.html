@@ -14,7 +14,7 @@
     </div>
 
     <div class="row">
-      <mat-stepper #stepper [ngStyle]="{ width: '100%' }">
+      <mat-stepper [linear]="isLinear" #stepper [ngStyle]="{ width: '100%' }">
         <mat-step
           [completed]="basicPropertyMessage.canStepNext"
           [stepControl]="firstFormGroup"

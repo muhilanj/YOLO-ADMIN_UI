@@ -32,8 +32,8 @@ export class SingleoccupancyComponent implements OnInit {
     chooseFloor: ['', Validators.required],
     noOfRooms: ['', Validators.required],
     facilityAvailable: this._formBuilder.array([]),
-    flatImage: ['', Validators.required],
-    flatVideo: ['', Validators.required],
+    flatImage: [''],
+    flatVideo: [''],
     roomNumberCheck: this._formBuilder.array([]),
     occupancyType:this._formBuilder.array([]),
   });
@@ -93,15 +93,16 @@ export class SingleoccupancyComponent implements OnInit {
       roomNumberCheck,
     } = this.singleOccupancyFormGroup.value;
 
-    if (!this.propertyId) {
-      this.messageEvent.emit({
-        data: null, 
-        canStepNext: false
-      })
-      return;
-    }
+    console.log({ property: this.propertyId })
+    // if (!this.propertyId) {
+    //   this.messageEvent.emit({
+    //     data: null, 
+    //     canStepNext: false
+    //   })
+    //   return;
+    // }
     const payload = {
-      property_id: this.propertyId,
+      property_id: 1,
       category_id: 1,
       total_floors:totalFloors,
       flat_type: flatType,
@@ -142,7 +143,10 @@ export class SingleoccupancyComponent implements OnInit {
   }
 
   submitForm() {
-    this.documentEditForm?.ngSubmit.emit();
+    console.log("submitForm")
+    if (this.documentEditForm?.valid) {
+      this.documentEditForm?.ngSubmit.emit();
+    }
   }
 
   getCategories() {

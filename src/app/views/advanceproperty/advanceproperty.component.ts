@@ -57,7 +57,8 @@ export class AdvancepropertyComponent implements OnInit {
   }
 
   submitForm() {
-    this.documentEditForm?.ngSubmit.emit();
+    if (this.documentEditForm?.valid)
+      this.documentEditForm?.ngSubmit.emit();
   }
 
   public onSubmitAdavanceProperty(): void {

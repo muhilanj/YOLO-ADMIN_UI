@@ -21,6 +21,7 @@ export class BasicpropertyComponent implements OnInit {
   selected: any = [];
   urls: any[] = [];
   myFiles: string[] = [];
+  isSubmitSuccess = false;
   sMsg: string = "";
   basicPropertyFormGroup = this._formBuilder.group({
     propertyName: ["", Validators.required],
@@ -78,12 +79,7 @@ export class BasicpropertyComponent implements OnInit {
               data: res.data,
               canStepNext: true,
             });
-            // this.router.navigate([], {
-            //   relativeTo: this.route,
-            //   queryParams: {
-            //     id: "4",
-            //   },
-            // });
+            this.isSubmitSuccess = true;
           } else {
             throw new Error();
           }
@@ -99,8 +95,8 @@ export class BasicpropertyComponent implements OnInit {
   }
 
   submitForm() {
-    console.log("Submitted")
-    this.documentEditForm?.ngSubmit.emit();
+    if (this.documentEditForm?.valid)
+      this.documentEditForm?.ngSubmit.emit();
   }
 
   getArea() {

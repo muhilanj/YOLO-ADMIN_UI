@@ -20,9 +20,9 @@ export class PropertyFlowComponent implements OnInit {
 
   @ViewChild(BasicpropertyComponent, {static : true}) basicProperty: BasicpropertyComponent | undefined;
   @ViewChild(AdvancepropertyComponent, {static : true}) advancedProperty: AdvancepropertyComponent | undefined;
-  @ViewChild(SingleoccupancyComponent, {static : true}) singleOccupancy: SingleoccupancyComponent | undefined;
-  @ViewChild(DoubleComponent, {static : true}) doubleOccupancy: DoubleComponent | undefined;
-  @ViewChild(SharedComponent, {static : true}) sharedOccupancy: SharedComponent | undefined;
+  @ViewChild(SingleoccupancyComponent, {static : false}) singleOccupancy: SingleoccupancyComponent | undefined;
+  @ViewChild(DoubleComponent, {static : false}) doubleOccupancy: DoubleComponent | undefined;
+  @ViewChild(SharedComponent, {static : false}) sharedOccupancy: SharedComponent | undefined;
   @ViewChild(PriceComponent, {static : true}) priceComp: PriceComponent | undefined;
 
   firstFormGroup = this._formBuilder.group({
@@ -75,6 +75,7 @@ export class PropertyFlowComponent implements OnInit {
 
   onClickSingleOccupancy() {
     if (this.singleOccupancyMessage.canStepNext) return;
+    console.log("onClickSingleOccupancy", this.singleOccupancy);
     this.singleOccupancy?.submitForm();
   }
 

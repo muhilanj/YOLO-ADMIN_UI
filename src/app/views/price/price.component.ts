@@ -168,7 +168,8 @@ export class PriceComponent implements OnInit {
   }
 
   submitForm() {
-    this.documentEditForm?.ngSubmit.emit();
+    if (this.documentEditForm?.valid)
+      this.documentEditForm?.ngSubmit.emit();
   }
 
   getFileDetails(ele: any) {
