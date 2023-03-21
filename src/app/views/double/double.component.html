@@ -137,7 +137,7 @@
         <mat-label class="radioLabel">Room Number</mat-label>
         <section class="example-section">
           <div class="row">
-            <ng-container *ngFor="let item of roomValues">
+            <ng-container *ngFor="let item of roomValues; let i = index">
               <div class="col-md-6">
                 <mat-checkbox
                   (change)="onChangeRoomCountForm($event)"
@@ -155,7 +155,7 @@
         </section>
       </div>
     </div>
-    
+
     <mat-card-header>
       <mat-card-subtitle>Facility Available</mat-card-subtitle>
     </mat-card-header>
