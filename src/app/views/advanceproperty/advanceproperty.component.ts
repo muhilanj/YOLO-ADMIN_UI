@@ -7,7 +7,9 @@ import {
   Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { PropertyService } from "src/app/common/services/property.service";
+import { IntermediateData } from "../components/property-main/property-flow/property-flow.component";
 import { CommmonService } from "../services/common.service";
 import { DialogService } from "../services/dialog.service";
 
@@ -17,6 +19,10 @@ import { DialogService } from "../services/dialog.service";
   styleUrls: ["./advanceproperty.component.css"],
 })
 export class AdvancepropertyComponent implements OnInit {
+
+  @Input() propertyId: number | undefined = undefined;
+
+  @Output() messageEvent = new EventEmitter<IntermediateData>();
   isLinear = false;
   checked: boolean = true;
   selected: any = [];
@@ -36,11 +42,13 @@ export class AdvancepropertyComponent implements OnInit {
   public faclityData: any[] = [];
 
   constructor(
+    private toastrService: ToastrService,
     public dialogService: DialogService,
     private _formBuilder: FormBuilder,
     private Propertyservice: CommmonService,
     private _router: Router
   ) {}
+  
   ngOnInit() {
     this.getCategories();
     this.getPropertyFacilities();
@@ -55,8 +63,12 @@ export class AdvancepropertyComponent implements OnInit {
       occupancyType,
     } = this.advancePropertyFormGroup.value;
 
+    if(this.propertyId == undefined) { 
+      
+      return;
+    }
     const payload = {
-      property_id: 1,
+      property_id: this.propertyId,
       categories: occupancyType.toString(),
       status: Number(propertyStatus),
       facilities: facility.toString(),
@@ -68,23 +80,39 @@ export class AdvancepropertyComponent implements OnInit {
     console.log(payload);
     this.Propertyservice.postAPI("/add_advanced_property", payload).subscribe(
       (res) => {
-        if (res.status === 200) {
-          this.propertyDetailsData = res.data;
-          this.advancePropertyFormGroup.reset();
-          this.faclityData = [];
-          this.occupancyData = [];
-          this.dialogService.openModal(
-            "Property",
-            res.message,
-            () => {
-              //confirmed
-              console.log("Yes");
-            },
-            () => {
-              //not confirmed
-              console.log("No");
-            }
-          );
+        try {
+          if (res.status === 200) {
+            this.propertyDetailsData = res.data;
+            this.advancePropertyFormGroup.reset();
+            this.faclityData = [];
+            this.occupancyData = [];
+            this.dialogService.openModal(
+              "Property",
+              res.message,
+              () => {
+                //confirmed
+                console.log("Yes");
+              },
+              () => {
+                //not confirmed
+                console.log("No");
+              }
+            );
+  
+            this.messageEvent.emit({
+              data: res.data,
+              canStepNext: true
+            });
+          } else {
+            throw new Error();
+          }
+        } catch(e) {
+          this.messageEvent.emit({
+            data: null, 
+            canStepNext: false
+          });
+
+          this.toastrService.error('Error while adding advanced property');
         }
       }
     );

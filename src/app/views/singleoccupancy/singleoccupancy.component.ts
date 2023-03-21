@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PropertyService } from 'src/app/common/services/property.service';
+import { IntermediateData } from '../components/property-main/property-flow/property-flow.component';
 import { CommmonService } from '../services/common.service';
 import { DialogService } from '../services/dialog.service';
 
@@ -10,6 +11,9 @@ import { DialogService } from '../services/dialog.service';
   styleUrls: ['./singleoccupancy.component.css']
 })
 export class SingleoccupancyComponent implements OnInit {
+
+  @Output() messageEvent = new EventEmitter<IntermediateData>();
+  
   isLinear = false;
   checked: boolean = true;
   selected: any = [];
@@ -96,7 +100,7 @@ export class SingleoccupancyComponent implements OnInit {
       flat_facilities: facilityAvailable.toString(),
       images: this.urls,
       videos:flatVideo,
-      flat_number:this.values.toString(),
+      flat_number:this.values,
       occupancy_type:occupancyType.toString(),
       user_id:1
     };
@@ -112,7 +116,16 @@ export class SingleoccupancyComponent implements OnInit {
           console.log('No');
         });
         this.propertyDetailsData = res.data;
-
+        this.messageEvent.emit({
+          data: res.data, 
+          canStepNext: true
+        })
+      }
+      else {
+        this.messageEvent.emit({
+          data: res.data, 
+          canStepNext: false
+        })
       }
     });
   }

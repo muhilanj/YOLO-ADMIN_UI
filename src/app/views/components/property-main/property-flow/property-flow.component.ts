@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormArray } from "@angular/forms";
 
+export type IntermediateData = {
+  data: any, 
+  canStepNext: boolean
+};
 @Component({
   selector: "app-property-flow",
   templateUrl: "./property-flow.component.html",
@@ -13,10 +17,56 @@ export class PropertyFlowComponent implements OnInit {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ["", Validators.required],
   });
-  isLinear = false;
+  isLinear = true;
   selectedPropertyTypes: any[] = [];
 
   constructor(private _formBuilder: FormBuilder) {}
+
+  basicPropertyMessage: IntermediateData = {
+    data: null, 
+    canStepNext: false
+  };
+
+  receiveMessageFromBasicProperty($event: any) {
+    this.basicPropertyMessage = $event
+  }
+
+  advancedPropertyMessage: IntermediateData = {
+    data: null, 
+    canStepNext: false
+  };
+
+  receiveMessageFromAdvancedProperty($event: any) {
+    this.advancedPropertyMessage = $event
+  }
+
+  singleOccupancyMessage: IntermediateData = {
+    data: null, 
+    canStepNext: false
+  };
+
+  receiveMessageFromSingleOccupancy($event: any) {
+    this.singleOccupancyMessage = $event
+  }
+
+  dualOccupancyMessage: IntermediateData = {
+    data: null, 
+    canStepNext: false
+  };
+
+  receiveMessageFromDualOccupancy($event: any) {
+    this.dualOccupancyMessage = $event
+  }
+
+  tripleOccupancyMessage: IntermediateData = {
+    data: null, 
+    canStepNext: false
+  };
+
+  receiveMessageFromTripleOccupancy($event: any) {
+    this.tripleOccupancyMessage = $event
+  }
+
 
   ngOnInit(): void {}
 

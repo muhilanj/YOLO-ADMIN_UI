@@ -218,21 +218,10 @@
         </mat-form-field>
       </div>
     </div>
-    <mat-card-header>
-      <mat-card-subtitle>Select Property Type Available</mat-card-subtitle>
-    </mat-card-header>
-    <div>
-      <div class="row">
-        <ng-container *ngFor="let item of occupancyData">
-          <div class="col-md-4">
-            <mat-checkbox
-              (change)="onChangeOccupancy($event)"
-              [value]="item.category_name"
-              >{{ item.category_name }}</mat-checkbox
-            >
-          </div>
-        </ng-container>
-      </div>
+    <div class="form-wrapper">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <button mat-button mat-raised-button color="primary" type="submit">Submit</button>
+      </div> 
     </div>
   </form>
 </div>
