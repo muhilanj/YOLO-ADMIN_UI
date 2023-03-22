@@ -1,5 +1,17 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import {
+  FormBuilder,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { PropertyService } from "src/app/common/services/property.service";
@@ -15,7 +27,9 @@ import { DialogService } from "../services/dialog.service";
 export class BasicpropertyComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<IntermediateData>();
 
-  @ViewChild('documentEditForm') documentEditForm: FormGroupDirective | undefined; 
+  @ViewChild("documentEditForm") documentEditForm:
+    | FormGroupDirective
+    | undefined;
   isLinear = false;
   checked: boolean = true;
   selected: any = [];
@@ -56,7 +70,7 @@ export class BasicpropertyComponent implements OnInit {
   }
 
   basicProperty() {
-    console.log("basicProperty")
+    console.log("basicProperty");
     const { propertyName, area, address, phoneNumber, email, propertyDetails } =
       this.basicPropertyFormGroup.value;
 
@@ -70,33 +84,34 @@ export class BasicpropertyComponent implements OnInit {
       property_details: propertyDetails,
     };
 
-    this.Propertyservice.postAPI("/add_basic_property", payload).subscribe(
-      (res) => {
-        try {
-          console.log(res.status, res.data);
-          if (res.status === 200) {
-            this.messageEvent.emit({
-              data: res.data,
-              canStepNext: true,
-            });
-            this.isSubmitSuccess = true;
-          } else {
-            throw new Error();
-          }
-        } catch (e) {
-          this.messageEvent.emit({
-            data: null,
-            canStepNext: false,
-          });
-          this.toastRService.error("Error while adding basic property");
-        }
-      }
-    );
+    console.log(payload);
+
+    // this.Propertyservice.postAPI("/add_basic_property", payload).subscribe(
+    //   (res) => {
+    //     try {
+    //       console.log(res.status, res.data);
+    //       if (res.status === 200) {
+    //         this.messageEvent.emit({
+    //           data: res.data,
+    //           canStepNext: true,
+    //         });
+    //         this.isSubmitSuccess = true;
+    //       } else {
+    //         throw new Error();
+    //       }
+    //     } catch (e) {
+    //       this.messageEvent.emit({
+    //         data: null,
+    //         canStepNext: false,
+    //       });
+    //       this.toastRService.error("Error while adding basic property");
+    //     }
+    //   }
+    // );
   }
 
   submitForm() {
-    if (this.documentEditForm?.valid)
-      this.documentEditForm?.ngSubmit.emit();
+    if (this.documentEditForm?.valid) this.documentEditForm?.ngSubmit.emit();
   }
 
   getArea() {
