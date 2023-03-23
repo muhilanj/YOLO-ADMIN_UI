@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import {
   FormArray,
   FormBuilder,
@@ -7,12 +15,30 @@ import {
   FormGroupDirective,
   Validators,
 } from "@angular/forms";
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from "@angular/material/dialog";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { PropertyService } from "src/app/common/services/property.service";
 import { IntermediateData } from "../components/property-main/property-flow/property-flow.component";
 import { CommmonService } from "../services/common.service";
 import { DialogService } from "../services/dialog.service";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
+@Component({
+  selector: "app-occupancy-dialog",
+  templateUrl: "./occupancy-dialog.html",
+  styleUrls: ["./occupancy-dialog.css"],
+})
+export class OccupancyDialog {
+  constructor(
+    public dialogRef: MatDialogRef<any>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+}
 
 @Component({
   selector: "app-advanceproperty",
@@ -22,7 +48,9 @@ import { DialogService } from "../services/dialog.service";
 export class AdvancepropertyComponent implements OnInit {
   @Input() propertyId: any = undefined;
 
-  @ViewChild('documentEditForm') documentEditForm: FormGroupDirective | undefined; 
+  @ViewChild("documentEditForm") documentEditForm:
+    | FormGroupDirective
+    | undefined;
   @Output() messageEvent = new EventEmitter<IntermediateData>();
   isLinear = false;
   checked: boolean = true;
@@ -47,8 +75,7 @@ export class AdvancepropertyComponent implements OnInit {
     public dialogService: DialogService,
     private _formBuilder: FormBuilder,
     private Propertyservice: CommmonService,
-    private _router: Router,
-    private route: ActivatedRoute
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -56,9 +83,18 @@ export class AdvancepropertyComponent implements OnInit {
     this.getPropertyFacilities();
   }
 
+  openDialog(data: any): void {
+    const dialogRef = this.dialog.open(OccupancyDialog, {
+      data,
+      width: "1000px",
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
+    });
+  }
+
   submitForm() {
-    if (this.documentEditForm?.valid)
-      this.documentEditForm?.ngSubmit.emit();
+    if (this.documentEditForm?.valid) this.documentEditForm?.ngSubmit.emit();
   }
 
   public onSubmitAdavanceProperty(): void {
@@ -83,7 +119,7 @@ export class AdvancepropertyComponent implements OnInit {
     console.log(payload);
     this.Propertyservice.postAPI("/add_advanced_property", payload).subscribe(
       (res) => {
-        console.log(res.data)
+        console.log(res.data);
         try {
           if (res.status === 200) {
             this.propertyDetailsData = res.data;

@@ -24,7 +24,10 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { NgxPaginationModule } from "ngx-pagination";
 import { BasicpropertyComponent } from "./views/basicproperty/basicproperty.component";
-import { AdvancepropertyComponent } from "./views/advanceproperty/advanceproperty.component";
+import {
+  AdvancepropertyComponent,
+  OccupancyDialog,
+} from "./views/advanceproperty/advanceproperty.component";
 import { SingleoccupancyComponent } from "./views/singleoccupancy/singleoccupancy.component";
 import { PriceComponent } from "./views/price/price.component";
 import { DoubleComponent } from "./views/double/double.component";
@@ -51,8 +54,8 @@ import { ClickStopPropagation } from "./common/directives/click-stop-prop.direct
 import { PropertyMainComponent } from "./views/components/property-main/property-main.component";
 import { DashboardComponent } from "./views/dashboard/dashboard.component";
 import { PropertyFlowComponent } from "./views/components/property-main/property-flow/property-flow.component";
-import { OrdersComponent } from './views/components/orders/orders.component';
-import { OccupancyViewComponent } from './views/occupancy-view/occupancy-view.component';
+import { OrdersComponent } from "./views/components/orders/orders.component";
+import { OccupancyViewComponent } from "./views/occupancy-view/occupancy-view.component";
 
 @NgModule({
   declarations: [
@@ -63,6 +66,7 @@ import { OccupancyViewComponent } from './views/occupancy-view/occupancy-view.co
     PropertyComponent,
     BasicpropertyComponent,
     AdvancepropertyComponent,
+    OccupancyDialog,
     SingleoccupancyComponent,
     PriceComponent,
     DoubleComponent,

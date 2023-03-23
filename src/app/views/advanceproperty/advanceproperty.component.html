@@ -1,114 +1,161 @@
-<div fxFlex="100%" style="width: 100%">
-  <form
-    [formGroup]="advancePropertyFormGroup"
-    (ngSubmit)="onSubmitAdavanceProperty()"
-    #documentEditForm="ngForm"
-    class="form"
-  >
-    <div>
-      <div
-        fxFlex="100%"
-        fxFlex.lg="100%"
-        fxFlex.md="100%"
-        fxFlex.sm="100%"
-        fxFlex.xs="100%"
-      >
-        <mat-form-field appearance="outline" fxFlex="100%">
-          <mat-label>Property Status</mat-label>
-
-          <mat-select formControlName="propertyStatus">
-            <ng-container>
-              <mat-option>Choose Status</mat-option>
-              <mat-option value="1">Upcoming</mat-option>
-              <mat-option value="2">Trending</mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div>
-      <div
-        fxFlex="100%"
-        fxFlex.lg="100%"
-        fxFlex.md="100%"
-        fxFlex.sm="100%"
-        fxFlex.xs="100%"
-      >
-        <mat-form-field fxFlex="100%">
-          <mat-toolbar>
-            <input matInput [value]="'Select Images'" />
-          </mat-toolbar>
-          <input
-            type="file"
-            id="file"
-            name="fileInput"
-            formControlName="propertyImage"
-            accept="image/*"
-            multiple
-            (change)="onSelectFile($event)"
-          />
-        </mat-form-field>
-      </div>
-    </div>
-    <div>
-      <div
-        fxFlex="100%"
-        fxFlex.lg="100%"
-        fxFlex.md="100%"
-        fxFlex.sm="100%"
-        fxFlex.xs="100%"
-      >
-        <mat-form-field fxFlex="100%">
-          <mat-toolbar>
-            <input matInput [value]="'Select Video'" />
-          </mat-toolbar>
-          <input
-            type="file"
-            id="fileInput"
-            name="fileInput"
-            formControlName="propertyVideo"
-            accept="image/*"
-            multiple
-          />
-        </mat-form-field>
-      </div>
-    </div>
-    <mat-card-header>
-      <mat-card-subtitle>Property Facilities</mat-card-subtitle>
-    </mat-card-header>
-    <p class="error" *ngIf="advancePropertyFormGroup.controls['facility'].errors?.['required']">Select atleast one.</p>
-    <div>
-      <div class="row">
-        <ng-container *ngFor="let item of faclityData; let i = index">
-          <div class="col-md-4">
-            <mat-checkbox
-              [value]="item.facility_name"
-              (change)="onChangeFacility($event)"
-              >{{ item.facility_name }}</mat-checkbox
-            >
+<div class="container-fluid">
+  <div class="section-data">
+    <div class="row">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-center mb-3">
+          <div class="heading-card">
+            <a href="/settings" class="backward-link">
+              <img src="assets/img/icons/r-arrow.svg" alt="" />
+            </a>
+            <h3>Add Advance Property</h3>
           </div>
-        </ng-container>
+        </div>
       </div>
     </div>
 
-    <mat-card-header>
-      <mat-card-subtitle>Property Type Available</mat-card-subtitle>
-    </mat-card-header>
-    <p class="error" *ngIf="advancePropertyFormGroup.controls['occupancyType'].errors?.['required']">Select atleast one.</p>
-    <div>
-      <div class="row">
-        <ng-container *ngFor="let item of occupancyData">
-          <div class="col-md-4">
-            <mat-checkbox
-              [value]="item.category_name"
-              (change)="onChangePropertyType($event)"
-              >{{ item.category_name }}</mat-checkbox
+    <!-- <div class="row spinner-wrapper" *ngIf="isLoading">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div> -->
+
+    <div class="row">
+      <form
+        [formGroup]="advancePropertyFormGroup"
+        (ngSubmit)="onSubmitAdavanceProperty()"
+        #documentEditForm="ngForm"
+        class="form-wrap"
+      >
+        <div class="form">
+          <div class="form-wrapper">
+            <div
+              fxFlex="100%"
+              fxFlex.lg="100%"
+              fxFlex.md="100%"
+              fxFlex.sm="100%"
+              fxFlex.xs="100%"
             >
+              <!-- <mat-form-field appearance="outline" fxFlex="100%"> -->
+              <div class="input-wrapper">
+                <span class="label">Property Status :</span>
+                <mat-select class="select" formControlName="propertyStatus">
+                  <ng-container>
+                    <mat-option>Choose Status</mat-option>
+                    <mat-option value="1">Upcoming</mat-option>
+                    <mat-option value="2">Trending</mat-option>
+                  </ng-container>
+                </mat-select>
+              </div>
+
+              <!-- </mat-form-field> -->
+            </div>
           </div>
-        </ng-container>
-        
-      </div>
+          <div class="form-wrapper">
+            <div class="occ-row">
+              <div
+                fxFlex="45%"
+                fxFlex.lg="45%"
+                fxFlex.md="45%"
+                fxFlex.sm="45%"
+                fxFlex.xs="100%"
+              >
+                <p class="radioLabel">Select Images</p>
+                <section>
+                  <input
+                    type="file"
+                    id="file"
+                    name="fileInput"
+                    formControlName="propertyImage"
+                    accept="image/*"
+                    multiple
+                    (change)="onSelectFile($event)"
+                  />
+                </section>
+              </div>
+              <div
+                fxFlex="45%"
+                fxFlex.lg="45%"
+                fxFlex.md="45%"
+                fxFlex.sm="45%"
+                fxFlex.xs="100%"
+              >
+                <p class="radioLabel">Select Videos</p>
+                <section>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    name="fileInput"
+                    formControlName="propertyVideo"
+                    accept="image/*"
+                    multiple
+                  />
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="form-wrapper">
+            <mat-card-header>
+              <mat-card-subtitle>Property Facilities</mat-card-subtitle>
+            </mat-card-header>
+            <p
+              class="error"
+              *ngIf="advancePropertyFormGroup.controls['facility'].errors?.['required']"
+            >
+              Select atleast one.
+            </p>
+            <div>
+              <div class="row">
+                <ng-container *ngFor="let item of faclityData; let i = index">
+                  <div class="col-md-4">
+                    <mat-checkbox
+                      [value]="item.facility_name"
+                      (change)="onChangeFacility($event)"
+                      >{{ item.facility_name }}</mat-checkbox
+                    >
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="form-wrapper">
+            <mat-card-header>
+              <mat-card-subtitle>Property Type Available</mat-card-subtitle>
+            </mat-card-header>
+            <p
+              class="error"
+              *ngIf="advancePropertyFormGroup.controls['occupancyType'].errors?.['required']"
+            >
+              Select atleast one.
+            </p>
+            <div>
+              <div class="row">
+                <ul class="col-md-4 type-wrapper">
+                  <li class="type-link" *ngFor="let item of occupancyData">
+                    {{ item.category_name }}
+                    <span
+                      [ngClass]="
+                        item.category_name == 'Single Occupancy'
+                          ? 'add'
+                          : 'delete'
+                      "
+                      (click)="openDialog(item)"
+                      >{{
+                        item.category_name == "Single Occupancy"
+                          ? "Add"
+                          : "Delete"
+                      }}</span
+                    >
+                  </li>
+
+                  <!-- <mat-checkbox
+                  [value]="item.category_name"
+                  (change)="onChangePropertyType($event)"
+                  >{{ item.category_name }}</mat-checkbox
+                > -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div>
