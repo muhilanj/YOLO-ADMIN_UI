@@ -9,10 +9,10 @@ import { DialogService } from '../services/dialog.service';
   styleUrls: ['./occupancy-view.component.css']
 })
 export class OccupancyViewComponent implements OnInit {
-checks: any;
-onCheckChange($event: Event) {
-  throw new Error('Method not implemented.');
-}
+  checks: any;
+  onCheckChange($event: Event) {
+    throw new Error('Method not implemented.');
+  }
 
   isLinear = false;
   checked: boolean = true;

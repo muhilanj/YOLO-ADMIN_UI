@@ -112,3 +112,23 @@ input:focus {
   color: #ff7272;
   cursor: pointer;
 }
+
+.occupancy-show {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.occupancy-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.obutton-container {
+  padding: 5px 10px 5px 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
