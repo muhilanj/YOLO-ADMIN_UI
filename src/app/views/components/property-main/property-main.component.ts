@@ -42,6 +42,6 @@ export class PropertyMainComponent implements OnInit {
   onClickAddButton() {
     // Flash the step form here as link (not dialog)
     console.log("Not implemented");
-    this._router.navigate(["/property-flow"]);
+    this._router.navigate(["/basicproperty"]);
   }
 }

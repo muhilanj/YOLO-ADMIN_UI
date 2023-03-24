@@ -31,8 +31,6 @@ import { CommmonService } from "../services/common.service";
 import { DialogService } from "../services/dialog.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-
-
 @Component({
   selector: "app-advanceproperty",
   templateUrl: "./advanceproperty.component.html",
@@ -54,8 +52,9 @@ export class AdvancepropertyComponent implements OnInit {
   occupancyDetails: Record<string, any> = {
     single: undefined,
     double: undefined,
-    shared: undefined
+    shared: undefined,
   };
+  loader: boolean = false;
   @Output() onPropertyChange: EventEmitter<any> = new EventEmitter();
 
   advancePropertyFormGroup = this._formBuilder.group({
@@ -65,19 +64,23 @@ export class AdvancepropertyComponent implements OnInit {
     occupancyType: this._formBuilder.array([], Validators.required),
     propertyStatus: ["", Validators.required],
   });
-  public occupancyData: any[] = [{
-    category_id: 1,
-    category_name: "Single Occupancy",
-    key: "single"
-  }, {
-    category_id: 2,
-    category_name: "Double Occupancy",
-    key: "double"
-  }, {
-    category_id: 1,
-    category_name: "Shared Occupancy",
-    key: "shared"
-  }];
+  public occupancyData: any[] = [
+    {
+      category_id: 1,
+      category_name: "Single Occupancy",
+      key: "single",
+    },
+    {
+      category_id: 2,
+      category_name: "Double Occupancy",
+      key: "double",
+    },
+    {
+      category_id: 1,
+      category_name: "Shared Occupancy",
+      key: "shared",
+    },
+  ];
 
   public faclityData: any[] = [];
 
@@ -86,10 +89,12 @@ export class AdvancepropertyComponent implements OnInit {
     public dialogService: DialogService,
     private _formBuilder: FormBuilder,
     private Propertyservice: CommmonService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private _router: Router
+  ) {}
 
   ngOnInit() {
+    this.loader = true;
     this.getPropertyFacilities();
   }
 
@@ -101,13 +106,13 @@ export class AdvancepropertyComponent implements OnInit {
 
     dialogRef.componentInstance.onSubmitEvent.subscribe((payload: any) => {
       this.occupancyDetails[payload.category] = payload.data;
-      console.log(this.occupancyDetails)
+      console.log(this.occupancyDetails);
     });
   }
 
   deleteDetails(occupancy: any) {
     if (this.occupancyDetails[occupancy.key]) {
-      this.occupancyDetails[occupancy.key] = undefined
+      this.occupancyDetails[occupancy.key] = undefined;
     }
   }
 
@@ -133,35 +138,38 @@ export class AdvancepropertyComponent implements OnInit {
       Images: "",
       videos: propertyVideo,
     };
+    this.toastrService.success("Advance Property Added Successfully");
+    this._router.navigate(["/property-main"]);
 
-    this.Propertyservice.postAPI("/add_advanced_property", payload).subscribe(
-      (res) => {
-        try {
-          if (res.status === 200) {
-            this.propertyDetailsData = res.data;
+    // this.Propertyservice.postAPI("/add_advanced_property", payload).subscribe(
+    //   (res) => {
+    //     try {
+    //       if (res.status === 200) {
+    //         this.propertyDetailsData = res.data;
 
-            this.messageEvent.emit({
-              data: res.data,
-              canStepNext: true,
-            });
-          } else {
-            throw new Error();
-          }
-        } catch (e) {
-          this.messageEvent.emit({
-            data: null,
-            canStepNext: false,
-          });
+    //         this.messageEvent.emit({
+    //           data: res.data,
+    //           canStepNext: true,
+    //         });
+    //       } else {
+    //         throw new Error();
+    //       }
+    //     } catch (e) {
+    //       this.messageEvent.emit({
+    //         data: null,
+    //         canStepNext: false,
+    //       });
 
-          this.toastrService.error("Error while adding advanced property");
-        }
-      }
-    );
+    //       this.toastrService.error("Error while adding advanced property");
+    //     }
+    //   }
+    // );
   }
 
   getPropertyFacilities() {
     this.Propertyservice.getAPI("/get_property_facilities").subscribe((res) => {
       this.faclityData = res.data;
+      this.loader = false;
     });
   }
 
@@ -219,7 +227,6 @@ export class AdvancepropertyComponent implements OnInit {
   styleUrls: ["./occupancy.dialog.css"],
 })
 export class OccupancyDialog {
-
   @ViewChild("documentEditForm") documentEditForm:
     | FormGroupDirective
     | undefined;
@@ -241,29 +248,28 @@ export class OccupancyDialog {
   selected: any = [];
   urls: any[] = [];
   myFiles: string[] = [];
-  sMsg: string = '';
+  sMsg: string = "";
   values: any[] = [];
   occupancyFormGroup = this._formBuilder.group({
-    totalFloors: ['', Validators.required],
-    flatType: ['', Validators.required],
-    dimension: ['', Validators.required],
-    chooseFloor: ['', Validators.required],
-    noOfRooms: ['', Validators.required],
+    totalFloors: ["", Validators.required],
+    flatType: ["", Validators.required],
+    dimension: ["", Validators.required],
+    chooseFloor: ["", Validators.required],
+    noOfRooms: ["", Validators.required],
     facilityAvailable: this._formBuilder.array([], Validators.required),
-    flatImage: [''],
-    flatVideo: [''],
+    flatImage: [""],
+    flatVideo: [""],
     roomNumberCheck: this._formBuilder.array([]),
-    advancePayment: ['', Validators.required],
-    rent: ['', Validators.required],
-    duration: ['', Validators.required],
+    advancePayment: ["", Validators.required],
+    rent: ["", Validators.required],
+    duration: ["", Validators.required],
   });
-
 
   public cityData: any[] = [];
   public areaData: any[] = [];
   public stateData: any[] = [];
   public propertyDetailsData: any[] = [];
-  public unit: string = '';
+  public unit: string = "";
   public flatTypeData: any[] = [];
   public roomFacilties: any[] = [];
   public floorValues: number[] = [];
@@ -272,24 +278,23 @@ export class OccupancyDialog {
   ngOnInit() {
     this.getRoomFacilities();
     this.getFlatType();
-    this.values.push({ value: '' });
-    this.occupancyFormGroup.get("flatType")?.valueChanges.subscribe(x => {
-      this.formValueChanges(x)
-    })
-    this.occupancyFormGroup.get("totalFloors")?.valueChanges.subscribe(x => {
+    this.values.push({ value: "" });
+    this.occupancyFormGroup.get("flatType")?.valueChanges.subscribe((x) => {
+      this.formValueChanges(x);
+    });
+    this.occupancyFormGroup.get("totalFloors")?.valueChanges.subscribe((x) => {
       if (x) {
-        this.floorsLooping(x)
+        this.floorsLooping(x);
       }
-    })
-    this.occupancyFormGroup.get("noOfRooms")?.valueChanges.subscribe(x => {
+    });
+    this.occupancyFormGroup.get("noOfRooms")?.valueChanges.subscribe((x) => {
       if (x) {
-        this.onChangeRoomCount(x)
+        this.onChangeRoomCount(x);
       }
-    })
+    });
   }
 
   onSubmit() {
-
     if (!this.documentEditForm?.valid) {
       return;
     }
@@ -326,25 +331,27 @@ export class OccupancyDialog {
 
     this.onSubmitEvent.emit({
       category: this.occupancyData.key,
-      data: payload
+      data: payload,
     });
 
     console.log(payload);
     this.dialogRef.close();
   }
 
-  onNoClose() {
-
-  }
+  onNoClose() {}
   getRoomFacilities() {
-    this.Propertyservice.getAPI('/get_room_facilities').subscribe((res: any) => {
-      this.roomFacilties = res.data;
-    });
+    this.Propertyservice.getAPI("/get_room_facilities").subscribe(
+      (res: any) => {
+        this.roomFacilties = res.data;
+      }
+    );
   }
   getFlatType() {
-    this.Propertyservice.getAPI('/get_flat_type?categoryid=1').subscribe((res: any) => {
-      this.flatTypeData = res.data;
-    });
+    this.Propertyservice.getAPI("/get_flat_type?categoryid=1").subscribe(
+      (res: any) => {
+        this.flatTypeData = res.data;
+      }
+    );
   }
 
   getFileDetails(ele: any) {
@@ -360,23 +367,27 @@ export class OccupancyDialog {
         var reader = new FileReader();
         reader.onload = (event: any) => {
           this.urls.push(event.target.result);
-        }
+        };
         reader.readAsDataURL(event.target.files[i]);
       }
     }
   }
 
   public formValueChanges(type: string): void {
-    const domensiondata = this.flatTypeData.find(item => item.flat_type === type)
+    const domensiondata = this.flatTypeData.find(
+      (item) => item.flat_type === type
+    );
 
-    this.occupancyFormGroup.get('dimension')?.patchValue(domensiondata.dimension);
+    this.occupancyFormGroup
+      .get("dimension")
+      ?.patchValue(domensiondata.dimension);
     this.unit = domensiondata.unit;
   }
 
   public floorsLooping(x: number): void {
     this.floorValues = [];
     for (let i = 1; i <= x; i++) {
-      this.floorValues.push(i)
+      this.floorValues.push(i);
     }
   }
 
@@ -384,10 +395,9 @@ export class OccupancyDialog {
     this.roomValues = [];
     let value = 100;
     for (let i = 1; i <= x; i++) {
+      value++;
 
-      value++
-
-      this.roomValues.push(value)
+      this.roomValues.push(value);
     }
   }
 
@@ -397,36 +407,47 @@ export class OccupancyDialog {
     this.roomValues = vals;
   }
 
-
   onChangeFacility(event: any) {
-    const interests = <FormArray>this.occupancyFormGroup.get('facilityAvailable') as FormArray;
+    const interests = (<FormArray>(
+      this.occupancyFormGroup.get("facilityAvailable")
+    )) as FormArray;
 
     if (event.checked) {
-      interests.push(new FormControl(event.source.value))
+      interests.push(new FormControl(event.source.value));
     } else {
-      const i = interests.controls.findIndex(x => x.value === event.source.value);
+      const i = interests.controls.findIndex(
+        (x) => x.value === event.source.value
+      );
       interests.removeAt(i);
     }
   }
 
   onChangeOccupancy(event: any) {
-    const interests = <FormArray>this.occupancyFormGroup.get('occupancyType') as FormArray;
+    const interests = (<FormArray>(
+      this.occupancyFormGroup.get("occupancyType")
+    )) as FormArray;
 
     if (event.checked) {
-      interests.push(new FormControl(event.source.value))
+      interests.push(new FormControl(event.source.value));
     } else {
-      const i = interests.controls.findIndex(x => x.value === event.source.value);
+      const i = interests.controls.findIndex(
+        (x) => x.value === event.source.value
+      );
       interests.removeAt(i);
     }
   }
 
   onChangeRoomCountForm(event: any) {
-    const interests = <FormArray>this.occupancyFormGroup.get('roomNumberCheck') as FormArray;
+    const interests = (<FormArray>(
+      this.occupancyFormGroup.get("roomNumberCheck")
+    )) as FormArray;
 
     if (event.checked) {
-      interests.push(new FormControl(event.source.value))
+      interests.push(new FormControl(event.source.value));
     } else {
-      const i = interests.controls.findIndex(x => x.value === event.source.value);
+      const i = interests.controls.findIndex(
+        (x) => x.value === event.source.value
+      );
       interests.removeAt(i);
     }
   }

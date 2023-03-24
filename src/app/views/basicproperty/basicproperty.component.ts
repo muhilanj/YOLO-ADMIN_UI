@@ -60,7 +60,7 @@ export class BasicpropertyComponent implements OnInit {
     public dialogService: DialogService,
     private _formBuilder: FormBuilder,
     private Propertyservice: CommmonService,
-    private router: Router,
+    private _router: Router,
     private route: ActivatedRoute
   ) {}
   ngOnInit() {
@@ -85,6 +85,11 @@ export class BasicpropertyComponent implements OnInit {
     };
 
     console.log(payload);
+    this.toastRService.success("Basic Property Added Successfully");
+
+    this._router.navigate(["/advanceproperty"], {
+      queryParams: { id: 5 },
+    });
 
     // this.Propertyservice.postAPI("/add_basic_property", payload).subscribe(
     //   (res) => {

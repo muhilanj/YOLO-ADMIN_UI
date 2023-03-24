@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="!isLoading">
+    <div class="row" *ngIf="!isLoading" style="justify-content: space-between">
       <div class="col-lg-3 card-wrapper">
         <mat-card class="card">
           <mat-card-content
@@ -45,6 +45,15 @@
             </span></mat-card-content
           >
         </mat-card>
+      </div>
+
+      <div class="add-button-container">
+        <div class="add-button-round">
+          <!-- <span class="add-label">Add Property</span> -->
+          <button mat-button (click)="onClickAddButton()">
+            <mat-icon style="color: white">add</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -87,14 +96,6 @@
             (pageChange)="p = $event"
             class="float-right"
           ></pagination-controls>
-        </div>
-      </div>
-
-      <div class="add-button-container">
-        <div class="add-button-round">
-          <button mat-button (click)="onClickAddButton()">
-            <mat-icon style="color: white">add</mat-icon>
-          </button>
         </div>
       </div>
     </div>

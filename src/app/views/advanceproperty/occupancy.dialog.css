@@ -1,39 +1,53 @@
 .mat-form-field {
-    width: 250px !important;
+  width: 250px !important;
 }
 
 .removeIcon {
-    width: 72px;
-    display: flex;
-    height: 33px;
-    color: #fff;
-    background: blue;
-    border: 1px solid blue;
-    margin-top: 11px;
-    margin-left: 10px;
-    padding: 6px;
+  width: 72px;
+  display: flex;
+  height: 33px;
+  color: #fff;
+  background: blue;
+  border: 1px solid blue;
+  margin-top: 11px;
+  margin-left: 10px;
+  padding: 6px;
 }
 
 .addIcon {
-    width: 72px;
-    height: 33px;
-    color: #fff;
-    background: #000;
-    border: 1px solid #000;
-    padding: 6px;
+  width: 72px;
+  height: 33px;
+  color: #fff;
+  background: #000;
+  border: 1px solid #000;
+  padding: 6px;
 }
 
 .form {
-    padding: 20px;
-    border: 1px solid #ccc;
+  padding: 20px;
+  border: 1px solid #ccc;
 }
 
-
 .occ-row {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .radioLabel {
-    color: black;
+  color: #3e3e3e;
+  font-weight: 600;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.divider {
+  margin: 20px 0px;
+}
+
+.room {
+  padding-left: 0px;
+}
+
+input:focus {
+  outline: none;
 }

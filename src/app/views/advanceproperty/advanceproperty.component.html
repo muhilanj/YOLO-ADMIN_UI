@@ -13,16 +13,26 @@
       </div>
     </div>
 
-    <!-- <div class="row spinner-wrapper" *ngIf="isLoading">
+    <div class="row spinner-wrapper" *ngIf="loader">
       <mat-spinner [diameter]="50"></mat-spinner>
-    </div> -->
+    </div>
 
-    <div class="row">
-      <form [formGroup]="advancePropertyFormGroup" (ngSubmit)="onSubmitAdavanceProperty()" #documentEditForm="ngForm"
-        class="form-wrap">
+    <div class="row" *ngIf="!loader">
+      <form
+        [formGroup]="advancePropertyFormGroup"
+        (ngSubmit)="onSubmitAdavanceProperty()"
+        #documentEditForm="ngForm"
+        class="form-wrap"
+      >
         <div class="form">
           <div class="form-wrapper">
-            <div fxFlex="100%" fxFlex.lg="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <div
+              fxFlex="100%"
+              fxFlex.lg="100%"
+              fxFlex.md="100%"
+              fxFlex.sm="100%"
+              fxFlex.xs="100%"
+            >
               <!-- <mat-form-field appearance="outline" fxFlex="100%"> -->
               <div class="input-wrapper">
                 <span class="label">Property Status :</span>
@@ -40,18 +50,43 @@
           </div>
           <div class="form-wrapper">
             <div class="occ-row">
-              <div fxFlex="45%" fxFlex.lg="45%" fxFlex.md="45%" fxFlex.sm="45%" fxFlex.xs="100%">
+              <div
+                fxFlex="45%"
+                fxFlex.lg="45%"
+                fxFlex.md="45%"
+                fxFlex.sm="45%"
+                fxFlex.xs="100%"
+              >
                 <p class="radioLabel">Select Images</p>
                 <section>
-                  <input type="file" id="file" name="fileInput" formControlName="propertyImage" accept="image/*"
-                    multiple (change)="onSelectFile($event)" />
+                  <input
+                    type="file"
+                    id="file"
+                    name="fileInput"
+                    formControlName="propertyImage"
+                    accept="image/*"
+                    multiple
+                    (change)="onSelectFile($event)"
+                  />
                 </section>
               </div>
-              <div fxFlex="45%" fxFlex.lg="45%" fxFlex.md="45%" fxFlex.sm="45%" fxFlex.xs="100%">
+              <div
+                fxFlex="45%"
+                fxFlex.lg="45%"
+                fxFlex.md="45%"
+                fxFlex.sm="45%"
+                fxFlex.xs="100%"
+              >
                 <p class="radioLabel">Select Videos</p>
                 <section>
-                  <input type="file" id="fileInput" name="fileInput" formControlName="propertyVideo" accept="image/*"
-                    multiple />
+                  <input
+                    type="file"
+                    id="fileInput"
+                    name="fileInput"
+                    formControlName="propertyVideo"
+                    accept="image/*"
+                    multiple
+                  />
                 </section>
               </div>
             </div>
@@ -60,15 +95,21 @@
             <mat-card-header>
               <mat-card-subtitle>Property Facilities</mat-card-subtitle>
             </mat-card-header>
-            <p class="error" *ngIf="advancePropertyFormGroup.controls['facility'].errors?.['required']">
+            <p
+              class="error"
+              *ngIf="advancePropertyFormGroup.controls['facility'].errors?.['required']"
+            >
               Select atleast one.
             </p>
             <div>
               <div class="row">
                 <ng-container *ngFor="let item of faclityData; let i = index">
                   <div class="col-md-4">
-                    <mat-checkbox [value]="item.facility_name" (change)="onChangeFacility($event)">{{ item.facility_name
-                      }}</mat-checkbox>
+                    <mat-checkbox
+                      [value]="item.facility_name"
+                      (change)="onChangeFacility($event)"
+                      >{{ item.facility_name }}</mat-checkbox
+                    >
                   </div>
                 </ng-container>
               </div>
@@ -78,28 +119,48 @@
             <mat-card-header>
               <mat-card-subtitle>Property Type Available</mat-card-subtitle>
             </mat-card-header>
-            <p class="error" *ngIf="!(occupancyDetails['single'] || occupancyDetails['double'] || occupancyDetails['shared'])">
+            <p
+              class="error"
+              *ngIf="
+                !(
+                  occupancyDetails['single'] ||
+                  occupancyDetails['double'] ||
+                  occupancyDetails['shared']
+                )
+              "
+            >
               Select atleast one.
             </p>
-            <div class="occupancy-cont" >
-              <div class="row" style="width: 300px" *ngFor="let item of occupancyData">
+            <div class="occupancy-cont">
+              <div
+                class="row"
+                style="width: 300px"
+                *ngFor="let item of occupancyData"
+              >
                 <div class="obutton-container">
                   <span>{{ item.category_name }}</span>
-                  <span style="align-self: center; padding-left: 15px;" [ngClass]="
-                          occupancyDetails[item.key] !== undefined
-                            ? 'delete'
-                            : 'add'
-                        " (click)="occupancyDetails[item.key] !== undefined ? deleteDetails(item) : openDialog(item)">{{
-                        occupancyDetails[item.key] == undefined
-                      ? "Add"
-                      : "Delete"
-                      }}</span>
+                  <span
+                    style="align-self: center; padding-left: 15px"
+                    [ngClass]="
+                      occupancyDetails[item.key] !== undefined
+                        ? 'delete'
+                        : 'add'
+                    "
+                    (click)="
+                      occupancyDetails[item.key] !== undefined
+                        ? deleteDetails(item)
+                        : openDialog(item)
+                    "
+                    >{{
+                      occupancyDetails[item.key] == undefined ? "Add" : "Delete"
+                    }}</span
+                  >
                 </div>
-                
               </div>
             </div>
           </div>
         </div>
+        <input class="submit" type="submit" value="Submit" />
       </form>
     </div>
   </div>
