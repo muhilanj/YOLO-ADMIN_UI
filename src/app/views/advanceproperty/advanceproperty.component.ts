@@ -98,26 +98,23 @@ export class AdvancepropertyComponent implements OnInit {
     this.getPropertyFacilities();
   }
 
-  openDialog(data: any): void {
+  openDialog(data: any, occupancyDetails: any): void {
     const dialogRef = this.dialog.open(OccupancyDialog, {
-      data,
+      data: { data, formDetails: occupancyDetails },
       width: "1000px",
     });
 
     dialogRef.componentInstance.onSubmitEvent.subscribe((payload: any) => {
       this.occupancyDetails[payload.category] = payload.data;
-      console.log(this.occupancyDetails);
+      this.occupancyDetails[payload.category + "_form"] = payload.formData;
     });
   }
 
   deleteDetails(occupancy: any) {
     if (this.occupancyDetails[occupancy.key]) {
       this.occupancyDetails[occupancy.key] = undefined;
+      this.occupancyDetails[occupancy.key + "_form"] = undefined;
     }
-  }
-
-  submitForm() {
-    if (this.documentEditForm?.valid) this.documentEditForm?.ngSubmit.emit();
   }
 
   public onSubmitAdavanceProperty(): void {
@@ -138,8 +135,10 @@ export class AdvancepropertyComponent implements OnInit {
       Images: "",
       videos: propertyVideo,
     };
-    this.toastrService.success("Advance Property Added Successfully");
-    this._router.navigate(["/property-main"]);
+
+    console.log(this.advancePropertyFormGroup.value, this.occupancyDetails);
+    // this.toastrService.success("Advance Property Added Successfully");
+    // this._router.navigate(["/property-main"]);
 
     // this.Propertyservice.postAPI("/add_advanced_property", payload).subscribe(
     //   (res) => {
@@ -231,6 +230,7 @@ export class OccupancyDialog {
     | FormGroupDirective
     | undefined;
   constructor(
+    private toastrService: ToastrService,
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public occupancyData: any,
     public dialogService: DialogService,
@@ -276,8 +276,16 @@ export class OccupancyDialog {
   public roomValues: number[] = [];
 
   ngOnInit() {
-    this.getRoomFacilities();
-    this.getFlatType();
+    if (this.occupancyData?.formDetails) {
+      this.occupancyFormGroup = this.occupancyData?.formDetails;
+      if (this.occupancyFormGroup?.value?.totalFloors) {
+        this.floorsLooping(this.occupancyFormGroup?.value?.totalFloors);
+      }
+      if (this.occupancyFormGroup?.value?.noOfRooms) {
+        this.roomValues = this.occupancyFormGroup?.value?.roomNumberCheck;
+      }
+    }
+
     this.values.push({ value: "" });
     this.occupancyFormGroup.get("flatType")?.valueChanges.subscribe((x) => {
       this.formValueChanges(x);
@@ -292,16 +300,20 @@ export class OccupancyDialog {
         this.onChangeRoomCount(x);
       }
     });
+    this.getRoomFacilities();
+    this.getFlatType();
   }
 
   onSubmit() {
     if (!this.documentEditForm?.valid) {
+      console.log("invalid");
+      this.toastrService.error("Please enter all fields");
       return;
     }
 
-    if (!this.isOpen) {
-      return;
-    }
+    // if (!this.isOpen) {
+    //   return;
+    // }
 
     const {
       totalFloors,
@@ -316,7 +328,7 @@ export class OccupancyDialog {
     } = this.occupancyFormGroup.value;
 
     const payload = {
-      category_id: this.occupancyData.category_id,
+      category_id: this.occupancyData?.data.category_id,
       total_floors: totalFloors,
       flat_type: flatType,
       dimension: dimension,
@@ -326,15 +338,21 @@ export class OccupancyDialog {
       images: this.urls,
       videos: flatVideo,
       flat_number: this.roomValues,
-      occupancy_type: this.occupancyData.key,
+      occupancy_type: this.occupancyData?.data?.key,
     };
 
+    let roomsControl = (<FormArray>(
+      this.occupancyFormGroup.get("roomNumberCheck")
+    )) as FormArray;
+    this.roomValues.forEach((value: any) => {
+      roomsControl.push(new FormControl(value));
+    });
     this.onSubmitEvent.emit({
-      category: this.occupancyData.key,
+      category: this.occupancyData?.data.key,
       data: payload,
+      formData: this.occupancyFormGroup,
     });
 
-    console.log(payload);
     this.dialogRef.close();
   }
 
@@ -342,7 +360,21 @@ export class OccupancyDialog {
   getRoomFacilities() {
     this.Propertyservice.getAPI("/get_room_facilities").subscribe(
       (res: any) => {
-        this.roomFacilties = res.data;
+        this.roomFacilties = res.data.map((e: any) => ({
+          ...e,
+          checked: false,
+        }));
+        if (this.occupancyFormGroup?.value?.facilityAvailable) {
+          this.roomFacilties.forEach((item) => {
+            if (
+              this.occupancyFormGroup?.value?.facilityAvailable?.includes(
+                item.facility_id
+              )
+            ) {
+              item.checked = true;
+            }
+          });
+        }
       }
     );
   }
@@ -407,7 +439,8 @@ export class OccupancyDialog {
     this.roomValues = vals;
   }
 
-  onChangeFacility(event: any) {
+  onChangeFacility(event: any, index: number) {
+    this.roomFacilties[index]["checked"] = !event.checked;
     const interests = (<FormArray>(
       this.occupancyFormGroup.get("facilityAvailable")
     )) as FormArray;
@@ -451,8 +484,47 @@ export class OccupancyDialog {
       interests.removeAt(i);
     }
   }
-
   submitForm() {
-    if (this.documentEditForm?.valid) this.documentEditForm?.ngSubmit.emit();
+    if (!this.documentEditForm?.valid) {
+      return;
+    }
+
+    if (!this.isOpen) {
+      return;
+    }
+
+    const {
+      totalFloors,
+      flatType,
+      dimension,
+      chooseFloor,
+      noOfRooms,
+      facilityAvailable,
+      flatImage,
+      flatVideo,
+      roomNumberCheck,
+    } = this.occupancyFormGroup.value;
+
+    const payload = {
+      category_id: this.occupancyData?.data.category_id,
+      total_floors: totalFloors,
+      flat_type: flatType,
+      dimension: dimension,
+      floor_number: chooseFloor,
+      total_rooms: noOfRooms,
+      flat_facilities: facilityAvailable,
+      images: this.urls,
+      videos: flatVideo,
+      flat_number: this.roomValues,
+      occupancy_type: this.occupancyData?.data?.key,
+    };
+
+    this.onSubmitEvent.emit({
+      category: this.occupancyData?.data.key,
+      data: payload,
+      formData: this.occupancyFormGroup,
+    });
+
+    this.dialogRef.close();
   }
 }

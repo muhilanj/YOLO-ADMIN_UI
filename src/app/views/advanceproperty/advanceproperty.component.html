@@ -134,7 +134,7 @@
             <div class="occupancy-cont">
               <div
                 class="row"
-                style="width: 300px"
+                style="margin-right: 50px"
                 *ngFor="let item of occupancyData"
               >
                 <div class="obutton-container">
@@ -148,12 +148,19 @@
                     "
                     (click)="
                       occupancyDetails[item.key] !== undefined
-                        ? deleteDetails(item)
-                        : openDialog(item)
+                        ? openDialog(item, occupancyDetails[item.key + '_form'])
+                        : openDialog(item, occupancyDetails[item.key])
                     "
                     >{{
-                      occupancyDetails[item.key] == undefined ? "Add" : "Delete"
+                      occupancyDetails[item.key] == undefined ? "Add" : "Edit"
                     }}</span
+                  >
+                  <span
+                    *ngIf="occupancyDetails[item.key] !== undefined"
+                    style="align-self: center; padding-left: 15px"
+                    class="delete"
+                    (click)="deleteDetails(item)"
+                    >Delete</span
                   >
                 </div>
               </div>

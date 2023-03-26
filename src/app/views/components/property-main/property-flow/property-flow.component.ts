@@ -8,8 +8,8 @@ import { SharedComponent } from "src/app/views/shared/shared.component";
 import { SingleoccupancyComponent } from "src/app/views/singleoccupancy/singleoccupancy.component";
 
 export type IntermediateData = {
-  data: any, 
-  canStepNext: boolean
+  data: any;
+  canStepNext: boolean;
 };
 @Component({
   selector: "app-property-flow",
@@ -17,13 +17,24 @@ export type IntermediateData = {
   styleUrls: ["./property-flow.component.css"],
 })
 export class PropertyFlowComponent implements OnInit {
-
-  @ViewChild(BasicpropertyComponent, {static : true}) basicProperty: BasicpropertyComponent | undefined;
-  @ViewChild(AdvancepropertyComponent, {static : true}) advancedProperty: AdvancepropertyComponent | undefined;
-  @ViewChild(SingleoccupancyComponent, {static : false}) singleOccupancy: SingleoccupancyComponent | undefined;
-  @ViewChild(DoubleComponent, {static : false}) doubleOccupancy: DoubleComponent | undefined;
-  @ViewChild(SharedComponent, {static : false}) sharedOccupancy: SharedComponent | undefined;
-  @ViewChild(PriceComponent, {static : true}) priceComp: PriceComponent | undefined;
+  @ViewChild(BasicpropertyComponent, { static: true }) basicProperty:
+    | BasicpropertyComponent
+    | undefined;
+  @ViewChild(AdvancepropertyComponent, { static: true }) advancedProperty:
+    | AdvancepropertyComponent
+    | undefined;
+  @ViewChild(SingleoccupancyComponent, { static: false }) singleOccupancy:
+    | SingleoccupancyComponent
+    | undefined;
+  @ViewChild(DoubleComponent, { static: false }) doubleOccupancy:
+    | DoubleComponent
+    | undefined;
+  @ViewChild(SharedComponent, { static: false }) sharedOccupancy:
+    | SharedComponent
+    | undefined;
+  @ViewChild(PriceComponent, { static: true }) priceComp:
+    | PriceComponent
+    | undefined;
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ["", Validators.required],
@@ -37,12 +48,12 @@ export class PropertyFlowComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder) {}
 
   basicPropertyMessage: IntermediateData = {
-    data: null, 
-    canStepNext: false
+    data: null,
+    canStepNext: false,
   };
 
   receiveMessageFromBasicProperty($event: any) {
-    this.basicPropertyMessage = $event
+    this.basicPropertyMessage = $event;
   }
 
   onClickBasicNext() {
@@ -51,26 +62,26 @@ export class PropertyFlowComponent implements OnInit {
   }
 
   advancedPropertyMessage: IntermediateData = {
-    data: null, 
-    canStepNext: false
+    data: null,
+    canStepNext: false,
   };
 
   receiveMessageFromAdvancedProperty($event: any) {
-    this.advancedPropertyMessage = $event
+    this.advancedPropertyMessage = $event;
   }
 
   onClickAdvancedNext() {
     if (this.advancedPropertyMessage.canStepNext) return;
-    this.advancedProperty?.submitForm();
+    // this.advancedProperty?.submitForm();
   }
 
   singleOccupancyMessage: IntermediateData = {
-    data: null, 
-    canStepNext: false
+    data: null,
+    canStepNext: false,
   };
 
   receiveMessageFromSingleOccupancy($event: any) {
-    this.singleOccupancyMessage = $event
+    this.singleOccupancyMessage = $event;
   }
 
   onClickSingleOccupancy() {
@@ -80,12 +91,12 @@ export class PropertyFlowComponent implements OnInit {
   }
 
   dualOccupancyMessage: IntermediateData = {
-    data: null, 
-    canStepNext: false
+    data: null,
+    canStepNext: false,
   };
 
   receiveMessageFromDualOccupancy($event: any) {
-    this.dualOccupancyMessage = $event
+    this.dualOccupancyMessage = $event;
   }
 
   onClickDoubleOccupancy() {
@@ -94,12 +105,12 @@ export class PropertyFlowComponent implements OnInit {
   }
 
   tripleOccupancyMessage: IntermediateData = {
-    data: null, 
-    canStepNext: false
+    data: null,
+    canStepNext: false,
   };
 
   receiveMessageFromTripleOccupancy($event: any) {
-    this.tripleOccupancyMessage = $event
+    this.tripleOccupancyMessage = $event;
   }
 
   onClickSharedOccupancy() {
@@ -110,7 +121,6 @@ export class PropertyFlowComponent implements OnInit {
   onClickPrice() {
     this.priceComp?.submitForm();
   }
-
 
   ngOnInit(): void {}
 

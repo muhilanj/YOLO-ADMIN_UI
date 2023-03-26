@@ -1,7 +1,6 @@
 <div style="overflow-y: scroll; height: 600px" fxFlex="100%" width="100%">
   <form
     [formGroup]="occupancyFormGroup"
-    (ngSubmit)="onSubmit()"
     class="form"
     #documentEditForm="ngForm"
   >
@@ -193,11 +192,12 @@
         </p>
         <section>
           <div class="row">
-            <ng-container *ngFor="let item of roomFacilties">
+            <ng-container *ngFor="let item of roomFacilties;let i = index">
               <div class="col-md-4">
                 <mat-checkbox
-                  (change)="onChangeFacility($event)"
+                  (change)="onChangeFacility($event,i)"
                   [value]="item.facility_id"
+                  [checked]="item.checked"
                   >{{ item.facility_name }}</mat-checkbox
                 >
               </div>
@@ -309,7 +309,7 @@
         >
           Cancel
         </button>
-        <button mat-raised-button color="primary" (click)="submitForm()">
+        <button mat-raised-button color="primary" (click)="onSubmit()">
           Submit
         </button>
       </div>
