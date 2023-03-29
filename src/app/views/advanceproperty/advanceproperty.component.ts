@@ -63,6 +63,7 @@ export class AdvancepropertyComponent implements OnInit {
     facility: this._formBuilder.array([], Validators.required),
     occupancyType: this._formBuilder.array([], Validators.required),
     propertyStatus: ["", Validators.required],
+    totalFloors: ["", Validators.required],
   });
   public occupancyData: any[] = [
     {
@@ -99,15 +100,14 @@ export class AdvancepropertyComponent implements OnInit {
   }
 
   openDialog(data: any, occupancyDetails: any): void {
-    const dialogRef = this.dialog.open(OccupancyDialog, {
-      data: { data, formDetails: occupancyDetails },
-      width: "1000px",
-    });
-
-    dialogRef.componentInstance.onSubmitEvent.subscribe((payload: any) => {
-      this.occupancyDetails[payload.category] = payload.data;
-      this.occupancyDetails[payload.category + "_form"] = payload.formData;
-    });
+    // const dialogRef = this.dialog.open(OccupancyDialog, {
+    //   data: { data, formDetails: occupancyDetails },
+    //   width: "1000px",
+    // });
+    // dialogRef.componentInstance.onSubmitEvent.subscribe((payload: any) => {
+    //   this.occupancyDetails[payload.category] = payload.data;
+    //   this.occupancyDetails[payload.category + "_form"] = payload.formData;
+    // });
   }
 
   deleteDetails(occupancy: any) {
@@ -136,7 +136,15 @@ export class AdvancepropertyComponent implements OnInit {
       videos: propertyVideo,
     };
 
-    console.log(this.advancePropertyFormGroup.value, this.occupancyDetails);
+    console.log(this.advancePropertyFormGroup.value);
+    //venki
+    //Call advanced property API here and pass id and totalfloors as query parameter
+    this.toastrService.success("Advanced Property Added Successfully");
+
+    this._router.navigate(["/occupancy"], {
+      queryParams: { id: 5, f: 5 },
+    });
+
     // this.toastrService.success("Advance Property Added Successfully");
     // this._router.navigate(["/property-main"]);
 
@@ -220,311 +228,311 @@ export class AdvancepropertyComponent implements OnInit {
   }
 }
 
-@Component({
-  selector: "app-occupancy-dialog",
-  templateUrl: "./occupancy.dialog.html",
-  styleUrls: ["./occupancy.dialog.css"],
-})
-export class OccupancyDialog {
-  @ViewChild("documentEditForm") documentEditForm:
-    | FormGroupDirective
-    | undefined;
-  constructor(
-    private toastrService: ToastrService,
-    public dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) public occupancyData: any,
-    public dialogService: DialogService,
-    private _formBuilder: FormBuilder,
-    private Propertyservice: CommmonService
-  ) {
-    this.dialogRef.disableClose = true;
-  }
+// @Component({
+//   selector: "app-occupancy-dialog",
+//   templateUrl: "./occupancy.dialog.html",
+//   styleUrls: ["./occupancy.dialog.css"],
+// })
+// export class OccupancyDialog {
+//   @ViewChild("documentEditForm") documentEditForm:
+//     | FormGroupDirective
+//     | undefined;
+//   constructor(
+//     private toastrService: ToastrService,
+//     public dialogRef: MatDialogRef<any>,
+//     @Inject(MAT_DIALOG_DATA) public occupancyData: any,
+//     public dialogService: DialogService,
+//     private _formBuilder: FormBuilder,
+//     private Propertyservice: CommmonService
+//   ) {
+//     this.dialogRef.disableClose = true;
+//   }
 
-  isOpen = true;
-  onSubmitEvent = new EventEmitter();
+//   isOpen = true;
+//   onSubmitEvent = new EventEmitter();
 
-  isLinear = false;
-  checked: boolean = true;
-  selected: any = [];
-  urls: any[] = [];
-  myFiles: string[] = [];
-  sMsg: string = "";
-  values: any[] = [];
-  occupancyFormGroup = this._formBuilder.group({
-    totalFloors: ["", Validators.required],
-    flatType: ["", Validators.required],
-    dimension: ["", Validators.required],
-    chooseFloor: ["", Validators.required],
-    noOfRooms: ["", Validators.required],
-    facilityAvailable: this._formBuilder.array([], Validators.required),
-    flatImage: [""],
-    flatVideo: [""],
-    roomNumberCheck: this._formBuilder.array([]),
-    advancePayment: ["", Validators.required],
-    rent: ["", Validators.required],
-    duration: ["", Validators.required],
-  });
+//   isLinear = false;
+//   checked: boolean = true;
+//   selected: any = [];
+//   urls: any[] = [];
+//   myFiles: string[] = [];
+//   sMsg: string = "";
+//   values: any[] = [];
+//   occupancyFormGroup = this._formBuilder.group({
+//     totalFloors: ["", Validators.required],
+//     flatType: ["", Validators.required],
+//     dimension: ["", Validators.required],
+//     chooseFloor: ["", Validators.required],
+//     noOfRooms: ["", Validators.required],
+//     facilityAvailable: this._formBuilder.array([], Validators.required),
+//     flatImage: [""],
+//     flatVideo: [""],
+//     roomNumberCheck: this._formBuilder.array([]),
+//     advancePayment: ["", Validators.required],
+//     rent: ["", Validators.required],
+//     duration: ["", Validators.required],
+//   });
 
-  public cityData: any[] = [];
-  public areaData: any[] = [];
-  public stateData: any[] = [];
-  public propertyDetailsData: any[] = [];
-  public unit: string = "";
-  public flatTypeData: any[] = [];
-  public roomFacilties: any[] = [];
-  public floorValues: number[] = [];
-  public roomValues: number[] = [];
+//   public cityData: any[] = [];
+//   public areaData: any[] = [];
+//   public stateData: any[] = [];
+//   public propertyDetailsData: any[] = [];
+//   public unit: string = "";
+//   public flatTypeData: any[] = [];
+//   public roomFacilties: any[] = [];
+//   public floorValues: number[] = [];
+//   public roomValues: number[] = [];
 
-  ngOnInit() {
-    if (this.occupancyData?.formDetails) {
-      this.occupancyFormGroup = this.occupancyData?.formDetails;
-      if (this.occupancyFormGroup?.value?.totalFloors) {
-        this.floorsLooping(this.occupancyFormGroup?.value?.totalFloors);
-      }
-      if (this.occupancyFormGroup?.value?.noOfRooms) {
-        this.roomValues = this.occupancyFormGroup?.value?.roomNumberCheck;
-      }
-    }
+//   ngOnInit() {
+//     if (this.occupancyData?.formDetails) {
+//       this.occupancyFormGroup = this.occupancyData?.formDetails;
+//       if (this.occupancyFormGroup?.value?.totalFloors) {
+//         this.floorsLooping(this.occupancyFormGroup?.value?.totalFloors);
+//       }
+//       if (this.occupancyFormGroup?.value?.noOfRooms) {
+//         this.roomValues = this.occupancyFormGroup?.value?.roomNumberCheck;
+//       }
+//     }
 
-    this.values.push({ value: "" });
-    this.occupancyFormGroup.get("flatType")?.valueChanges.subscribe((x) => {
-      this.formValueChanges(x);
-    });
-    this.occupancyFormGroup.get("totalFloors")?.valueChanges.subscribe((x) => {
-      if (x) {
-        this.floorsLooping(x);
-      }
-    });
-    this.occupancyFormGroup.get("noOfRooms")?.valueChanges.subscribe((x) => {
-      if (x) {
-        this.onChangeRoomCount(x);
-      }
-    });
-    this.getRoomFacilities();
-    this.getFlatType();
-  }
+//     this.values.push({ value: "" });
+//     this.occupancyFormGroup.get("flatType")?.valueChanges.subscribe((x) => {
+//       this.formValueChanges(x);
+//     });
+//     this.occupancyFormGroup.get("totalFloors")?.valueChanges.subscribe((x) => {
+//       if (x) {
+//         this.floorsLooping(x);
+//       }
+//     });
+//     this.occupancyFormGroup.get("noOfRooms")?.valueChanges.subscribe((x) => {
+//       if (x) {
+//         this.onChangeRoomCount(x);
+//       }
+//     });
+//     this.getRoomFacilities();
+//     this.getFlatType();
+//   }
 
-  onSubmit() {
-    if (!this.documentEditForm?.valid) {
-      console.log("invalid");
-      this.toastrService.error("Please enter all fields");
-      return;
-    }
+//   onSubmit() {
+//     if (!this.documentEditForm?.valid) {
+//       console.log("invalid");
+//       this.toastrService.error("Please enter all fields");
+//       return;
+//     }
 
-    // if (!this.isOpen) {
-    //   return;
-    // }
+//     // if (!this.isOpen) {
+//     //   return;
+//     // }
 
-    const {
-      totalFloors,
-      flatType,
-      dimension,
-      chooseFloor,
-      noOfRooms,
-      facilityAvailable,
-      flatImage,
-      flatVideo,
-      roomNumberCheck,
-    } = this.occupancyFormGroup.value;
+//     const {
+//       totalFloors,
+//       flatType,
+//       dimension,
+//       chooseFloor,
+//       noOfRooms,
+//       facilityAvailable,
+//       flatImage,
+//       flatVideo,
+//       roomNumberCheck,
+//     } = this.occupancyFormGroup.value;
 
-    const payload = {
-      category_id: this.occupancyData?.data.category_id,
-      total_floors: totalFloors,
-      flat_type: flatType,
-      dimension: dimension,
-      floor_number: chooseFloor,
-      total_rooms: noOfRooms,
-      flat_facilities: facilityAvailable,
-      images: this.urls,
-      videos: flatVideo,
-      flat_number: this.roomValues,
-      occupancy_type: this.occupancyData?.data?.key,
-    };
+//     const payload = {
+//       category_id: this.occupancyData?.data.category_id,
+//       total_floors: totalFloors,
+//       flat_type: flatType,
+//       dimension: dimension,
+//       floor_number: chooseFloor,
+//       total_rooms: noOfRooms,
+//       flat_facilities: facilityAvailable,
+//       images: this.urls,
+//       videos: flatVideo,
+//       flat_number: this.roomValues,
+//       occupancy_type: this.occupancyData?.data?.key,
+//     };
 
-    let roomsControl = (<FormArray>(
-      this.occupancyFormGroup.get("roomNumberCheck")
-    )) as FormArray;
-    this.roomValues.forEach((value: any) => {
-      roomsControl.push(new FormControl(value));
-    });
-    this.onSubmitEvent.emit({
-      category: this.occupancyData?.data.key,
-      data: payload,
-      formData: this.occupancyFormGroup,
-    });
+//     let roomsControl = (<FormArray>(
+//       this.occupancyFormGroup.get("roomNumberCheck")
+//     )) as FormArray;
+//     this.roomValues.forEach((value: any) => {
+//       roomsControl.push(new FormControl(value));
+//     });
+//     this.onSubmitEvent.emit({
+//       category: this.occupancyData?.data.key,
+//       data: payload,
+//       formData: this.occupancyFormGroup,
+//     });
 
-    this.dialogRef.close();
-  }
+//     this.dialogRef.close();
+//   }
 
-  onNoClose() {}
-  getRoomFacilities() {
-    this.Propertyservice.getAPI("/get_room_facilities").subscribe(
-      (res: any) => {
-        this.roomFacilties = res.data.map((e: any) => ({
-          ...e,
-          checked: false,
-        }));
-        if (this.occupancyFormGroup?.value?.facilityAvailable) {
-          this.roomFacilties.forEach((item) => {
-            if (
-              this.occupancyFormGroup?.value?.facilityAvailable?.includes(
-                item.facility_id
-              )
-            ) {
-              item.checked = true;
-            }
-          });
-        }
-      }
-    );
-  }
-  getFlatType() {
-    this.Propertyservice.getAPI("/get_flat_type?categoryid=1").subscribe(
-      (res: any) => {
-        this.flatTypeData = res.data;
-      }
-    );
-  }
+//   onNoClose() {}
+//   getRoomFacilities() {
+//     this.Propertyservice.getAPI("/get_room_facilities").subscribe(
+//       (res: any) => {
+//         this.roomFacilties = res.data.map((e: any) => ({
+//           ...e,
+//           checked: false,
+//         }));
+//         if (this.occupancyFormGroup?.value?.facilityAvailable) {
+//           this.roomFacilties.forEach((item) => {
+//             if (
+//               this.occupancyFormGroup?.value?.facilityAvailable?.includes(
+//                 item.facility_id
+//               )
+//             ) {
+//               item.checked = true;
+//             }
+//           });
+//         }
+//       }
+//     );
+//   }
+//   getFlatType() {
+//     this.Propertyservice.getAPI("/get_flat_type?categoryid=1").subscribe(
+//       (res: any) => {
+//         this.flatTypeData = res.data;
+//       }
+//     );
+//   }
 
-  getFileDetails(ele: any) {
-    for (let item = 0; item < ele.target.files.length; item++) {
-      this.myFiles.push(ele.target.files[item]);
-    }
-  }
+//   getFileDetails(ele: any) {
+//     for (let item = 0; item < ele.target.files.length; item++) {
+//       this.myFiles.push(ele.target.files[item]);
+//     }
+//   }
 
-  onSelectFile(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      var filesAmount = event.target.files.length;
-      for (let i = 0; i < filesAmount; i++) {
-        var reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.urls.push(event.target.result);
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-    }
-  }
+//   onSelectFile(event: any) {
+//     if (event.target.files && event.target.files[0]) {
+//       var filesAmount = event.target.files.length;
+//       for (let i = 0; i < filesAmount; i++) {
+//         var reader = new FileReader();
+//         reader.onload = (event: any) => {
+//           this.urls.push(event.target.result);
+//         };
+//         reader.readAsDataURL(event.target.files[i]);
+//       }
+//     }
+//   }
 
-  public formValueChanges(type: string): void {
-    const domensiondata = this.flatTypeData.find(
-      (item) => item.flat_type === type
-    );
+//   public formValueChanges(type: string): void {
+//     const domensiondata = this.flatTypeData.find(
+//       (item) => item.flat_type === type
+//     );
 
-    this.occupancyFormGroup
-      .get("dimension")
-      ?.patchValue(domensiondata.dimension);
-    this.unit = domensiondata.unit;
-  }
+//     this.occupancyFormGroup
+//       .get("dimension")
+//       ?.patchValue(domensiondata.dimension);
+//     this.unit = domensiondata.unit;
+//   }
 
-  public floorsLooping(x: number): void {
-    this.floorValues = [];
-    for (let i = 1; i <= x; i++) {
-      this.floorValues.push(i);
-    }
-  }
+//   public floorsLooping(x: number): void {
+//     this.floorValues = [];
+//     for (let i = 1; i <= x; i++) {
+//       this.floorValues.push(i);
+//     }
+//   }
 
-  public onChangeRoomCount(x: number | string): void {
-    this.roomValues = [];
-    let value = 100;
-    for (let i = 1; i <= x; i++) {
-      value++;
+//   public onChangeRoomCount(x: number | string): void {
+//     this.roomValues = [];
+//     let value = 100;
+//     for (let i = 1; i <= x; i++) {
+//       value++;
 
-      this.roomValues.push(value);
-    }
-  }
+//       this.roomValues.push(value);
+//     }
+//   }
 
-  public onChangeRoomValues(x: any, index: number): void {
-    let vals = [...this.roomValues];
-    vals[index] = x.target.value;
-    this.roomValues = vals;
-  }
+//   public onChangeRoomValues(x: any, index: number): void {
+//     let vals = [...this.roomValues];
+//     vals[index] = x.target.value;
+//     this.roomValues = vals;
+//   }
 
-  onChangeFacility(event: any, index: number) {
-    this.roomFacilties[index]["checked"] = !event.checked;
-    const interests = (<FormArray>(
-      this.occupancyFormGroup.get("facilityAvailable")
-    )) as FormArray;
+//   onChangeFacility(event: any, index: number) {
+//     this.roomFacilties[index]["checked"] = !event.checked;
+//     const interests = (<FormArray>(
+//       this.occupancyFormGroup.get("facilityAvailable")
+//     )) as FormArray;
 
-    if (event.checked) {
-      interests.push(new FormControl(event.source.value));
-    } else {
-      const i = interests.controls.findIndex(
-        (x) => x.value === event.source.value
-      );
-      interests.removeAt(i);
-    }
-  }
+//     if (event.checked) {
+//       interests.push(new FormControl(event.source.value));
+//     } else {
+//       const i = interests.controls.findIndex(
+//         (x) => x.value === event.source.value
+//       );
+//       interests.removeAt(i);
+//     }
+//   }
 
-  onChangeOccupancy(event: any) {
-    const interests = (<FormArray>(
-      this.occupancyFormGroup.get("occupancyType")
-    )) as FormArray;
+//   onChangeOccupancy(event: any) {
+//     const interests = (<FormArray>(
+//       this.occupancyFormGroup.get("occupancyType")
+//     )) as FormArray;
 
-    if (event.checked) {
-      interests.push(new FormControl(event.source.value));
-    } else {
-      const i = interests.controls.findIndex(
-        (x) => x.value === event.source.value
-      );
-      interests.removeAt(i);
-    }
-  }
+//     if (event.checked) {
+//       interests.push(new FormControl(event.source.value));
+//     } else {
+//       const i = interests.controls.findIndex(
+//         (x) => x.value === event.source.value
+//       );
+//       interests.removeAt(i);
+//     }
+//   }
 
-  onChangeRoomCountForm(event: any) {
-    const interests = (<FormArray>(
-      this.occupancyFormGroup.get("roomNumberCheck")
-    )) as FormArray;
+//   onChangeRoomCountForm(event: any) {
+//     const interests = (<FormArray>(
+//       this.occupancyFormGroup.get("roomNumberCheck")
+//     )) as FormArray;
 
-    if (event.checked) {
-      interests.push(new FormControl(event.source.value));
-    } else {
-      const i = interests.controls.findIndex(
-        (x) => x.value === event.source.value
-      );
-      interests.removeAt(i);
-    }
-  }
-  submitForm() {
-    if (!this.documentEditForm?.valid) {
-      return;
-    }
+//     if (event.checked) {
+//       interests.push(new FormControl(event.source.value));
+//     } else {
+//       const i = interests.controls.findIndex(
+//         (x) => x.value === event.source.value
+//       );
+//       interests.removeAt(i);
+//     }
+//   }
+//   submitForm() {
+//     if (!this.documentEditForm?.valid) {
+//       return;
+//     }
 
-    if (!this.isOpen) {
-      return;
-    }
+//     if (!this.isOpen) {
+//       return;
+//     }
 
-    const {
-      totalFloors,
-      flatType,
-      dimension,
-      chooseFloor,
-      noOfRooms,
-      facilityAvailable,
-      flatImage,
-      flatVideo,
-      roomNumberCheck,
-    } = this.occupancyFormGroup.value;
+//     const {
+//       totalFloors,
+//       flatType,
+//       dimension,
+//       chooseFloor,
+//       noOfRooms,
+//       facilityAvailable,
+//       flatImage,
+//       flatVideo,
+//       roomNumberCheck,
+//     } = this.occupancyFormGroup.value;
 
-    const payload = {
-      category_id: this.occupancyData?.data.category_id,
-      total_floors: totalFloors,
-      flat_type: flatType,
-      dimension: dimension,
-      floor_number: chooseFloor,
-      total_rooms: noOfRooms,
-      flat_facilities: facilityAvailable,
-      images: this.urls,
-      videos: flatVideo,
-      flat_number: this.roomValues,
-      occupancy_type: this.occupancyData?.data?.key,
-    };
+//     const payload = {
+//       category_id: this.occupancyData?.data.category_id,
+//       total_floors: totalFloors,
+//       flat_type: flatType,
+//       dimension: dimension,
+//       floor_number: chooseFloor,
+//       total_rooms: noOfRooms,
+//       flat_facilities: facilityAvailable,
+//       images: this.urls,
+//       videos: flatVideo,
+//       flat_number: this.roomValues,
+//       occupancy_type: this.occupancyData?.data?.key,
+//     };
 
-    this.onSubmitEvent.emit({
-      category: this.occupancyData?.data.key,
-      data: payload,
-      formData: this.occupancyFormGroup,
-    });
+//     this.onSubmitEvent.emit({
+//       category: this.occupancyData?.data.key,
+//       data: payload,
+//       formData: this.occupancyFormGroup,
+//     });
 
-    this.dialogRef.close();
-  }
-}
+//     this.dialogRef.close();
+//   }
+// }

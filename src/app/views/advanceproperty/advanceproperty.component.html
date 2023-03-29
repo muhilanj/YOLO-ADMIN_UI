@@ -48,6 +48,30 @@
               <!-- </mat-form-field> -->
             </div>
           </div>
+
+          <div class="form-wrapper">
+            <div
+              fxFlex="100%"
+              fxFlex.lg="100%"
+              fxFlex.md="100%"
+              fxFlex.sm="100%"
+              fxFlex.xs="100%"
+            >
+              <!-- <mat-form-field appearance="outline" fxFlex="100%"> -->
+              <div class="input-wrapper">
+                <span class="label">Total Floors :</span>
+                <input
+                  type="number"
+                  class="textfield"
+                  matInput
+                  formControlName="totalFloors"
+                  placeholder=""
+                />
+              </div>
+
+              <!-- </mat-form-field> -->
+            </div>
+          </div>
           <div class="form-wrapper">
             <div class="occ-row">
               <div
@@ -112,57 +136,6 @@
                     >
                   </div>
                 </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="form-wrapper">
-            <mat-card-header>
-              <mat-card-subtitle>Property Type Available</mat-card-subtitle>
-            </mat-card-header>
-            <p
-              class="error"
-              *ngIf="
-                !(
-                  occupancyDetails['single'] ||
-                  occupancyDetails['double'] ||
-                  occupancyDetails['shared']
-                )
-              "
-            >
-              Select atleast one.
-            </p>
-            <div class="occupancy-cont">
-              <div
-                class="row"
-                style="margin-right: 50px"
-                *ngFor="let item of occupancyData"
-              >
-                <div class="obutton-container">
-                  <span>{{ item.category_name }}</span>
-                  <span
-                    style="align-self: center; padding-left: 15px"
-                    [ngClass]="
-                      occupancyDetails[item.key] !== undefined
-                        ? 'delete'
-                        : 'add'
-                    "
-                    (click)="
-                      occupancyDetails[item.key] !== undefined
-                        ? openDialog(item, occupancyDetails[item.key + '_form'])
-                        : openDialog(item, occupancyDetails[item.key])
-                    "
-                    >{{
-                      occupancyDetails[item.key] == undefined ? "Add" : "Edit"
-                    }}</span
-                  >
-                  <span
-                    *ngIf="occupancyDetails[item.key] !== undefined"
-                    style="align-self: center; padding-left: 15px"
-                    class="delete"
-                    (click)="deleteDetails(item)"
-                    >Delete</span
-                  >
-                </div>
               </div>
             </div>
           </div>

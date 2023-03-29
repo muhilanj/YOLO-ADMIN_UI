@@ -83,7 +83,8 @@ export class BasicpropertyComponent implements OnInit {
       user_id: 1,
       property_details: propertyDetails,
     };
-
+    //venki
+    //Call basic property API here and pass id as query parameter
     console.log(payload);
     this.toastRService.success("Basic Property Added Successfully");
 

@@ -1,0 +1,33 @@
+.button-container {
+  padding: 5px 10px 5px 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  max-width: 200px;
+  justify-content: space-between;
+  display: flex;
+}
+
+.add {
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+  color: #83d283;
+  cursor: pointer;
+}
+
+.delete {
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+  color: #ff7272;
+  cursor: pointer;
+}
+.occupancy-cont {
+  display: grid;
+  gap: 20px;
+}
+
+.error {
+  font-size: x-small;
+  color: red;
+}
