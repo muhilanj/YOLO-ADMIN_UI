@@ -22,6 +22,7 @@ import { PropertyFlowComponent } from "./views/components/property-main/property
 import { DashboardComponent } from "./views/dashboard/dashboard.component";
 import { OrdersComponent } from "./views/components/orders/orders.component";
 import { OccupancyViewComponent } from "./views/occupancy-view/occupancy-view.component";
+import { OccupancyDetailsComponent } from "./views/occupancy-details/occupancy-details.component";
 
 const routes: Routes = [
   {
@@ -49,8 +50,8 @@ const routes: Routes = [
     component: BasicpropertyComponent,
   },
   {
-    path: "sin", 
-    component: OccupancyViewComponent
+    path: "sin",
+    component: OccupancyViewComponent,
   },
   {
     path: "advanceproperty",
@@ -111,6 +112,10 @@ const routes: Routes = [
   {
     path: "orders",
     component: OrdersComponent,
+  },
+  {
+    path: "occupancy",
+    component: OccupancyDetailsComponent,
   },
   {
     path: "**",
