@@ -62,7 +62,7 @@ export class BasicpropertyComponent implements OnInit {
     private Propertyservice: CommmonService,
     private _router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
   ngOnInit() {
     this.getArea();
     this.getCity();
@@ -83,37 +83,33 @@ export class BasicpropertyComponent implements OnInit {
       user_id: 1,
       property_details: propertyDetails,
     };
-    //venki
-    //Call basic property API here and pass id as query parameter
-    console.log(payload);
-    this.toastRService.success("Basic Property Added Successfully");
+    this.Propertyservice.postAPI("/add_basic_property", payload).subscribe(
+      (res) => {
+        try {
+          if (res.status === 200) {
+            this.messageEvent.emit({
+              data: res.data,
+              canStepNext: true,
+            });
+            this.isSubmitSuccess = true;
 
-    this._router.navigate(["/advanceproperty"], {
-      queryParams: { id: 5 },
-    });
+            this._router.navigate(["/advanceproperty"], {
+              queryParams: { id: res.data?.[0].Property_id },
+            });
+            this.toastRService.success("Basic Property Added Successfully");
+          } else {
+            throw new Error();
+          }
+        } catch (e) {
+          this.messageEvent.emit({
+            data: null,
+            canStepNext: false,
+          });
+          this.toastRService.error("Error while adding basic property");
+        }
+      }
+    );
 
-    // this.Propertyservice.postAPI("/add_basic_property", payload).subscribe(
-    //   (res) => {
-    //     try {
-    //       console.log(res.status, res.data);
-    //       if (res.status === 200) {
-    //         this.messageEvent.emit({
-    //           data: res.data,
-    //           canStepNext: true,
-    //         });
-    //         this.isSubmitSuccess = true;
-    //       } else {
-    //         throw new Error();
-    //       }
-    //     } catch (e) {
-    //       this.messageEvent.emit({
-    //         data: null,
-    //         canStepNext: false,
-    //       });
-    //       this.toastRService.error("Error while adding basic property");
-    //     }
-    //   }
-    // );
   }
 
   submitForm() {

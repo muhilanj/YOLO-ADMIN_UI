@@ -58,16 +58,14 @@ export class OccupancyDetailsComponent implements OnInit {
       key: "shared",
     },
   ];
+  property_id: any;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
 
   ngOnInit() {
-    //venki
-    //in case the use has already entered data, call that and populate
-    //occupancyDetails and occupancyFormDetails accordingly using the id passed in parameter
     this.route.queryParams.subscribe((params: any) => {
-      // console.log(params); // { orderby: "price" }
-      this.totalFloors = params.f;
+      this.property_id = params.id;
+      this.totalFloors = params.total_floors;
       for (let i = 1; i <= this.totalFloors; i++) {
         this.occupancyDetails[i] = undefined;
         this.occupancyFormDetails[i] = undefined;
@@ -85,6 +83,8 @@ export class OccupancyDetailsComponent implements OnInit {
       data: {
         floorNumber,
         formDetails: this.occupancyFormDetails[floorNumber],
+        totalFloors: this.totalFloors,
+        property_id: this.property_id
       },
       width: "1000px",
     });
@@ -96,8 +96,7 @@ export class OccupancyDetailsComponent implements OnInit {
   }
 
   delete(floorNumber: any) {
-    //venki
-    //using floorNumber call delete API here
+    //TODO: Call delete API 
   }
 }
 
@@ -110,13 +109,15 @@ export class OccupancyDialog {
   @ViewChild("documentEditForm") documentEditForm:
     | FormGroupDirective
     | undefined;
+  propertyId: any;
   constructor(
     private toastrService: ToastrService,
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public occupancyData: any,
     public dialogService: DialogService,
     private _formBuilder: FormBuilder,
-    private Propertyservice: CommmonService
+    private Propertyservice: CommmonService,
+    private _router: Router
   ) {
     this.dialogRef.disableClose = true;
   }
@@ -155,7 +156,11 @@ export class OccupancyDialog {
   public floorValues: number[] = [];
   public roomValues: number[] = [];
 
+  public totalFloors: number = 0;
+
   ngOnInit() {
+    this.propertyId = this.occupancyData.property_id;
+    this.totalFloors = this.occupancyData.totalFloors;
     if (this.occupancyData?.formDetails) {
       this.occupancyFormGroup = this.occupancyData?.formDetails;
       if (this.occupancyFormGroup?.value?.totalFloors) {
@@ -191,34 +196,36 @@ export class OccupancyDialog {
       return;
     }
 
-    // if (!this.isOpen) {
-    //   return;
-    // }
-
     const {
-      totalFloors,
       flatType,
       dimension,
-      chooseFloor,
       noOfRooms,
       facilityAvailable,
-      flatImage,
       flatVideo,
-      roomNumberCheck,
+      occupancyType,
+      rent,
+      duration,
+      advancePayment,
     } = this.occupancyFormGroup.value;
 
+    const flatTypeId = this.flatTypeData.filter(f => f.flat_type === flatType)?.[0].flat_type_id;
     const payload = {
-      // category_id: this.occupancyData?.data.category_id,
-      total_floors: totalFloors,
-      flat_type: flatType,
+      user_id: 1,
+      property_id: this.propertyId,
+      room_size: flatType,
       dimension: dimension,
-      floor_number: chooseFloor,
+      Floor_number: this.occupancyData.occupancyData,
+      advance_amount: advancePayment,
       total_rooms: noOfRooms,
       flat_facilities: facilityAvailable,
+      duration: duration,
       images: this.urls,
+      rent: rent,
       videos: flatVideo,
       flat_number: this.roomValues,
-      // occupancy_type: this.occupancyData?.data?.key,
+      category_name: occupancyType,
+      occupancy_type: occupancyType,
+      flattypeid: flatTypeId
     };
 
     let roomsControl = (<FormArray>(
@@ -230,6 +237,20 @@ export class OccupancyDialog {
 
     //venki
     //call price API here and emit this inside
+    this.Propertyservice.postAPI("/add_flats_price", payload).subscribe(
+      (res) => {
+        try {
+          if (res.status === 200) {
+            console.log(res.status, res.data)
+          } else {
+            throw new Error();
+          }
+        } catch (e) {
+
+          this.toastrService.error("Error while adding advanced property");
+        }
+      }
+    );
 
     this.onSubmitEvent.emit({
       floorNumber: this.occupancyData?.floorNumber,
@@ -266,6 +287,7 @@ export class OccupancyDialog {
     this.Propertyservice.getAPI("/get_flat_type?categoryid=1").subscribe(
       (res: any) => {
         this.flatTypeData = res.data;
+        console.log({ type: this.flatTypeData })
       }
     );
   }

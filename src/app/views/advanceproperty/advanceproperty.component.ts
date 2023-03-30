@@ -91,10 +91,17 @@ export class AdvancepropertyComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private Propertyservice: CommmonService,
     public dialog: MatDialog,
-    private _router: Router
+    private _router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params: any) => {
+        console.log(params)
+        this.propertyId = params.id;
+      }
+    )
+    console.log(this.route.snapshot.params)
     this.loader = true;
     this.getPropertyFacilities();
   }
@@ -124,53 +131,40 @@ export class AdvancepropertyComponent implements OnInit {
       propertyStatus,
       facility,
       occupancyType,
+      totalFloors
     } = this.advancePropertyFormGroup.value;
 
     const payload = {
-      property_id: 1,
+      property_id: parseInt(this.propertyId),
       categories: occupancyType.toString(),
       status: Number(propertyStatus),
       facilities: facility.toString(),
       user_id: 1,
       Images: "",
       videos: propertyVideo,
+      total_floors: totalFloors
     };
 
-    console.log(this.advancePropertyFormGroup.value);
-    //venki
-    //Call advanced property API here and pass id and totalfloors as query parameter
-    this.toastrService.success("Advanced Property Added Successfully");
+    this.Propertyservice.postAPI("/add_advanced_property", payload).subscribe(
+      (res) => {
+        try {
+          if (res.status === 200) {
+            this.propertyDetailsData = res.data;
+            this.toastrService.success("Advanced Property Added Successfully");
 
-    this._router.navigate(["/occupancy"], {
-      queryParams: { id: 5, f: 5 },
-    });
+            this._router.navigate(["/occupancy"], {
+              queryParams: { id: this.propertyId, total_floors: totalFloors },
+            });
+        
+          } else {
+            throw new Error();
+          }
+        } catch (e) {
 
-    // this.toastrService.success("Advance Property Added Successfully");
-    // this._router.navigate(["/property-main"]);
-
-    // this.Propertyservice.postAPI("/add_advanced_property", payload).subscribe(
-    //   (res) => {
-    //     try {
-    //       if (res.status === 200) {
-    //         this.propertyDetailsData = res.data;
-
-    //         this.messageEvent.emit({
-    //           data: res.data,
-    //           canStepNext: true,
-    //         });
-    //       } else {
-    //         throw new Error();
-    //       }
-    //     } catch (e) {
-    //       this.messageEvent.emit({
-    //         data: null,
-    //         canStepNext: false,
-    //       });
-
-    //       this.toastrService.error("Error while adding advanced property");
-    //     }
-    //   }
-    // );
+          this.toastrService.error("Error while adding advanced property");
+        }
+      }
+    );
   }
 
   getPropertyFacilities() {
