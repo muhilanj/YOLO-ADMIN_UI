@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
       this.section = false;
     }
 
-    console.log(this.section);
     this.getRoute();
   }
 
@@ -51,6 +50,10 @@ export class AppComponent implements OnInit {
       }
     });
   }
+  public logout(): void {
+    sessionStorage.removeItem("userData");
+    this.router.navigate(["/login"]);
+  }
   public getRoute() {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
@@ -60,7 +63,6 @@ export class AppComponent implements OnInit {
         } else {
           this.isLogin = false;
         }
-        console.log(this.currentUrl);
       }
     });
   }

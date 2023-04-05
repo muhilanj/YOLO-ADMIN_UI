@@ -57,6 +57,7 @@ import {
   OccupancyDetailsComponent,
   OccupancyDialog,
 } from "./views/occupancy-details/occupancy-details.component";
+import { AuthService } from "./auth/auth.service";
 
 @NgModule({
   declarations: [
@@ -118,7 +119,7 @@ import {
     MatIconModule,
     MatDividerModule,
   ],
-  providers: [CommmonService, DialogService, appConfig],
+  providers: [CommmonService, DialogService, appConfig, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
