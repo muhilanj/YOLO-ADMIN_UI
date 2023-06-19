@@ -1,0 +1,149 @@
+<div class="container-fluid">
+
+    <div class="section-data">
+        <div class="row">
+            <div class="col-lg-9 ml-auto">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="heading-card">
+                <a href="/settings" class="backward-link">
+                    <img src="assets/img/icons/r-arrow.svg" alt="">
+                </a>
+                <h3>Manage Users</h3>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-3 ml-auto">
+                <div class="d-flex align-items-center mb-3">
+                    <input type="text" placeholder="search" [(ngModel)]="searchText" class="form-control mr-1">
+
+                    <a class="filter-wrap" href="" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <img src="assets/img/icons/filter.svg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table class="table">
+                <thead>
+                    <tr role="row">
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Last Login Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of vendorList | paginate: { itemsPerPage: 10, currentPage: p } | filter: searchText;let i = index;">
+                        <td>{{item.Name}}</td>
+                        <td>{{item.Role_name}}</td>
+                        <td>{{item.Last_login_date}}</td>
+                      </tr>
+                      
+                </tbody>
+             
+            </table>
+            <div class="row">
+                <div class="col-12">
+                <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+            </div>
+            </div>
+        </div>
+        <a href="" class="product-add-link" data-toggle="modal" data-target=".bd-example-modal-lg">
+            <img src="assets/img/icons/add.svg" alt="">
+            <div class="product-add-link-text">Add</div>
+        </a>
+    </div>
+</div>
+
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" id="userForm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="secondary-title mb-0">Add User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <img src="assets/img/icons/s-close.svg" alt="">
+                  </button>
+
+            </div>
+            <div class="modal-body">
+                <form action="" [formGroup]="userForm" (ngSubmit)="addUser()">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text"  formControlName="user_name" class="form-control">
+                        <div *ngIf="submitted && userForm.get('user_name')?.errors" class="alert alert-danger">
+       
+                            <div *ngIf="userForm.get('user_name')?.errors &&
+                            userForm.get('user_name')?.hasError('required')">Name is required</div>
+                          </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="">Email Id</label>
+                                <input type="text"  formControlName="email" class="form-control">
+                                <div *ngIf="submitted && userForm.get('email')?.errors" class="alert alert-danger">
+       
+                                    <div *ngIf="userForm.get('email')?.errors &&
+                                    userForm.get('email')?.hasError('required')">Email is required</div>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <div class="password-wrap">
+                                    <img class="lock-img" src="assets/img/icons/lock.svg" alt="">
+                                    <input type="password" formControlName="password" class="form-control">
+                                    <img class="hide-img" src="assets/img/icons/hide.svg" alt="">
+                                    <div *ngIf="submitted && userForm.get('password')?.errors" class="alert alert-danger">
+       
+                                        <div *ngIf="userForm.get('password')?.errors &&
+                                        userForm.get('password')?.hasError('required')">Password is required</div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Phone Number</label>
+                        <input type="text" formControlName="phone" class="form-control">
+                        <div *ngIf="submitted && userForm.get('phone')?.errors" class="alert alert-danger">
+       
+                            <div *ngIf="userForm.get('phone')?.errors &&
+                            userForm.get('phone')?.hasError('required')">Phone Number is required</div>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Role</label>
+                        <select class="form-control" formControlName="role">
+                            <ng-container *ngFor="let item of vendorList">
+                                <option value="{{item.Role_name}}">{{item.Role_name}}</option>
+                            </ng-container>
+                        </select>
+                        <div *ngIf="submitted && userForm.get('role')?.errors" class="alert alert-danger">
+       
+                            <div *ngIf="userForm.get('role')?.errors &&
+                            userForm.get('role')?.hasError('required')">Rolename is required</div>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Report To</label>
+                        <select class="form-control" formControlName="report_to">
+                            <ng-container *ngFor="let item of roleData">
+                                <option value="{{item.Reporting_To}}">{{item.Reporting_To}}</option>
+                            </ng-container>
+                        </select>
+                        <div *ngIf="submitted && userForm.get('report_to')?.errors" class="alert alert-danger">
+       
+                            <div *ngIf="userForm.get('report_to')?.errors &&
+                            userForm.get('report_to')?.hasError('required')">Report to is required</div>
+                          </div>
+                    </div>
+                    <div class="mt-3">
+                        <input type="submit" value="Add User" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="section-data">
+    <div class="row">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-center mb-3">
+          <div class="heading-card">
+            <h3>Add Occupancy Details</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+      <div class="form-wrapper">
+        <p class="error" *ngIf="!selectedAtleastOne()">Select atleast one.</p>
+      </div>
+      <div class="occupancy-cont">
+        <div
+          class="button-container" style="width: 400px"
+          *ngFor="let item of occupancyDetails | keyvalue; let i = index"
+        >
+          <span>Floor {{ item.key }}</span>
+          <span
+            style="align-self: center; padding-left: 15px"
+            [ngClass]="item.value !== undefined ? 'delete' : 'add'"
+            (click)="
+              occupancyDetails[$any(item.key)] !== undefined
+                ? openDialog(item.key)
+                : openDialog(item.key)
+            "
+            >{{ item.value == undefined ? "Add" : "Edit" }}</span
+          >
+          <span
+            *ngIf="item.value !== undefined"
+            style="align-self: center; padding-left: 15px"
+            class="delete"
+            (click)="delete(item.key)"
+            >Delete</span
+          >
+        </div>
+      </div>
+      
+    </div>
+    <div class="submit-cont"><button (click)="onSubmitOccupancy()" color="primary" mat-raised-button>Submit</button></div>
+    
+  </div>
+</div>

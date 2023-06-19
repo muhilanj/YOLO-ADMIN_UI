@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="section-data bg-transparent">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Total Properties</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_property }}</h2>
+
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Flats Available</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_Flats }}</h2>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Flats Occupied</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_occupied_Flats }}</h2>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Total Active Students</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_Guest_Active }}</h2>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Total Rent Paid</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_Guest_Paid }}</h2>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="item-list">
+                    <h4 class="item-list-title">Total Rent Pending</h4>
+                    <h2 class="item-list-value">{{ dashboardData.Total_Guest_Rent_Pending }}</h2>
+                </div>
+            </div>
+        </div>
+        <h5 style="margin: 2% 2%;">Quick Access</h5>
+        <div class="row key-feat link-but-row">
+            <button class="link-but" mat-raised-button><i style="color: blue;" class="fas fa-building before-icon"></i><a class="text" style="color: black;" href="/property-main">Add Properties</a><i class="fas fa-greater-than"></i></button>
+            <button class="link-but" mat-raised-button><i style="color: red;" class="fas fa-users before-icon"></i><a class="text" style="color: black;" href="/property-user">Add Users</a><i class="fas fa-greater-than"></i></button>
+            <button class="link-but" mat-raised-button><i style="color: green;" class="fas fa-file-invoice-dollar before-icon"></i><a class="text" style="color: black;" href="/vendor-list">Post order</a><i class="fas fa-greater-than"></i></button>
+        </div>
+    </div>
+
+</div>

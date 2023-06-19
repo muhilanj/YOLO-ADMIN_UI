@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <div class="section-data">
+    <div class="row">
+      <div class="col-lg-9 ml-auto">
+        <div class="d-flex align-items-center mb-3">
+          <div class="heading-card">
+            <a href="/settings" class="backward-link">
+              <img src="assets/img/icons/r-arrow.svg" alt="" />
+            </a>
+            <h3>Manage Properties</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 ml-auto">
+        <div class="d-flex align-items-center mb-3">
+          <input
+            type="text"
+            placeholder="search"
+            [(ngModel)]="searchText"
+            class="form-control mr-1"
+          />
+
+          <a
+            class="filter-wrap"
+            href=""
+            data-toggle="collapse"
+            data-target="#collapseExample"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            <img src="assets/img/icons/filter.svg" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!isLoading" style="justify-content: space-between">
+      <div class="col-lg-3 card-wrapper">
+        <mat-card class="card">
+          <mat-card-content
+            ><span class="content-wrapper"
+              ><mat-icon class="icon">home</mat-icon>
+              <span class="text">Total Properties</span
+              ><span class="count"> {{ propertyList.length }} </span>
+            </span></mat-card-content
+          >
+        </mat-card>
+      </div>
+
+      <div class="add-button-container">
+        <div class="add-button-round">
+          <!-- <span class="add-label">Add Property</span> -->
+          <button mat-button (click)="onClickAddButton()">
+            <mat-icon style="color: white">add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row spinner-wrapper" *ngIf="isLoading">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+
+    <div class="table-wrap" *ngIf="!isLoading">
+      <table style="color: black" class="table">
+        <thead>
+          <tr role="row">
+            <th>Property Name</th>
+            <th>Property Location</th>
+            <th>Floors</th>
+            <th>Rooms</th>
+            <th>Rooms Available</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of propertyList
+                | paginate : { itemsPerPage: 10, currentPage: p }
+                | filter : searchText;
+              let i = index
+            "
+          >
+            <td>{{ item.property_name }}</td>
+            <td>{{ item.Property_Loc }}</td>
+            <td>{{ item.total_floor }}</td>
+            <td>{{ item.total_rooms }}</td>
+            <td>{{ item.rooms_available }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row" *ngIf="propertyList.length > 10">
+        <div class="col-12">
+          <pagination-controls
+            (pageChange)="p = $event"
+            class="float-right"
+          ></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

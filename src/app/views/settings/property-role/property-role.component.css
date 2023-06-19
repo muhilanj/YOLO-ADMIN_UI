@@ -1,0 +1,91 @@
+.section-data {
+    background-color: #fff;
+    padding: 24px;
+}
+
+.section-data table td,
+.section-data table th {
+    vertical-align: middle;
+}
+
+.section-data thead tr {
+    background-color: #F3F8FF;
+}
+
+.section-data thead th {
+    border: none;
+    color: #000;
+    font-weight: 600;
+}
+
+.section-data .filter-wrap,
+.section-data .product-add-link {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0076D6;
+    border-radius: 4px;
+}
+
+.section-data .product-add-link {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    flex-direction: column;
+    color: #fff;
+    margin-left: auto;
+}
+
+.section-data .product-add-link-text {
+    font-size: 14px;
+}
+
+.section-data .filter-search {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-bottom: 24px;
+}
+
+.section-data .filter-search input {
+    width: 20%;
+}
+
+.section-data .action-btn {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.section-data .action-btn:focus {
+    outline: 0;
+}
+
+.section-data .dropdown-toggle::after {
+    display: none;
+}
+
+.section-data .dropdown-menu {
+    min-width: 5rem;
+}
+
+.password-wrap {
+    position: relative;
+}
+
+.password-wrap .lock-img {
+    position: absolute;
+    height: 14px;
+    top: 13px;
+    left: 12px;
+}
+
+.password-wrap .hide-img {
+    position: absolute;
+    height: 14px;
+    top: 13px;
+    right: 12px;
+}

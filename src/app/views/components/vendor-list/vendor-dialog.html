@@ -1,0 +1,69 @@
+<div mat-dialog-title class="dialog-title">
+  <h3>Vendor Details</h3>
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-divider class="divider"></mat-divider>
+
+<div mat-dialog-content>
+  <div class="dialog-wrapper">
+    <div class="wrapper">
+      <div>
+        <img
+          class="profile"
+          src="{{
+                      'https://ui-avatars.com/api/?background=random&name= ' +
+                        data.Guest_name
+                    }}"
+        />
+      </div>
+      <div class="basic-wrapper">
+        <span class="basic-info"
+          ><b>{{data.vendor_name}}</b>
+          <span [ngClass]="data.Status == 'Active' ? 'active' : 'inactive'"
+            >{{ data.Status }}</span
+          ></span
+        >
+        <span class="basic-info"
+          ><mat-icon class="phone-icon"> phone</mat-icon
+          >{{data.contact_number}}</span
+        >
+        <span class="basic-info"
+          ><mat-icon class="location-icon"> location_on</mat-icon
+          >{{data.area_name}}</span
+        >
+      </div>
+      <div>
+        <span class="approve-text">Approve/Reject :</span>
+        <mat-slide-toggle color="primary" checked="data.Status == 'Active'">
+        </mat-slide-toggle>
+      </div>
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+    <div>
+      <span class="info-header"><mat-icon>person</mat-icon>Store Details</span>
+      <div class="info">
+        <div class="info-wrapper">
+          <span class="info-heading">Company</span>
+          <span class="info-content"> {{data.company_name}} </span>
+        </div>
+        <div class="info-wrapper">
+          <span class="info-heading">Type</span>
+          <span class="info-content"> {{data.vendor_type}}</span>
+        </div>
+        <div class="info-wrapper">
+          <span class="info-heading">Pending Orders</span>
+          <span class="info-content"> {{data.Tot_order}} </span>
+        </div>
+        <div class="info-wrapper">
+          <span class="info-heading">Total Orders</span>
+          <span class="info-content"> {{data.Pending_Orders}} </span>
+        </div>
+      </div>
+    </div>
+    <mat-divider class="divider"></mat-divider>
+  </div>
+</div>
