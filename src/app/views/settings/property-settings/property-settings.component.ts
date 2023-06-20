@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommmonService } from '../../services/common.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import {MatChipsModule} from '@angular/material/chips';
 
 @Component({
   selector: 'app-property-settings',
@@ -9,7 +10,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./property-settings.component.css']
 })
 export class PropertySettingsComponent implements OnInit {
-
+  removable = true;
+  properties: string[] = ['Specious Wardrobes', 'Play Area', 'tudy Table & Chai', 'Swimming Pool'];
+  properties_type: string[] = ['Any', 'Family', 'Boys', 'Girls'];
+  properties_facilities: string[] = ['Power Backup', 'Comfortable Bed', '24/7 Hot Water'];
+  
   public propertyFacility:string[] = [];
   public facility:string = '';
 
@@ -27,6 +32,29 @@ export class PropertySettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+  }
+
+  remove(property: string): void {
+    const index = this.properties.indexOf(property);
+
+    if (index >= 0) {
+      this.properties.splice(index, 1);
+    }
+  }
+  remove_property_type(type: string): void {
+    const index = this.properties_type.indexOf(type);
+
+    if (index >= 0) {
+      this.properties_type.splice(index, 1);
+    }
+  }
+
+  remove_property_facility(facility: string): void {
+    const index = this.properties_facilities.indexOf(facility);
+
+    if (index >= 0) {
+      this.properties_facilities.splice(index, 1);
+    }
   }
 
   addPropertyFacility(){

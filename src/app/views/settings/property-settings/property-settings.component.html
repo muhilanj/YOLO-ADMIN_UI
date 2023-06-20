@@ -31,7 +31,12 @@
                                                 </ng-container>
                                                
                                            </div>
-                                          
+                                           <mat-chip-list aria-label="Fish selection" >
+                                            <mat-chip color="primary"  *ngFor="let property of properties" selected  [removable]="removable" (removed)="remove(property)">
+                                                {{property}}
+                                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                            </mat-chip>
+                                        </mat-chip-list>
                                           <div class="input-group">
                                             <input type="text" class="form-control" [(ngModel)]="facility" placeholder="Enter Property Facilities" aria-label="Search" aria-describedby="basic-addon2" />
                                             <!-- <div class="input-group-append">
@@ -71,7 +76,12 @@
                                                 </ng-container>
                                                
                                            </div>
-                                          
+                                           <mat-chip-list aria-label="Fish selection" >
+                                            <mat-chip color="primary"  *ngFor="let type of properties_type" selected  [removable]="removable" (removed)="remove_property_type(type)">
+                                                {{type}}
+                                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                            </mat-chip>
+                                        </mat-chip-list>
                                           <div class="input-group">
                                             <input type="text" class="form-control" [(ngModel)]="type" placeholder="Enter Property Type" aria-label="Search" aria-describedby="basic-addon2" />
                                             <!-- <div class="input-group-append">
@@ -112,7 +122,12 @@
                                                 </ng-container>
                                                
                                            </div>
-                                          
+                                           <mat-chip-list aria-label="Fish selection" >
+                                            <mat-chip color="primary"  *ngFor="let facility of properties_facilities" selected  [removable]="removable" (removed)="remove_property_facility(facility)">
+                                                {{facility}}
+                                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                            </mat-chip>
+                                        </mat-chip-list>
                                           <div class="input-group">
                                             <input type="text" class="form-control" [(ngModel)]="availFacility" placeholder="Enter Available Facilities" aria-label="Search" aria-describedby="basic-addon2" />
                                                 <!-- <div class="input-group-append">

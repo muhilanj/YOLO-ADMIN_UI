@@ -25,6 +25,7 @@ import { OccupancyViewComponent } from "./views/occupancy-view/occupancy-view.co
 import { OccupancyDetailsComponent } from "./views/occupancy-details/occupancy-details.component";
 import { AuthGuardService as AuthGuard } from "./auth/auth-guard.service";
 
+
 const routes: Routes = [
   {
     path: "login",

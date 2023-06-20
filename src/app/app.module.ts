@@ -59,6 +59,8 @@ import {
   OccupancyDialog,
 } from "./views/occupancy-details/occupancy-details.component";
 import { AuthService } from "./auth/auth.service";
+import { MatChipsModule } from '@angular/material/chips'; 
+
 
 @NgModule({
   declarations: [
@@ -112,6 +114,7 @@ import { AuthService } from "./auth/auth.service";
     MatInputModule,
     MatDialogModule,
     MatButtonModule,
+    MatChipsModule,
     ToastrModule.forRoot({
       closeButton: true,
       timeOut: 15000, // 15 seconds
