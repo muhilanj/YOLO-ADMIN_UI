@@ -1,5 +1,5 @@
 <div mat-dialog-title class="dialog-title">
-  <h3>Order Details</h3>
+  <h3>Order Details</h3><hr>
   <button mat-button (click)="onNoClick()">
     <!-- <mat-icon>close</mat-icon> -->
   </button>
@@ -8,9 +8,9 @@
   <div class="dialog-wrapper">
     <div class="wrapper">
       <div>
-         <h5>Company Name : {{data[0].company_name}}</h5>
-         <h5>Order Code : {{data[0].Order_code}}</h5>
-         <h5>Order Date : {{data[0].Order_Date}}</h5>
+        <h5 class="shop-name ord-det">{{data[0].company_name}}</h5>
+         <h5 class="ord-det ord-code"><strong>Order Code :</strong> <span class="ord-val">{{data[0].Order_code}}</span></h5>
+         <h5 class="ord-det ord-code"><strong>Order Date :</strong> <span class="ord-val">{{data[0].Order_Date}}</span></h5>
       </div>
     </div>
     <div class="wrapper">
@@ -18,10 +18,10 @@
         <table style="color: black" class="table">
           <thead>
             <tr>
-              <th>Product Name</th>
-              <th>Price Perunit</th>
-              <th>Quantity</th>
-              <th>Sub Total</th>
+              <th class="order-th">Product Name</th>
+              <th class="order-th">Price Perunit</th>
+              <th class="order-th">Quantity</th>
+              <th class="order-th">Sub Total</th>
             </tr>
           </thead>
           <tr
@@ -30,17 +30,24 @@
               let i = index
             "
           >
-          <td >
+          <td>
             <span class="name-wrapper">{{ item.SKU_Name }}</span>
           </td>
           <td>{{ item.price_per_unit }}</td>
           <td>{{ item.quantity }}</td>
-          <td>{{ item.price }}</td>
+          <td style="float: right;">{{ item.price }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="float: right;">Net Total:{{ data[0].total_price }}</td>
         </tr>
           <tbody>
           </tbody>
         </table>
+        
      </div>
-    
+     <button class="submit" (click)="onNoClick()">Confirm</button>
   </div>
 </div>

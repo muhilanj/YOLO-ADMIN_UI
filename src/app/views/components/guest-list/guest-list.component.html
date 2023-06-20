@@ -85,9 +85,9 @@
                   /><a href="#" onclick="return false;">{{ item.Guest_name }}</a></span
                 >
               </td>
-              <td>{{ item.phone_number }}</td>
-              <td>{{ item.flat_number }}</td>
-              <td>{{ item.Last_payment }}</td>
+              <td><a href="#" onclick="return false;">{{ item.phone_number }}</a></td>
+              <td><a href="#" onclick="return false;">{{ item.flat_number }}</a></td>
+              <td><a href="#" onclick="return false;">{{ item.Last_payment }}</a></td>
               <td>
                 <span
                   [ngClass]="item.Status == 'Active' ? 'active' : 'inactive'"

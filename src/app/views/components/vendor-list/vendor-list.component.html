@@ -75,9 +75,9 @@
             (click)="openDialog(item)"
           >
             <td><a href="#" onclick="return false;">{{ item.vendor_name }}</a></td>
-            <td>{{ item.vendor_type }}</td>
-            <td>{{ item.contact_number }}</td>
-            <td>{{ item.Pending_Orders }}</td>
+            <td><a href="#" onclick="return false;">{{ item.vendor_type }}</a></td>
+            <td><a href="#" onclick="return false;">{{ item.contact_number }}</a></td>
+            <td><a href="#" onclick="return false;">{{ item.Pending_Orders }}</a></td>
             <td>
               <span
                 [ngClass]="item.Status == 'Active' ? 'active' : 'inactive'"

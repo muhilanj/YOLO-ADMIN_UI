@@ -93,3 +93,35 @@
 .info-header mat-icon {
   margin-right: 10px;
 }
+.shop-name{
+  font-size: 20px;
+  font-weight: 600;  
+}
+.ord-det{
+  margin: 1% 0 5% 0;
+}
+.ord-val{
+  font-size: 15px;
+  font-weight: 600;  
+}
+.ord-code{
+  font-size: 15px;
+}
+.table thead tr th.order-th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #e3e6f0;
+  background-color: #6767a624;
+}
+.submit {
+  align-self: center;
+  width: 100px;
+  padding: 5px 10px;
+  margin-top: 30px;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #587ff1;
+  border: none;
+}
+tr.ng-star-inserted {
+  border: 1px solid #80808069;
+}

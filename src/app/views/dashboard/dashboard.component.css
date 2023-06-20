@@ -48,9 +48,10 @@
     width: 240px; */
     display: flex;
     align-items: center;
-    height: 60px;
+    /* height: 60px; */
     width: 30%;
     margin: 2% 2%;
+    padding: 1% 1%;
 }
 
 .link-but .text {
@@ -63,6 +64,9 @@
 .link-but i.before-icon {
     margin: 0 20% 0% 0px;
 }
+.tag-line{
+    margin: 1% 1%;
+}
 i.fas.fa-greater-than {
     right: 5%;
     position: absolute;
@@ -71,4 +75,10 @@ i.fas.fa-greater-than {
     margin: auto;
     float: right;
     top: 30%;
+}
+.heading-wrapper{
+    float: left;
+}
+.wrapper{
+    clear: both;
 }
