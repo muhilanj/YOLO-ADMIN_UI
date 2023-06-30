@@ -33,15 +33,15 @@
           <td>
             <span class="name-wrapper">{{ item.SKU_Name }}</span>
           </td>
-          <td>{{ item.price_per_unit }}</td>
+          <td>{{ item.price_per_unit | number }}</td>
           <td>{{ item.quantity }}</td>
-          <td style="float: right;">{{ item.price }}</td>
+          <td style="float: right;">{{ item.price | number}}</td>
         </tr>
         <tr>
           <td></td>
           <td></td>
           <td></td>
-          <td style="float: right;">Net Total:{{ data[0].total_price }}</td>
+          <td style="float: right;">Net Total:{{ data[0].total_price | number }}</td>
         </tr>
           <tbody>
           </tbody>

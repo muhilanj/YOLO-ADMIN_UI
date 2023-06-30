@@ -24,7 +24,11 @@ import { OrdersComponent } from "./views/components/orders/orders.component";
 import { OccupancyViewComponent } from "./views/occupancy-view/occupancy-view.component";
 import { OccupancyDetailsComponent } from "./views/occupancy-details/occupancy-details.component";
 import { AuthGuardService as AuthGuard } from "./auth/auth-guard.service";
-
+import { PartnerListComponent } from './views/components/partner-list/partner-list.component'; 
+import { EditbasicpropertyComponent } from './views/editbasicproperty/editbasicproperty.component'; 
+import { ContactusComponent } from './views/components/contactus/contactus.component'; 
+import { SkuListComponent } from './views/settings/sku-list/sku-list.component';
+import { AddskuComponent } from './views/settings/addsku/addsku.component';  
 
 const routes: Routes = [
   {
@@ -139,6 +143,31 @@ const routes: Routes = [
     path: "occupancy",
     component: OccupancyDetailsComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path:"partner-list",
+    component:PartnerListComponent,
+    canActivate:[AuthGuard],
+  },
+  {
+    path:"edit-property",
+    component:EditbasicpropertyComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:"contact-us",
+    component:ContactusComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:"sku-list",
+    component:SkuListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:"add-sku",
+    component:AddskuComponent,
+    canActivate:[AuthGuard]
   },
   {
     path: "**",

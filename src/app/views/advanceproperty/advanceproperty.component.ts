@@ -84,6 +84,7 @@ export class AdvancepropertyComponent implements OnInit {
   ];
 
   public faclityData: any[] = [];
+  public properties_type: any[] = [];
 
   constructor(
     private toastrService: ToastrService,
@@ -104,6 +105,7 @@ export class AdvancepropertyComponent implements OnInit {
     console.log(this.route.snapshot.params)
     this.loader = true;
     this.getPropertyFacilities();
+    this.getPropertiesType();
   }
 
   openDialog(data: any, occupancyDetails: any): void {
@@ -139,8 +141,9 @@ export class AdvancepropertyComponent implements OnInit {
       categories: occupancyType.toString(),
       status: Number(propertyStatus),
       facilities: facility.toString(),
+      // occupancyType: occupancyType.toString(),
       user_id: 1,
-      Images: "",
+      Images: propertyImage,
       videos: propertyVideo,
       total_floors: totalFloors
     };
@@ -170,6 +173,13 @@ export class AdvancepropertyComponent implements OnInit {
   getPropertyFacilities() {
     this.Propertyservice.getAPI("/get_property_facilities").subscribe((res) => {
       this.faclityData = res.data;
+      this.loader = false;
+    });
+  }
+  getPropertiesType() {
+    this.Propertyservice.getAPI("/property_type").subscribe((res) => {
+      this.properties_type = res.data;
+      console.log(this.properties_type);
       this.loader = false;
     });
   }

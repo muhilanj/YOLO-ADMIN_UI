@@ -1,0 +1,63 @@
+<div mat-dialog-title class="dialog-title">
+  <h3>Partner Details</h3>
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-divider class="divider"></mat-divider>
+
+<div mat-dialog-content>
+  <div class="dialog-wrapper">
+    <div class="basic-wrapper">
+      <span class="basic-info"
+        ><mat-icon class="person"> person</mat-icon
+          ><b>{{data.contact_name}}</b>
+        </span>
+      <span class="basic-info"
+        ><mat-icon class="phone-icon"> phone</mat-icon
+        >{{data.Contact_number}}</span
+      >
+      <span class="basic-info"
+        ><mat-icon class="location-icon"> email</mat-icon
+        >{{data.email}}</span
+      >
+      <span class="basic-info"
+        ><mat-icon class="location-icon"> business</mat-icon
+        >{{data.website}}</span
+      >
+      <span class="basic-info"
+        >Status : {{data.Status}}</span
+      >
+      <span class="basic-info"
+        >Message : {{data.comment}}</span
+      >
+    </div>
+  </div>
+  <mat-divider class="divider"></mat-divider>
+  <div>
+    <span class="info-header"
+      ><mat-icon>home</mat-icon> Property Details</span
+    >
+    <div class="info">
+      <div class="info-wrapper">
+        <span class="info-heading">Property Name</span>
+        <span class="info-content"> {{data.Property_Name}} </span>
+      </div>
+      <div class="info-wrapper">
+        <span class="info-heading">Property Details</span>
+        <span class="info-content"> {{data.Property_Details}} </span>
+      </div>
+      <div class="info-wrapper">
+        <span class="info-heading">Property Location</span>
+        <span class="info-content"> {{data.property_location}} </span>
+      </div>
+      <div class="info-wrapper">
+        <span class="info-heading">Property Status</span>
+        <span class="info-content"> {{data.Property_Status}} </span>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="divider"></mat-divider>
+ 
+</div>

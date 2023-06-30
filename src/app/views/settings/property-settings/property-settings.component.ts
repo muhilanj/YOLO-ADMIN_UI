@@ -11,9 +11,9 @@ import {MatChipsModule} from '@angular/material/chips';
 })
 export class PropertySettingsComponent implements OnInit {
   removable = true;
-  properties: string[] = ['Specious Wardrobes', 'Play Area', 'tudy Table & Chai', 'Swimming Pool'];
-  properties_type: string[] = ['Any', 'Family', 'Boys', 'Girls'];
-  properties_facilities: string[] = ['Power Backup', 'Comfortable Bed', '24/7 Hot Water'];
+  public properties_facilities: any = [];
+  public properties_type: any = [];
+  public room_type: any = [];
   
   public propertyFacility:string[] = [];
   public facility:string = '';
@@ -32,13 +32,39 @@ export class PropertySettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getPropertiesFacilities();
+    this.getPropertiesType();
+    this.getRoomType();
+  }
+
+  getPropertiesFacilities() {
+    this.Propertyservice.getAPI("/property_facilities").subscribe((res) => {
+      this.properties_facilities = res.data;
+      console.log(this.properties_facilities);
+      // this.isLoading = false;
+    });
+  }
+
+  getPropertiesType() {
+    this.Propertyservice.getAPI("/property_type").subscribe((res) => {
+      this.properties_type = res.data;
+      console.log(this.properties_type);
+      // this.isLoading = false;
+    });
+  }
+  getRoomType(){
+    this.Propertyservice.getAPI("/room_facilities").subscribe((res) => {
+      this.room_type = res.data;
+      console.log(this.room_type);
+      // this.isLoading = false;
+    });
   }
 
   remove(property: string): void {
-    const index = this.properties.indexOf(property);
+    const index = this.room_type.indexOf(property);
 
     if (index >= 0) {
-      this.properties.splice(index, 1);
+      this.room_type.splice(index, 1);
     }
   }
   remove_property_type(type: string): void {
@@ -64,7 +90,8 @@ export class PropertySettingsComponent implements OnInit {
         user_id:2
       }
       this.Propertyservice.postAPI('/add_property_facilities', payload).subscribe((res) => {
-        if (res) {
+        if (res) {          
+          this.getPropertiesFacilities();
           this.toastrService.success('Success');
           this.facility='';
         }

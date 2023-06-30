@@ -32,8 +32,8 @@
                                                
                                            </div>
                                            <mat-chip-list aria-label="Fish selection" >
-                                            <mat-chip color="primary"  *ngFor="let property of properties" selected  [removable]="removable" (removed)="remove(property)">
-                                                {{property}}
+                                            <mat-chip color="primary"  *ngFor="let property of properties_facilities" selected  [removable]="removable" (removed)="remove(property)">
+                                                {{property.facility_name}}
                                                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                             </mat-chip>
                                         </mat-chip-list>
@@ -77,8 +77,8 @@
                                                
                                            </div>
                                            <mat-chip-list aria-label="Fish selection" >
-                                            <mat-chip color="primary"  *ngFor="let type of properties_type" selected  [removable]="removable" (removed)="remove_property_type(type)">
-                                                {{type}}
+                                            <mat-chip color="primary"  *ngFor="let type of properties_type" selected  [removable]="removable" (removed)="remove_property_type(type.occupancy_type)">
+                                                {{type.occupancy_type}}
                                                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                             </mat-chip>
                                         </mat-chip-list>
@@ -123,8 +123,8 @@
                                                
                                            </div>
                                            <mat-chip-list aria-label="Fish selection" >
-                                            <mat-chip color="primary"  *ngFor="let facility of properties_facilities" selected  [removable]="removable" (removed)="remove_property_facility(facility)">
-                                                {{facility}}
+                                            <mat-chip color="primary"  *ngFor="let availfacility of room_type" selected  [removable]="removable" (removed)="remove_property_facility(availfacility.facility_name)">
+                                                {{availfacility.facility_name}}
                                                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                             </mat-chip>
                                         </mat-chip-list>

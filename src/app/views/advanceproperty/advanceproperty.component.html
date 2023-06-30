@@ -117,6 +117,30 @@
           </div>
           <div class="form-wrapper">
             <mat-card-header>
+              <mat-card-subtitle>Property Type</mat-card-subtitle>
+            </mat-card-header>
+            <p
+              class="error"
+              *ngIf="advancePropertyFormGroup.controls['occupancyType'].errors?.['required']"
+            >
+              Select atleast one.
+            </p>
+            <div>
+              <div class="row">
+                <ng-container *ngFor="let type of properties_type; let i = index">
+                  <div class="col-md-4">
+                    <mat-checkbox
+                      [value]="type.occupancy_type"
+                      (change)="onChangePropertyType($event)"
+                      >{{ type.occupancy_type }}</mat-checkbox
+                    >
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="form-wrapper">
+            <mat-card-header>
               <mat-card-subtitle>Property Facilities</mat-card-subtitle>
             </mat-card-header>
             <p

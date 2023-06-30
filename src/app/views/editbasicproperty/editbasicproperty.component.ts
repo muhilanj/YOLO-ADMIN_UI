@@ -20,11 +20,12 @@ import { CommmonService } from "../services/common.service";
 import { DialogService } from "../services/dialog.service";
 
 @Component({
-  selector: "app-basicproperty",
-  templateUrl: "./basicproperty.component.html",
-  styleUrls: ["./basicproperty.component.css"],
+  selector: 'app-editbasicproperty',
+  templateUrl: './editbasicproperty.component.html',
+  styleUrls: ['./editbasicproperty.component.css']
 })
-export class BasicpropertyComponent implements OnInit {
+export class EditbasicpropertyComponent implements OnInit {
+
   @Output() messageEvent = new EventEmitter<IntermediateData>();
 
   @ViewChild("documentEditForm") documentEditForm:
@@ -54,6 +55,16 @@ export class BasicpropertyComponent implements OnInit {
   areaData: any;
   cityData: any;
   stateData: any;
+  public propertyList: any = [];
+  property_id :any;
+  property_det:any;
+  area_id:any;
+  propertyName:any;
+  address:any;
+  phone_number:any;
+  email:any;
+  user_id:any;
+  property_details:any;
 
   constructor(
     private toastRService: ToastrService,
@@ -67,6 +78,22 @@ export class BasicpropertyComponent implements OnInit {
     this.getArea();
     this.getCity();
     this.getState();
+    this.getPropertiesList();
+    this.route.queryParams.subscribe((params: any) => {
+      this.property_id = params.id;
+      console.log(this.property_id);
+    });
+    
+  }
+  getPropertiesList() {
+    this.Propertyservice.getAPI("/get_property_list").subscribe((res) => {
+      this.propertyList = res.data;
+      var user = this.propertyList.find(user=>user.property_id == this.property_id);
+      console.log(user)
+      this.propertyName=user.property_name;
+    });
+ 
+    
   }
 
   basicProperty() {
@@ -85,7 +112,6 @@ export class BasicpropertyComponent implements OnInit {
     };
     this.Propertyservice.postAPI("/add_basic_property", payload).subscribe(
       (res) => {
-        // console.log(res);
         try {
           if (res.status === 200) {
             this.messageEvent.emit({
@@ -133,4 +159,5 @@ export class BasicpropertyComponent implements OnInit {
       this.stateData = res.results;
     });
   }
+
 }

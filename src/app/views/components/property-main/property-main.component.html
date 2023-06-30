@@ -70,6 +70,7 @@
             <th>Floors</th>
             <th>Rooms</th>
             <th>Rooms Available</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -86,6 +87,11 @@
             <td>{{ item.total_floor }}</td>
             <td>{{ item.total_rooms }}</td>
             <td>{{ item.rooms_available }}</td>
+            <td>
+              <button mat-button (click)="onClickEditbutton(item.property_id)">
+                 <mat-icon>edit</mat-icon>
+              </button>
+          </td>
           </tr>
         </tbody>
       </table>

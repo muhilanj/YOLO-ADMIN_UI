@@ -59,7 +59,14 @@ import {
   OccupancyDialog,
 } from "./views/occupancy-details/occupancy-details.component";
 import { AuthService } from "./auth/auth.service";
-import { MatChipsModule } from '@angular/material/chips'; 
+import { MatChipsModule } from '@angular/material/chips';
+import { PartnerListComponent } from './views/components/partner-list/partner-list.component';
+import { PartnerDialog } from './views/components/partner-list/partner-list.component';
+import { EditbasicpropertyComponent } from './views/editbasicproperty/editbasicproperty.component';
+import { ContactusComponent } from './views/components/contactus/contactus.component';
+import { ContactDialog } from './views/components/contactus/contactus.component';
+import { SkuListComponent } from './views/settings/sku-list/sku-list.component';
+import { AddskuComponent } from './views/settings/addsku/addsku.component';
 
 
 @NgModule({
@@ -97,6 +104,13 @@ import { MatChipsModule } from '@angular/material/chips';
     OccupancyViewComponent,
     OccupancyDetailsComponent,
     OccupancyDialog,
+    PartnerListComponent,
+    PartnerDialog,
+    EditbasicpropertyComponent,
+    ContactusComponent,
+    ContactDialog,
+    SkuListComponent,
+    AddskuComponent,
   ],
   imports: [
     BrowserModule,

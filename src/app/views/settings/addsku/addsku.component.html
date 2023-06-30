@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="section-data">
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="d-flex align-items-center mb-3">
+            <div class="heading-card">
+              <a href="/settings" class="backward-link">
+                <img src="assets/img/icons/r-arrow.svg" alt="" />
+              </a>
+              <h3>Add SKU</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- <div class="row spinner-wrapper" *ngIf="isLoading">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div> -->
+  
+      <div class="row">
+        <form
+          [formGroup]="addSkuFormGroup"
+          (ngSubmit)="addSku()"
+          #documentEditForm="ngForm"
+          class="form-wrap"
+        >
+          <div class="form">
+            <div class="form-wrapper">
+              <div
+                fxFlex="100%"
+                fxFlex.lg="100%"
+                fxFlex.md="100%"
+                fxFlex.sm="100%"
+                fxFlex.xs="100%"
+              >
+                <div class="input-wrapper">
+                  <span class="label">Sku Name :</span>
+                  <input
+                    class="textfield"
+                    matInput
+                    formControlName="SKU_name"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+            </div>  
+            <div class="form-wrapper">
+                <div
+                  fxFlex="100%"
+                  fxFlex.lg="100%"
+                  fxFlex.md="100%"
+                  fxFlex.sm="100%"
+                  fxFlex.xs="100%"
+                >
+                  <div class="input-wrapper">
+                    <span class="label">UOM :</span>
+                    <input
+                      class="textfield"
+                      matInput
+                      formControlName="UOM"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+            </div>  
+            <div class="form-wrapper">
+                <div
+                  fxFlex="100%"
+                  fxFlex.lg="100%"
+                  fxFlex.md="100%"
+                  fxFlex.sm="100%"
+                  fxFlex.xs="100%"
+                >
+                  <div class="input-wrapper">
+                    <span class="label">Package of Unit :</span>
+                    <input
+                      class="textfield"
+                      matInput
+                      formControlName="package_of_unit"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+            </div>
+            
+    </div>
+          <input class="submit" type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
+  </div>
+  

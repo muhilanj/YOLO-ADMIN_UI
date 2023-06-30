@@ -57,11 +57,11 @@
             <td  (click)="openDialog(item.order_id)"><a href="#" onclick="return false;">
               <span class="name-wrapper">{{ item.Order_code }}</span></a>
             </td>
-            <td><a href="#" onclick="return false;">{{ item.Order_Date }}</a></td>
-            <td><a href="#" onclick="return false;">{{ item.company_name }}</a></td>
-            <td><a href="#" onclick="return false;">{{ item.vendor_name }}</a></td>
-            <td><a href="#" onclick="return false;">{{ item.total_items }}</a></td>
-            <td><a href="#" onclick="return false;">&#x20B9; {{ item.total_price }}</a></td>
+            <td (click)="openDialog(item.order_id)"><a href="#" onclick="return false;">{{ item.Order_Date }}</a></td>
+            <td (click)="openDialog(item.order_id)"><a href="#" onclick="return false;">{{ item.company_name }}</a></td>
+            <td (click)="openDialog(item.order_id)"><a href="#" onclick="return false;">{{ item.vendor_name }}</a></td>
+            <td (click)="openDialog(item.order_id)"><a href="#" onclick="return false;">{{ item.total_items }}</a></td>
+            <td (click)="openDialog(item.order_id)"><a href="#" onclick="return false;">&#x20B9; {{item.total_price | number}}</a></td>
             <td>
               <span
                 [ngClass]="

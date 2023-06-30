@@ -44,4 +44,11 @@ export class PropertyMainComponent implements OnInit {
     console.log("Not implemented");
     this._router.navigate(["/basicproperty"]);
   }
+  onClickEditbutton(data) {
+    // Flash the step form here as link (not dialog)
+    console.log("Not implemented");
+    this._router.navigate(["/edit-property"], {
+      queryParams: { id: data},
+    });
+  }
 }
